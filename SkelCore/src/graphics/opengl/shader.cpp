@@ -57,7 +57,7 @@ namespace Skel { namespace graphics {
 		unsigned int programID;
 
 		unsigned int vertexShader;
-		vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		GLCall(vertexShader = glCreateShader(GL_VERTEX_SHADER));
 		GLCall(glShaderSource(vertexShader, 1, &vertSource, 0));
 		GLCall(glCompileShader(vertexShader));
 
@@ -70,7 +70,7 @@ namespace Skel { namespace graphics {
 		}
 
 		unsigned int fragShader;
-		fragShader = glCreateShader(GL_FRAGMENT_SHADER);
+		GLCall(fragShader = glCreateShader(GL_FRAGMENT_SHADER));
 		GLCall(glShaderSource(fragShader, 1, &fragSource, 0));
 		GLCall(glCompileShader(fragShader));
 
@@ -82,7 +82,7 @@ namespace Skel { namespace graphics {
 			std::cout << "[GRAPHICS::SHADER::FRAGMENT] " << infoLog << std::endl;
 		}
 
-		programID = glCreateProgram();
+		GLCall(programID = glCreateProgram());
 		GLCall(glAttachShader(programID, vertexShader));
 		GLCall(glAttachShader(programID, fragShader));
 		GLCall(glLinkProgram(programID));
