@@ -7,6 +7,7 @@
 
 #include "graphics/opengl/opengl.h"
 #include "graphics/window.h"
+#include "common.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,12 +18,49 @@ using namespace Skel;
 int main(void)
 {
 	float vertices[] = {
-		// positions          // colors           // texture coords
-		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
+	
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
 		1, 2, 3  // second triangle
@@ -33,35 +71,34 @@ int main(void)
 	graphics::VertexArray VAO = graphics::VertexArray();
 	graphics::VertexBuffer VBO = graphics::VertexBuffer(vertices, sizeof(vertices), graphics::BufferUsage::STATIC);
 	graphics::IndexBuffer EBO = graphics::IndexBuffer(indices, 6);
-	VAO.addBuffer(0, 3, VBO, 8 * sizeof(float), (void*)0);
-	VAO.addBuffer(1, 3, VBO, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO.addBuffer(2, 2, VBO, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	VAO.addBuffer(0, 3, VBO, 5 * sizeof(float), (void*)0);
+	VAO.addBuffer(1, 2, VBO, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	graphics::Texture texture = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/wall.jpg", shader);
-
 
 	while (!window.closed())
 	{
 		//Render
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		GLCall(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+		GLCall(glEnable(GL_DEPTH_TEST));
 
 		texture.draw();
 
-		float timeValue = glfwGetTime();
-		float greenValue = (sin(timeValue) / 2.0f) + 0.8f;
-		float redValue = (sin(timeValue) / 2.0f) + 0.3f;
-		float blueValue = (sin(timeValue) / 2.0f) + 0.1f;
 		shader.enable();
-		glm::mat4 trans;
-		trans = glm::rotate(trans, glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
-		trans = glm::translate(trans, glm::vec3(0.5, 0.0, 0.0));
-		trans = glm::scale(trans, glm::vec3(0.5, 1.0, 1.0));
-		shader.setUniformMat4("transform", trans);
-		shader.setUniform4f("vertexColor", redValue, greenValue, blueValue, 1.0f);
+		glm::mat4 model;
+		glm::mat4 view;
+		glm::mat4 projection;
+		model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 100.0f);
+		shader.setUniformMat4("model", model);
+		shader.setUniformMat4("view", view);
+		shader.setUniformMat4("projection", projection);
 
 		shader.enable();
 		VAO.bind();
-		EBO.draw();
+		//EBO.draw();
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
 		VAO.unbind();
 		//Render
 		window.update();

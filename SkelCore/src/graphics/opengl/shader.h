@@ -15,6 +15,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../../common.h"
+
 namespace Skel { namespace graphics {
 
 	class Shader

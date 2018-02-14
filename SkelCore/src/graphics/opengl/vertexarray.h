@@ -6,7 +6,9 @@
  */
 
 #include <GL/glew.h>
+
 #include "vertexbuffer.h"
+#include "../../common.h"
 
 namespace Skel { namespace graphics {
 

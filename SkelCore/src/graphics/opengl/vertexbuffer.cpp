@@ -11,12 +11,16 @@ namespace Skel { namespace graphics {
 
 	VertexBuffer::VertexBuffer(float data[], GLsizei size, BufferUsage usage)
 	{
-		glGenBuffers(1, &m_VBO);
+		GLCall(glGenBuffers(1, &m_VBO));
 		bind();
 		if (usage == BufferUsage::DYNAMIC)
-			glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
+		{
+			GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW));
+		}
 		else
-			glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+		{
+			GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
+		}
 	}
 
 	VertexBuffer::~VertexBuffer()
@@ -26,12 +30,12 @@ namespace Skel { namespace graphics {
 
 	void VertexBuffer::bind()
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_VBO));
 	}
 
 	void VertexBuffer::unbind()
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	}
 
 } }

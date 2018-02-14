@@ -8,6 +8,8 @@
 
 #include <GL/glew.h>
 
+#include "../../common.h"
+
 namespace Skel { namespace graphics {
 
 	enum class BufferUsage

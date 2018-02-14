@@ -85,7 +85,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;assimp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -107,6 +107,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -129,6 +130,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\common.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\graphics\opengl\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\opengl\opengl.h">
       <SubType>
@@ -156,7 +161,6 @@
   <ItemGroup>
     <ClInclude Include="src\graphics\opengl\indexbuffer.h" />
     <ClInclude Include="src\graphics\opengl\shader.h" />
-    <ClInclude Include="src\graphics\opengl\stb_image.h" />
     <ClInclude Include="src\graphics\opengl\texture.h" />
     <ClInclude Include="src\graphics\opengl\vertexarray.h" />
     <ClInclude Include="src\graphics\opengl\vertexbuffer.h" />

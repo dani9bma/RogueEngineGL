@@ -11,7 +11,7 @@ namespace Skel { namespace graphics {
 
 	VertexArray::VertexArray()
 	{
-		glGenVertexArrays(1, &m_VAO);
+		GLCall(glGenVertexArrays(1, &m_VAO));
 		bind();
 	}
 
@@ -24,18 +24,18 @@ namespace Skel { namespace graphics {
 	{
 		bind();
 		buffer.bind();
-		glVertexAttribPointer(index, num, GL_FLOAT, GL_FALSE, stride, offset);
-		glEnableVertexAttribArray(index);
+		GLCall(glVertexAttribPointer(index, num, GL_FLOAT, GL_FALSE, stride, offset));
+		GLCall(glEnableVertexAttribArray(index));
 	}
 
 	void VertexArray::bind()
 	{
-		glBindVertexArray(m_VAO);
+		GLCall(glBindVertexArray(m_VAO));
 	}
 
 	void VertexArray::unbind()
 	{
-		glBindVertexArray(0);
+		GLCall(glBindVertexArray(0));
 	}
 
 } }

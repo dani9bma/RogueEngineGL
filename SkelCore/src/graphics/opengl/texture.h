@@ -6,11 +6,10 @@
  */
 
 #pragma once
-
 #include <GL/glew.h>
 #include <iostream>
 #include "shader.h"
-#include "stb_image.h"
+#include "../../common.h"
 
 namespace Skel { namespace graphics {
 
