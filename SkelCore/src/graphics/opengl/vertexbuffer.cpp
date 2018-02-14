@@ -27,7 +27,6 @@ namespace Skel { namespace graphics {
 	void VertexBuffer::bind()
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-
 	}
 
 	void VertexBuffer::unbind()

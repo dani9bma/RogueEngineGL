@@ -19,7 +19,7 @@ namespace Skel { namespace graphics {
 		 * num Number of vertex attributes
 		 * index Index of the location on the shader
 		 */
-		void addBuffer(int index, int num, VertexBuffer buffer);
+		void addBuffer(int index, int num, VertexBuffer buffer, GLsizei stride = 0, const void* offset = 0);
 		void bind();
 		void unbind();
 		inline unsigned int getVertexArray() const { return m_VAO; };

@@ -138,6 +138,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\graphics\opengl\texture.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\graphics\opengl\vertexarray.cpp" />
     <ClCompile Include="src\graphics\opengl\vertexbuffer.cpp">
       <SubType>
@@ -152,6 +156,8 @@
   <ItemGroup>
     <ClInclude Include="src\graphics\opengl\indexbuffer.h" />
     <ClInclude Include="src\graphics\opengl\shader.h" />
+    <ClInclude Include="src\graphics\opengl\stb_image.h" />
+    <ClInclude Include="src\graphics\opengl\texture.h" />
     <ClInclude Include="src\graphics\opengl\vertexarray.h" />
     <ClInclude Include="src\graphics\opengl\vertexbuffer.h" />
     <ClInclude Include="src\graphics\window.h" />

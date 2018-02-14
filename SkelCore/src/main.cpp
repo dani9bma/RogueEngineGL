@@ -17,31 +17,35 @@ using namespace Skel;
 int main(void)
 {
 	float vertices[] = {
-		// positions      
-		0.5f, -0.5f, 0.0f,// bottom right
-		-0.5f, -0.5f, 0.0f, // bottom left
-		0.0f,  0.5f, 0.0f,// top 
+		// positions          // colors           // texture coords
+		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
 	};
-
-	unsigned int indices[] =
-	{
-		0, 1, 2,
+	unsigned int indices[] = {
+		0, 1, 3, // first triangle
+		1, 2, 3  // second triangle
 	};
 
 	graphics::Window window = graphics::Window(1280, 720, "Skel Engine");
 	graphics::Shader shader = graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/basic.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/basic.frag");
 	graphics::VertexArray VAO = graphics::VertexArray();
 	graphics::VertexBuffer VBO = graphics::VertexBuffer(vertices, sizeof(vertices), graphics::BufferUsage::STATIC);
-	graphics::IndexBuffer EBO = graphics::IndexBuffer(indices, 3);
-	VAO.addBuffer(0, 3, VBO);
-	VAO.unbind();
-	EBO.unbind();
+	graphics::IndexBuffer EBO = graphics::IndexBuffer(indices, 6);
+	VAO.addBuffer(0, 3, VBO, 8 * sizeof(float), (void*)0);
+	VAO.addBuffer(1, 3, VBO, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO.addBuffer(2, 2, VBO, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	graphics::Texture texture = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/wall.jpg", shader);
+
 
 	while (!window.closed())
 	{
 		//Render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		texture.draw();
 
 		float timeValue = glfwGetTime();
 		float greenValue = (sin(timeValue) / 2.0f) + 0.8f;

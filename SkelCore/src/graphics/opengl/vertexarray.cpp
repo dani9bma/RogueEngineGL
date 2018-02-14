@@ -20,11 +20,11 @@ namespace Skel { namespace graphics {
 		unbind();
 	}
 
-	void VertexArray::addBuffer(int index, int num, VertexBuffer buffer)
+	void VertexArray::addBuffer(int index, int num, VertexBuffer buffer, GLsizei stride, const void* offset)
 	{
 		bind();
 		buffer.bind();
-		glVertexAttribPointer(index, num, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(index, num, GL_FLOAT, GL_FALSE, stride, offset);
 		glEnableVertexAttribArray(index);
 	}
 
