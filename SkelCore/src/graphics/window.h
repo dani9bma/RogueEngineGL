@@ -22,6 +22,8 @@ namespace Skel { namespace graphics {
 	private:
 		int m_width;
 		int m_height;
+		double m_lastTime;
+		int m_fps;
 		std::string m_title;
 		GLFWwindow* m_window;
 	};

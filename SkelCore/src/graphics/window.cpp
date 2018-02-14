@@ -39,6 +39,9 @@ namespace Skel { namespace graphics {
 		std::cout << "[GRAPHICS::WINDOW] Glew Initialized: " << glewGetString(GLEW_VERSION) << "\n[GRAPHICS::WINDOW] OpenGL Initialized: " << glGetString(GL_VERSION) << std::endl;
 		glViewport(0.5, 0.0, m_width, m_height);
 		glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+		glfwSwapInterval(0); //V-Sync
+		m_lastTime = glfwGetTime();
+		m_fps = 0;
 	}
 
 	Window::~Window()
@@ -48,6 +51,16 @@ namespace Skel { namespace graphics {
 
 	void Window::update()
 	{
+		// Measure speed
+		double currentTime = glfwGetTime();
+		m_fps++;
+		if (currentTime - m_lastTime >= 1.0) // If last prinf() was more than 1 sec ago
+		{ 
+			//#TODO Create Log Class and log this
+			std::cout << double(m_fps) << " FPS" << std::endl;
+			m_fps = 0;
+			m_lastTime += 1.0;
+		}
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}
