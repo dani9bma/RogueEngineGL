@@ -80,7 +80,6 @@ namespace Skel { namespace graphics {
 		float radius = 10.0f;
 		float camX = sin(glfwGetTime()) * radius;
 		float camZ = cos(glfwGetTime()) * radius;
-		//m_cameraPos.y = 0.0f;
 		m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
 		m_shader->setUniformMat4("view", m_view);
 	}

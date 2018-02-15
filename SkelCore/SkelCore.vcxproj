@@ -130,7 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\common.h">
+    <ClCompile Include="src\utils\common.h">
       <SubType>
       </SubType>
     </ClCompile>
@@ -158,6 +158,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\utils\log.h">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\camera\camera.h" />

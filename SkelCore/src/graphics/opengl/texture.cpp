@@ -32,8 +32,7 @@ namespace Skel { namespace graphics {
 		}
 		else
 		{
-			//#TODO: Create Log Class and log this
-			std::cout << "Failed to load texture" << std::endl;
+			LOG_WARNING("GRAPHICS::TEXTURE", "Failed to load texture");
 		}
 		stbi_image_free(data);
 		shader->enable();

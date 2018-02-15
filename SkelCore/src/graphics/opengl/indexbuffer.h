@@ -7,7 +7,7 @@
 
 #include <GL/glew.h>
 
-#include "../../common.h"
+#include "../../utils/common.h"
 
 namespace Skel { namespace graphics {
 

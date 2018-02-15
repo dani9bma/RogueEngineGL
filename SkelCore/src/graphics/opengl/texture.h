@@ -9,7 +9,9 @@
 #include <GL/glew.h>
 #include <iostream>
 #include "shader.h"
-#include "../../common.h"
+
+#include "../../utils/common.h"
+#include "../../utils/log.h"
 
 namespace Skel { namespace graphics {
 

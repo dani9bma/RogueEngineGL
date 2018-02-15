@@ -1,5 +1,5 @@
 /*
- * @module Common
+ * @module  Utils
  * @project Skel Engine(https://github.com/dani9bma/SkelEngine)
  * @author Daniel Assunção
  * @Github https://github.com/dani9bma
@@ -9,6 +9,7 @@
 
 #include <GL/glew.h>
 #include <iostream>
+#include "log.h"
 
 #define ASSERT(x) if(!(x)) __debugbreak();
 #define GLCall(x) GLClearError();\
@@ -24,8 +25,7 @@ static bool GLLogCall(const char* func, const char* file, int line)
 {
 	while (GLenum error = glGetError())
 	{
-		//#TODO Create Log Class and log this
-		std::cout << "[OPENGL::ERROR] (" << error << ")" << file << ":" << line << "->" << func << std::endl;
+		LOG_ERROR("OPENGL::ERROR", "(%d)%s:%d->%s", error, file, line, func);
 		return false;
 	}
 

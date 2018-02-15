@@ -65,8 +65,7 @@ namespace Skel { namespace graphics {
 		if (sucess == GL_FALSE)
 		{
 			GLCall(glGetShaderInfoLog(vertexShader, 512, 0, infoLog));
-			//#TODO Create Log Class and log this
-			std::cout << "[GRAPHICS::SHADER::VERTEX] " << infoLog << std::endl;
+			LOG_WARNING("GRAPHICS::SHADER::VERTEX", "%s", infoLog);
 		}
 
 		unsigned int fragShader;
@@ -78,8 +77,7 @@ namespace Skel { namespace graphics {
 		if (!sucess)
 		{
 			GLCall(glGetShaderInfoLog(fragShader, 512, 0, infoLog));
-			//#TODO Create Log Class and log this
-			std::cout << "[GRAPHICS::SHADER::FRAGMENT] " << infoLog << std::endl;
+			LOG_WARNING("GRAPHICS::SHADER::FRAGMENT", "%s", infoLog);
 		}
 
 		GLCall(programID = glCreateProgram());
@@ -90,8 +88,7 @@ namespace Skel { namespace graphics {
 		if (!sucess)
 		{
 			GLCall(glGetProgramInfoLog(fragShader, 512, 0, infoLog));
-			//#TODO Create Log Class and log this
-			std::cout << "[GRAPHICS::SHADER::PROGRAM] " << infoLog << std::endl;
+			LOG_WARNING("GRAPHICS::SHADER::PROGRAM", "%s", infoLog);
 		}
 		GLCall(glDeleteShader(vertexShader));
 		GLCall(glDeleteShader(fragShader));

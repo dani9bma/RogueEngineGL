@@ -39,19 +39,19 @@ namespace Skel { namespace graphics {
 		m_window = glfwCreateWindow(width, height, title, NULL, NULL);
 		if (!m_window)
 		{
-			//#TODO: Create Log Class and log this
-			std::cout << "[GRAPHICS::WINDOW] Failed to Create Window" << std::endl;
+			LOG_ERROR("GRAPHICS::WINDOW", "Failed to create Window");
 			glfwTerminate();
 			return;
 		}
 		glfwMakeContextCurrent(m_window);
 		if (glewInit() != GLEW_OK)
 		{
-			std::cout << "Failed to Initialize GLEW!" << std::endl;
+			LOG_ERROR("GRAPHICS", "Failed to load GLEW");
 			return;
 		}
-		//#TODO: Create Log Class and log this
-		std::cout << "[GRAPHICS::WINDOW] Glew Initialized: " << glewGetString(GLEW_VERSION) << "\n[GRAPHICS::WINDOW] OpenGL Initialized: " << glGetString(GL_VERSION) << std::endl;
+
+		LOG_INFO("GRAPHICS", "GLEW Initialized %s", glewGetString(GLEW_VERSION));
+		LOG_INFO("GRAPHICS", "OpenGL initialized %s", glGetString(GL_VERSION));
 		glViewport(0.5, 0.0, m_width, m_height);
 		glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 		glfwSetCursorPosCallback(m_window, mouse_callback);
@@ -75,8 +75,7 @@ namespace Skel { namespace graphics {
 		m_fps++;
 		if (currentTime - m_lastTime >= 1.0) // If last prinf() was more than 1 sec ago
 		{ 
-			//#TODO Create Log Class and log this
-			std::cout << double(m_fps) << " FPS" << std::endl;
+			LOG_INFO("UTILS", "%d FPS", m_fps);
 			m_fps = 0;
 			m_lastTime += 1.0;
 		}

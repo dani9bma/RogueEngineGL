@@ -8,7 +8,8 @@
 #include "graphics/opengl/opengl.h"
 #include "graphics/window.h"
 #include "graphics/camera/camera.h"
-#include "common.h"
+#include "utils/common.h"
+#include "utils/log.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

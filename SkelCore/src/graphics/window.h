@@ -11,6 +11,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "../utils/log.h"
+
 namespace Skel { namespace graphics {
 
 	class Window
