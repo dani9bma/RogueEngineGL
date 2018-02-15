@@ -11,7 +11,7 @@
 
 namespace Skel { namespace graphics {
 
-	Texture::Texture(const char* path, Shader shader)
+	Texture::Texture(const char* path, Shader* shader)
 	{
 		unsigned int texture;
 		GLCall(glGenTextures(1, &texture));
@@ -36,8 +36,8 @@ namespace Skel { namespace graphics {
 			std::cout << "Failed to load texture" << std::endl;
 		}
 		stbi_image_free(data);
-		shader.enable();
-		shader.setUniform1i("ourTexture", 0);
+		shader->enable();
+		shader->setUniform1i("ourTexture", 0);
 		m_textureID = texture;
 	}
 

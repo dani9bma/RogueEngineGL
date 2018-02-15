@@ -5,6 +5,8 @@
  * @Github https://github.com/dani9bma
  */
 
+#pragma once
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -19,13 +21,19 @@ namespace Skel { namespace graphics {
 		void update();
 		int closed();
 		void close();
+		inline GLFWwindow* getGLFWwindow() const { return m_window; }
+		inline void getMousePosition(double& x, double& y) const { x = m_x; y = m_y; };
 	private:
 		int m_width;
 		int m_height;
 		double m_lastTime;
 		int m_fps;
+		double m_x, m_y;
 		std::string m_title;
 		GLFWwindow* m_window;
+
+	private:
+		friend static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	};
 
 } }

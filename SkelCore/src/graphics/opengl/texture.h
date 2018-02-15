@@ -16,7 +16,7 @@ namespace Skel { namespace graphics {
 	class Texture
 	{
 	public:
-		Texture(const char* path, Shader shader);
+		Texture(const char* path, Shader* shader);
 		~Texture();
 		void draw();
 	private:

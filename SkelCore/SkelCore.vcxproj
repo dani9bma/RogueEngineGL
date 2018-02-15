@@ -134,6 +134,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\graphics\camera\camera.cpp" />
     <ClCompile Include="src\graphics\opengl\indexbuffer.cpp" />
     <ClCompile Include="src\graphics\opengl\opengl.h">
       <SubType>
@@ -159,6 +160,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\camera\camera.h" />
     <ClInclude Include="src\graphics\opengl\indexbuffer.h" />
     <ClInclude Include="src\graphics\opengl\shader.h" />
     <ClInclude Include="src\graphics\opengl\texture.h" />

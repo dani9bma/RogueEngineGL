@@ -14,6 +14,21 @@ namespace Skel { namespace graphics {
 		glViewport(0.5, 0.0, width, height);
 	}
 
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+	{
+		auto* win = (Window*)glfwGetWindowUserPointer(window);
+		win->m_x = xpos;
+		win->m_y = ypos;
+	}
+
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+	{
+		if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		else
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
 	Window::Window(int width, int height, const char* title)
 		: m_width(width), m_height(height), m_title(title)
 	{
@@ -39,6 +54,10 @@ namespace Skel { namespace graphics {
 		std::cout << "[GRAPHICS::WINDOW] Glew Initialized: " << glewGetString(GLEW_VERSION) << "\n[GRAPHICS::WINDOW] OpenGL Initialized: " << glGetString(GL_VERSION) << std::endl;
 		glViewport(0.5, 0.0, m_width, m_height);
 		glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+		glfwSetCursorPosCallback(m_window, mouse_callback);
+		glfwSetMouseButtonCallback(m_window, mouse_button_callback);
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetWindowUserPointer(m_window, this);
 		glfwSwapInterval(0); //V-Sync
 		m_lastTime = glfwGetTime();
 		m_fps = 0;
@@ -61,6 +80,9 @@ namespace Skel { namespace graphics {
 			m_fps = 0;
 			m_lastTime += 1.0;
 		}
+		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			this->close();
+
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}
