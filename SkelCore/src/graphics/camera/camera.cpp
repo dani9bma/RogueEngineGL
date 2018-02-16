@@ -15,8 +15,8 @@ namespace Skel { namespace graphics {
 		m_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 		m_cameraDirection = glm::normalize(m_cameraPos - m_cameraTarget);
 		m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
-		m_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-		m_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+		m_cameraFront = glm::vec3(0.0f, 0.0f, -10.0f);
+		m_cameraUp = glm::vec3(0.0f, 3.0f, 0.0f);
 		m_deltaTime = 0.0f;
 		m_lastFrame = 0.0f;
 		m_lastX = width / 2;

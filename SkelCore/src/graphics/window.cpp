@@ -23,10 +23,10 @@ namespace Skel { namespace graphics {
 
 	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
-		if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+		/*if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		else
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);*/
 	}
 
 	Window::Window(int width, int height, const char* title)
@@ -56,7 +56,7 @@ namespace Skel { namespace graphics {
 		glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 		glfwSetCursorPosCallback(m_window, mouse_callback);
 		glfwSetMouseButtonCallback(m_window, mouse_button_callback);
-		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetWindowUserPointer(m_window, this);
 		glfwSwapInterval(0); //V-Sync
 		m_lastTime = glfwGetTime();
