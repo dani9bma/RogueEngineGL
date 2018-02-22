@@ -18,6 +18,8 @@ namespace Skel { namespace graphics {
 		Camera(int width, int height, float sensitivity, Window* window, Shader* shader);
 		~Camera();
 		void update();
+		inline glm::mat4 getView() const { return m_view; }
+		inline glm::vec3 getPosition() const { return m_cameraPos; }
 	private:
 		glm::vec3 m_cameraPos;
 		glm::vec3 m_cameraTarget;

@@ -20,7 +20,7 @@ namespace Skel { namespace graphics {
 	public:
 		Texture(const char* path, Shader* shader);
 		~Texture();
-		void draw();
+		void draw(int n);
 	private:
 		unsigned int m_textureID;
 	};

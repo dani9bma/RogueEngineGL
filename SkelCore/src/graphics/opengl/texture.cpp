@@ -44,9 +44,9 @@ namespace Skel { namespace graphics {
 	{
 	}
 
-	void Texture::draw()
+	void Texture::draw(int n)
 	{
-		GLCall(glActiveTexture(GL_TEXTURE0));
+		GLCall(glActiveTexture(GL_TEXTURE0 + n));
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_textureID));
 	}
 
