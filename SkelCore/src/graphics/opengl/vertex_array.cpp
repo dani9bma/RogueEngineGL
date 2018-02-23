@@ -5,7 +5,7 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "vertexarray.h"
+#include "vertex_array.h"
 
 namespace Skel { namespace graphics {
 

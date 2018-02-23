@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "vertexbuffer.h"
-#include "indexbuffer.h"
-#include "vertexarray.h"
+#include "vertex_buffer.h"
+#include "index_buffer.h"
+#include "vertex_array.h"
 #include "shader.h"
 #include "texture.h"

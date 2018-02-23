@@ -7,7 +7,7 @@
 
 #include <GL/glew.h>
 
-#include "vertexbuffer.h"
+#include "vertex_buffer.h"
 #include "../../utils/common.h"
 
 namespace Skel { namespace graphics {

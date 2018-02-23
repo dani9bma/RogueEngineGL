@@ -5,7 +5,7 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "vertexbuffer.h"
+#include "vertex_buffer.h"
 
 namespace Skel { namespace graphics {
 

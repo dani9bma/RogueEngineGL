@@ -135,7 +135,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="src\graphics\camera\camera.cpp" />
-    <ClCompile Include="src\graphics\opengl\indexbuffer.cpp" />
+    <ClCompile Include="src\graphics\opengl\index_buffer.cpp" />
     <ClCompile Include="src\graphics\opengl\opengl.h">
       <SubType>
       </SubType>
@@ -148,8 +148,8 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\opengl\vertexarray.cpp" />
-    <ClCompile Include="src\graphics\opengl\vertexbuffer.cpp">
+    <ClCompile Include="src\graphics\opengl\vertex_array.cpp" />
+    <ClCompile Include="src\graphics\opengl\vertex_buffer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -165,11 +165,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\camera\camera.h" />
-    <ClInclude Include="src\graphics\opengl\indexbuffer.h" />
+    <ClInclude Include="src\graphics\opengl\index_buffer.h" />
     <ClInclude Include="src\graphics\opengl\shader.h" />
     <ClInclude Include="src\graphics\opengl\texture.h" />
-    <ClInclude Include="src\graphics\opengl\vertexarray.h" />
-    <ClInclude Include="src\graphics\opengl\vertexbuffer.h" />
+    <ClInclude Include="src\graphics\opengl\vertex_array.h" />
+    <ClInclude Include="src\graphics\opengl\vertex_buffer.h" />
     <ClInclude Include="src\graphics\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

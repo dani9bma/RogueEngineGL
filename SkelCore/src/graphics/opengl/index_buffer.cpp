@@ -5,7 +5,7 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "indexbuffer.h"
+#include "index_buffer.h"
 
 namespace Skel { namespace graphics {
 
