@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\lighting\directional_light.cpp" />
     <ClCompile Include="src\utils\common.h">
       <SubType>
       </SubType>
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\camera\camera.h" />
+    <ClInclude Include="src\graphics\lighting\directional_light.h" />
     <ClInclude Include="src\graphics\opengl\index_buffer.h" />
     <ClInclude Include="src\graphics\opengl\shader.h" />
     <ClInclude Include="src\graphics\opengl\texture.h" />
