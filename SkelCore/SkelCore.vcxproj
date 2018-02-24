@@ -131,6 +131,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\lighting\directional_light.cpp" />
+    <ClCompile Include="src\graphics\mesh.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="src\graphics\model.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="src\utils\common.h">
       <SubType>
       </SubType>
@@ -167,6 +175,8 @@
   <ItemGroup>
     <ClInclude Include="src\graphics\camera\camera.h" />
     <ClInclude Include="src\graphics\lighting\directional_light.h" />
+    <ClInclude Include="src\graphics\mesh.h" />
+    <ClInclude Include="src\graphics\model.h" />
     <ClInclude Include="src\graphics\opengl\index_buffer.h" />
     <ClInclude Include="src\graphics\opengl\shader.h" />
     <ClInclude Include="src\graphics\opengl\texture.h" />

@@ -11,6 +11,7 @@
 #include "graphics/lighting/directional_light.h"
 #include "utils/common.h"
 #include "utils/log.h"
+#include "graphics/model.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -66,10 +67,10 @@ int main(void)
 	};
 
 	float floorVertices[] = {
-		 0.5f,  0.5f, 0.0f,   0.0f,  0.0f, -1.0f,	1.0f, 1.0f,   // top right
-		 0.5f, -0.5f, 0.0f,	 0.0f,  0.0f, -1.0f,	1.0f, 0.0f,   // bottom right
-		 -0.5f, -0.5f, 0.0f, 0.0f,  0.0f, -1.0f,	0.0f, 0.0f,   // bottom left
-		 -0.5f,  0.5f, 0.0f, 0.0f,  0.0f, -1.0f,	0.0f, 1.0f
+		 0.5f,  0.5f, 0.0f,   1.0f,  0.0f,  0.0f,	1.0f, 1.0f,   // top right
+		 0.5f, -0.5f, 0.0f,	  1.0f,  0.0f,  0.0f,	1.0f, 0.0f,   // bottom right
+		 -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  0.0f,	0.0f, 0.0f,   // bottom left
+		 -0.5f,  0.5f, 0.0f, 0.0f,  1.0f,  0.0f,	0.0f, 1.0f
 
 	};
 	
@@ -95,14 +96,18 @@ int main(void)
 	VAO2.addBuffer(2, 3, VBO2, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 
 	graphics::DirectionalLight light = graphics::DirectionalLight(shader, camera);
-	glm::vec3 lightPos(20.0f, 0.0f, 2.0f);
+	glm::vec3 lightPos(1.0f, 0.0f, 15.0f);
 	light.setLightDirection(lightPos);
+	light.setIntensity(3.f);
 
 	graphics::Texture texture = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/ice.jpg", shader);
 	graphics::Texture specular = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/ice.jpg", shader);
 	graphics::Texture texture2 = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/wall.jpg", shader);
 	graphics::Texture specular2 = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/wall.jpg", shader);
 
+
+	graphics::Model crysis("E:/Dev/SkelEngine/SkelCore/models/nanosuit/nanosuit.obj");
+	graphics::Model cube("E:/Dev/SkelEngine/SkelCore/models/Rubiks Cube.obj");
 	
 
 	glm::mat4 projection;
@@ -115,46 +120,27 @@ int main(void)
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
 
-		texture.draw(0);
-		specular.draw(1);
+		
 		light.update();
 		shader->enable();
 		/*Draw Cube*/
-		VAO.bind();
+
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(10.0f, 0.0, 10.0f));
-		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
-		model = glm::rotate(model, 0.0f, glm::vec3(1.0f, 0.3f, 0.5f));
+		model = glm::translate(model, glm::vec3(0.0f, -5.0, -2.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		shader->setUniformMat4("model", model);
-		GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
-		VAO.unbind();
-		/*Draw Light Cube*/
-		//#TODO: Add this to a separate class
-		VAO.bind();
-		shader->disable();
-		lampShader->enable();
-		lampShader->setUniformMat4("projection", projection);
-		lampShader->setUniformMat4("view", camera.getView());
-		glm::mat4 model3;
-		model3 = glm::translate(model3, lightPos);
-		model3 = glm::scale(model3, glm::vec3(1.0f, 1.0f, 1.0f));
-		model3 = glm::rotate(model3, 0.0f, glm::vec3(1.0f, 0.3f, 0.5f));
-		lampShader->setUniformMat4("model", model3);
-		GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
-		lampShader->disable();
-		VAO.unbind();
+		crysis.Draw(shader);
 		shader->enable();
-		/*Draw Quad*/
-		VAO2.bind();
-		texture2.draw(0);
-		specular2.draw(1);
+		//Draw Floor
 		glm::mat4 model2;
 		model2 = glm::translate(model2, glm::vec3(0.0f, -5.0f, 3.0f));
-		model2 = glm::rotate(model2, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model2 = glm::scale(model2, glm::vec3(80.0f, 80.0f, 80.0f));
+		model2 = glm::rotate(model2, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model2 = glm::scale(model2, glm::vec3(0.3f, 0.0005f, 0.3f));
 		shader->setUniformMat4("model", model2);
-		EBO.draw();
-		VAO2.unbind();
+		texture.draw(0);
+		specular.draw(1);
+		cube.Draw(shader);
 		//Render
 		camera.update();
 		window->update();

@@ -36,7 +36,7 @@ namespace Skel { namespace graphics {
 		}
 		stbi_image_free(data);
 		shader->enable();
-		shader->setUniform1i("ourTexture", 0);
+		shader->setUniform1i("texture_diffuse1", 0);
 		m_textureID = texture;
 	}
 

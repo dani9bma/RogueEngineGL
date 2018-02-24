@@ -30,6 +30,9 @@ namespace Skel { namespace graphics {
 		m_shader->setUniform1i("material.specular", 1);
 		m_shader->setUniform1f("material.shininess", 32.0f);
 		m_shader->setUniform3f("light.direction", m_direction);
+		//m_shader->setUniform1f("light.constant", 1.0f);
+		//m_shader->setUniform1f("light.linear", 0.09f);
+		//m_shader->setUniform1f("light.quadratic", 0.0002f);
 		m_shader->setUniform3f("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
 		m_shader->setUniform3f("light.diffuse", glm::vec3(1.0f, 1.0f, 1.0f)); // darken the light a bit to fit the scene
 		m_shader->setUniform3f("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
