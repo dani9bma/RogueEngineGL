@@ -15,6 +15,7 @@ namespace Skel { namespace graphics {
 	class Camera
 	{
 	public:
+		Camera() {};
 		Camera(int width, int height, float sensitivity, Window* window, Shader* shader);
 		~Camera();
 		void update();

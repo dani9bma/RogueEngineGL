@@ -12,6 +12,7 @@
 #include "utils/common.h"
 #include "utils/log.h"
 #include "graphics/model.h"
+#include "graphics/skybox.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -81,7 +82,7 @@ int main(void)
 
 	graphics::Window* window = new graphics::Window(1280, 720, "Skel Engine");
 	graphics::Shader* shader = new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/basic.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/basic.frag");
-	graphics::Shader* lampShader = new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/lamp.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/lamp.frag");
+	graphics::Shader* skyboxShader = new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.frag");
 	graphics::VertexArray VAO = graphics::VertexArray();
 	graphics::VertexArray VAO2 = graphics::VertexArray();
 	graphics::VertexBuffer VBO = graphics::VertexBuffer(vertices, sizeof(vertices), graphics::BufferUsage::STATIC);
@@ -100,13 +101,14 @@ int main(void)
 	light.setLightDirection(lightPos);
 	light.setIntensity(3.f);
 
+	graphics::Skybox skybox = graphics::Skybox(skyboxShader);
+
 	graphics::Texture texture = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/ice.jpg", shader);
 	graphics::Texture specular = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/ice.jpg", shader);
-	graphics::Texture texture2 = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/wall.jpg", shader);
-	graphics::Texture specular2 = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/wall.jpg", shader);
 
 
 	graphics::Model crysis("E:/Dev/SkelEngine/SkelCore/models/nanosuit/nanosuit.obj");
+	graphics::Model garrosh("E:/Dev/SkelEngine/SkelCore/models/garrosh.obj");
 	graphics::Model cube("E:/Dev/SkelEngine/SkelCore/models/Rubiks Cube.obj");
 	
 
@@ -116,12 +118,13 @@ int main(void)
 	while (!window->closed())
 	{
 		//Render
-		GLCall(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+		GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
 
 		
 		light.update();
+		skybox.update(camera, projection);
 		shader->enable();
 		/*Draw Cube*/
 
@@ -131,7 +134,14 @@ int main(void)
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		shader->setUniformMat4("model", model);
 		crysis.Draw(shader);
-		shader->enable();
+
+		glm::mat4 model3;
+		model3 = glm::translate(model3, glm::vec3(10.0f, -5.0, -2.0f));
+		model3 = glm::scale(model3, glm::vec3(2.0f, 2.0f, 2.0f));
+		model3 = glm::rotate(model3, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader->setUniformMat4("model", model3);
+		garrosh.Draw(shader);
+
 		//Draw Floor
 		glm::mat4 model2;
 		model2 = glm::translate(model2, glm::vec3(0.0f, -5.0f, 3.0f));

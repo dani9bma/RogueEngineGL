@@ -139,6 +139,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="src\graphics\skybox.cpp" />
     <ClCompile Include="src\utils\common.h">
       <SubType>
       </SubType>
@@ -182,6 +183,7 @@
     <ClInclude Include="src\graphics\opengl\texture.h" />
     <ClInclude Include="src\graphics\opengl\vertex_array.h" />
     <ClInclude Include="src\graphics\opengl\vertex_buffer.h" />
+    <ClInclude Include="src\graphics\skybox.h" />
     <ClInclude Include="src\graphics\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
