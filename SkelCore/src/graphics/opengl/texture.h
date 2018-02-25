@@ -19,9 +19,11 @@ namespace Skel { namespace graphics {
 	class Texture
 	{
 	public:
+		Texture() { }
 		Texture(int id) { m_textureID = id; }
 		Texture(const char* path, Shader* shader);
 		Texture(const char* path);
+		void loadCubemapTexture(const char* path, int index);
 		~Texture();
 		void draw(int n);
 		inline unsigned int getID() { return m_textureID; }

@@ -1,8 +1,13 @@
 #pragma once
 #include "opengl/shader.h"
 #include "camera/camera.h"
+#include "opengl/vertex_array.h"
+#include "opengl/vertex_buffer.h"
+#include "opengl/texture.h"
+
 #include <string>
 #include <vector>
+
 #include "opengl/stb_image.h"
 
 namespace Skel { namespace graphics {
@@ -10,53 +15,11 @@ namespace Skel { namespace graphics {
 	class Skybox
 	{
 	private:
-		unsigned int m_skyboxVAO, m_textureID;
+		unsigned int m_skyboxVAO;
 		Shader* m_shader;
 		Camera m_camera;
-		float m_skyboxVertices[108] = {
-			// positions          
-			-1.0f,  1.0f, -1.0f,
-			-1.0f, -1.0f, -1.0f,
-			1.0f, -1.0f, -1.0f,
-			1.0f, -1.0f, -1.0f,
-			1.0f,  1.0f, -1.0f,
-			-1.0f,  1.0f, -1.0f,
-
-			-1.0f, -1.0f,  1.0f,
-			-1.0f, -1.0f, -1.0f,
-			-1.0f,  1.0f, -1.0f,
-			-1.0f,  1.0f, -1.0f,
-			-1.0f,  1.0f,  1.0f,
-			-1.0f, -1.0f,  1.0f,
-
-			1.0f, -1.0f, -1.0f,
-			1.0f, -1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			1.0f,  1.0f, -1.0f,
-			1.0f, -1.0f, -1.0f,
-
-			-1.0f, -1.0f,  1.0f,
-			-1.0f,  1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			1.0f, -1.0f,  1.0f,
-			-1.0f, -1.0f,  1.0f,
-
-			-1.0f,  1.0f, -1.0f,
-			1.0f,  1.0f, -1.0f,
-			1.0f,  1.0f,  1.0f,
-			1.0f,  1.0f,  1.0f,
-			-1.0f,  1.0f,  1.0f,
-			-1.0f,  1.0f, -1.0f,
-
-			-1.0f, -1.0f, -1.0f,
-			-1.0f, -1.0f,  1.0f,
-			1.0f, -1.0f, -1.0f,
-			1.0f, -1.0f, -1.0f,
-			-1.0f, -1.0f,  1.0f,
-			1.0f, -1.0f,  1.0f
-		};
+		VertexArray m_vao = VertexArray();
+		Texture m_texture = Texture();
 
 		void loadCubemap();
 	public:
