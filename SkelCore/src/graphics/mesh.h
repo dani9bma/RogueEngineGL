@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef MESH_H
-#define MESH_H
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -13,18 +11,15 @@
 #include <sstream>
 #include <iostream>
 
+#include "opengl/vertex_array.h"
+#include "opengl/vertex_buffer.h"
+#include "opengl/index_buffer.h"
 #include "opengl/shader.h"
+#include "opengl/texture.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Skel { namespace graphics {
-
-	struct Vertex {
-		glm::vec3 Position;
-		glm::vec3 Normal;
-		glm::vec2 TexCoords;
-		glm::vec3 Tangent;
-		glm::vec3 Bitangent;
-	};
 
 	struct TextureMesh {
 		unsigned int id;
@@ -45,8 +40,9 @@ namespace Skel { namespace graphics {
 		void Draw(Shader* shader);
 	private:
 		unsigned int VAO, VBO, EBO;
+		VertexArray m_vao = VertexArray();
+		VertexBuffer m_vbo;
 		void setupMesh();
 	};
 }}
-#endif
 

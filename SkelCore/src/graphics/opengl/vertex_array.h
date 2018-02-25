@@ -5,6 +5,8 @@
  * @Github https://github.com/dani9bma
  */
 
+#pragma once
+
 #include <GL/glew.h>
 
 #include "vertex_buffer.h"

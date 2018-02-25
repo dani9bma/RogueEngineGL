@@ -22,56 +22,11 @@ using namespace Skel;
 
 int main(void)
 {
-	float vertices[] = {
-		// positions          // normals           // texture coords
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-	};
-
 	float floorVertices[] = {
-		 0.5f,  0.5f, 0.0f,   1.0f,  0.0f,  0.0f,	1.0f, 1.0f,   // top right
-		 0.5f, -0.5f, 0.0f,	  1.0f,  0.0f,  0.0f,	1.0f, 0.0f,   // bottom right
-		 -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  0.0f,	0.0f, 0.0f,   // bottom left
-		 -0.5f,  0.5f, 0.0f, 0.0f,  1.0f,  0.0f,	0.0f, 1.0f
+		 0.5f,  0.5f, 0.0f, 0.0f,  1.0f,  0.0f,	1.0f, 1.0f,   // top right
+		 0.5f, -0.5f, 0.0f,	0.0f, -1.0f,  0.0f,	1.0f, 0.0f,   // bottom right
+		-0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  0.0f,	0.0f, 0.0f,   // bottom left
+		-0.5f,  0.5f, 0.0f, 0.0f,  1.0f,  0.0f,	0.0f, 1.0f
 
 	};
 	
@@ -83,37 +38,26 @@ int main(void)
 	graphics::Window* window = new graphics::Window(1280, 720, "Skel Engine");
 	graphics::Shader* shader = new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/basic.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/basic.frag");
 	graphics::Shader* skyboxShader = new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.frag");
-	graphics::VertexArray VAO = graphics::VertexArray();
-	graphics::VertexArray VAO2 = graphics::VertexArray();
-	graphics::VertexBuffer VBO = graphics::VertexBuffer(vertices, sizeof(vertices), graphics::BufferUsage::STATIC);
-	graphics::VertexBuffer VBO2 = graphics::VertexBuffer(floorVertices, sizeof(floorVertices), graphics::BufferUsage::STATIC);
-	graphics::IndexBuffer EBO = graphics::IndexBuffer(indices, 6);
 	graphics::Camera camera = graphics::Camera(1280, 720, 0.1f, window, shader);
-	VAO.addBuffer(0, 3, VBO, 8 * sizeof(float), (void*)0);
-	VAO.addBuffer(1, 2, VBO, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	VAO.addBuffer(2, 3, VBO, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO2.addBuffer(0, 3, VBO2, 8 * sizeof(float), (void*)0);
-	VAO2.addBuffer(1, 2, VBO2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	VAO2.addBuffer(2, 3, VBO2, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 
 	graphics::DirectionalLight light = graphics::DirectionalLight(shader, camera);
-	glm::vec3 lightPos(1.0f, 0.0f, 15.0f);
+	glm::vec3 lightPos(1.0f, -5.0f, 15.0f);
 	light.setLightDirection(lightPos);
 	light.setIntensity(3.f);
 
 	graphics::Skybox skybox = graphics::Skybox(skyboxShader);
 
-	graphics::Texture texture = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/ice.jpg", shader);
-	graphics::Texture specular = graphics::Texture("E:/Dev/SkelEngine/SkelCore/src/textures/ice.jpg", shader);
+	graphics::Texture texture = graphics::Texture("src/textures/ice.jpg", shader);
+	graphics::Texture specular = graphics::Texture("src/textures/ice.jpg", shader);
 
-
-	graphics::Model crysis("E:/Dev/SkelEngine/SkelCore/models/nanosuit/nanosuit.obj");
-	graphics::Model garrosh("E:/Dev/SkelEngine/SkelCore/models/garrosh.obj");
-	graphics::Model cube("E:/Dev/SkelEngine/SkelCore/models/Rubiks Cube.obj");
+	graphics::Model crysis("models/nanosuit/nanosuit.obj");
+	graphics::Model garrosh("models/garrosh.obj");
+	graphics::Model cube("models/floor.obj");
+	graphics::Model sponza("models/sponza/sponza.obj");
 	
 
 	glm::mat4 projection;
-	projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 200.0f);
 	shader->setUniformMat4("projection", projection);
 	while (!window->closed())
 	{
@@ -128,6 +72,13 @@ int main(void)
 		shader->enable();
 		/*Draw Cube*/
 
+		glm::mat4 sponzaModel;
+		sponzaModel = glm::translate(sponzaModel, glm::vec3(10.0f, -5.0, -2.0f));
+		sponzaModel = glm::scale(sponzaModel, glm::vec3(0.1f, 0.1f, 0.1f));
+		sponzaModel = glm::rotate(sponzaModel, 0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		shader->setUniformMat4("model", sponzaModel);
+		sponza.Draw(shader);
+
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, -5.0, -2.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -137,20 +88,11 @@ int main(void)
 
 		glm::mat4 model3;
 		model3 = glm::translate(model3, glm::vec3(10.0f, -5.0, -2.0f));
-		model3 = glm::scale(model3, glm::vec3(2.0f, 2.0f, 2.0f));
-		model3 = glm::rotate(model3, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model3 = glm::scale(model3, glm::vec3(4.0f, 4.0f, 4.0f));
+		model3 = glm::rotate(model3, glm::radians(180.0f) + (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
 		shader->setUniformMat4("model", model3);
 		garrosh.Draw(shader);
 
-		//Draw Floor
-		glm::mat4 model2;
-		model2 = glm::translate(model2, glm::vec3(0.0f, -5.0f, 3.0f));
-		model2 = glm::rotate(model2, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model2 = glm::scale(model2, glm::vec3(0.3f, 0.0005f, 0.3f));
-		shader->setUniformMat4("model", model2);
-		texture.draw(0);
-		specular.draw(1);
-		cube.Draw(shader);
 		//Render
 		camera.update();
 		window->update();

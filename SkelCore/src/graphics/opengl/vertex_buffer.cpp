@@ -23,6 +23,20 @@ namespace Skel { namespace graphics {
 		}
 	}
 
+	VertexBuffer::VertexBuffer(Vertex data[], GLsizei size, BufferUsage usage)
+	{
+		GLCall(glGenBuffers(1, &m_VBO));
+		bind();
+		if (usage == BufferUsage::DYNAMIC)
+		{
+			GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW));
+		}
+		else
+		{
+			GLCall(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
+		}
+	}
+
 	VertexBuffer::~VertexBuffer()
 	{
 		unbind();

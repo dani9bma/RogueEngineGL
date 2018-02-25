@@ -13,9 +13,9 @@ namespace Skel { namespace graphics {
 	IndexBuffer::IndexBuffer(unsigned int data[], int count)
 		: m_count(count)
 	{
-		GLCall(glGenBuffers(1, &m_EBO));
+		glGenBuffers(1, &m_EBO);
 		bind();
-		GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW));
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_count, data, GL_STATIC_DRAW);
 	}
 
 	IndexBuffer::~IndexBuffer()
@@ -25,12 +25,12 @@ namespace Skel { namespace graphics {
 
 	void IndexBuffer::draw()
 	{
-		GLCall(glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_INT, 0));
+		glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_INT, 0);
 	}
 
 	void IndexBuffer::bind()
 	{
-		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO));
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 	}
 
 	void IndexBuffer::unbind()

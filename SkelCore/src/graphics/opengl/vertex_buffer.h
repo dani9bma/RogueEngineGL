@@ -7,10 +7,21 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "../../utils/common.h"
 
 namespace Skel { namespace graphics {
+
+	struct Vertex {
+		glm::vec3 Position;
+		glm::vec3 Normal;
+		glm::vec2 TexCoords;
+		glm::vec3 Tangent;
+		glm::vec3 Bitangent;
+	};
 
 	enum class BufferUsage
 	{
@@ -21,7 +32,9 @@ namespace Skel { namespace graphics {
 	class VertexBuffer
 	{
 	public:
+		VertexBuffer() { }
 		VertexBuffer(float data[], GLsizei size, BufferUsage usage);
+		VertexBuffer(Vertex data[], GLsizei size, BufferUsage usage);
 		~VertexBuffer();
 		void bind();
 		void unbind();
