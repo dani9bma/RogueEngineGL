@@ -47,14 +47,12 @@ int main(void)
 
 	graphics::Skybox skybox = graphics::Skybox(skyboxShader);
 
-	graphics::Texture texture = graphics::Texture("src/textures/ice.jpg", shader);
-	graphics::Texture specular = graphics::Texture("src/textures/ice.jpg", shader);
-
 	graphics::Model crysis("models/nanosuit/nanosuit.obj");
 	graphics::Model garrosh("models/garrosh.obj");
 	graphics::Model cube("models/floor.obj");
 	graphics::Model sponza("models/sponza/sponza.obj");
 	
+	shader->enable();
 
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 200.0f);

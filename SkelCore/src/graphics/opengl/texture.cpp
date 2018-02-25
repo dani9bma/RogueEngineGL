@@ -48,7 +48,7 @@ namespace Skel { namespace graphics {
 		m_textureID = texture;
 	}
 
-	Texture::Texture(const char* path)
+	Texture::Texture(std::string path)
 	{
 		unsigned int texture;
 		GLCall(glGenTextures(1, &texture));
@@ -61,7 +61,7 @@ namespace Skel { namespace graphics {
 		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
 		int width, height, nrChannels;
-		unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
 			GLenum format;

@@ -157,7 +157,7 @@ namespace Skel { namespace graphics {
 			}
 			if (!skip)
 			{   // if texture hasn't been loaded already, load it
-				Texture tex = Texture((this->directory + '/' + str.C_Str()).c_str());
+				Texture tex = Texture(this->directory + '/' + str.C_Str());
 				TextureMesh texture;
 				texture.id = tex.getID();
 				texture.type = typeName;
