@@ -81,6 +81,12 @@ namespace Skel { namespace graphics {
 		}
 		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			this->close();
+		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_K) == GLFW_PRESS)
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		if(glfwGetKey(this->getGLFWwindow(), GLFW_KEY_O) == GLFW_PRESS)
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		
+			
 
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();

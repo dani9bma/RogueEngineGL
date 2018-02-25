@@ -33,6 +33,7 @@ namespace Skel { namespace graphics {
 		double m_x, m_y;
 		std::string m_title;
 		GLFWwindow* m_window;
+		bool m_wireframe = false;
 
 	private:
 		friend static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
