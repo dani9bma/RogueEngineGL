@@ -16,6 +16,7 @@
 #include "opengl/shader.h"
 #include "mesh.h"
 #include "opengl/stb_image.h"
+#include "../utils/log.h"
 
 namespace Skel { namespace graphics {
 
