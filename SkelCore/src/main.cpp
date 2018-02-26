@@ -13,6 +13,7 @@
 #include "utils/log.h"
 #include "graphics/model.h"
 #include "graphics/skybox.h"
+#include "entity/entity.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -47,16 +48,23 @@ int main(void)
 
 	graphics::Skybox skybox = graphics::Skybox(skyboxShader);
 
-	graphics::Model crysis("models/nanosuit/nanosuit.obj");
-	graphics::Model garrosh("models/garrosh.obj");
+	graphics::Model* crysisModel = new graphics::Model("models/nanosuit/nanosuit.obj");
+	graphics::Model* garroshModel = new graphics::Model("models/garrosh.obj");
 	graphics::Model cube("models/floor.obj");
-	graphics::Model sponza("models/sponza/sponza.obj");
-	
+	graphics::Model* sponzaModel = new graphics::Model("models/sponza/sponza.obj");
+
 	shader->enable();
+
+	entity::Entity* sponza = new entity::Entity(sponzaModel, shader);
+	entity::Entity* garrosh = new entity::Entity(garroshModel, shader);
+	entity::Entity* crysis = new entity::Entity(crysisModel, shader);
+	//sponza->getTransform().setPosition(0.0f, -0.5f, -2.0f);
+	//sponza->getTransform().setRotation(180.0f, false, true, false);
 
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 200.0f);
 	shader->setUniformMat4("projection", projection);
+
 	while (!window->closed())
 	{
 		//Render
@@ -68,14 +76,28 @@ int main(void)
 		light.update();
 		skybox.update(camera, projection);
 		shader->enable();
-		/*Draw Cube*/
 
-		glm::mat4 sponzaModel;
-		sponzaModel = glm::translate(sponzaModel, glm::vec3(10.0f, -5.0, -2.0f));
-		sponzaModel = glm::scale(sponzaModel, glm::vec3(0.1f, 0.1f, 0.1f));
-		sponzaModel = glm::rotate(sponzaModel, 0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-		shader->setUniformMat4("model", sponzaModel);
-		sponza.Draw(shader);
+		/*glm::mat4 model;
+		model = glm::translate(model, glm::vec3(0.0f, -5.0, -2.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		shader->setUniformMat4("model", model);*/
+
+		sponza->draw();
+
+		garrosh->setRotation(glfwGetTime(), false, true, false);
+		//garrosh->setPosition(50.0f, -5.0f, -2.0f);
+		garrosh->setSize(4.0f, 4.0f, 4.0f);
+		garrosh->draw();
+
+		crysis->setPosition(0.0f, -5.0f, -2.0f);
+		crysis->setSize(1.0f, 1.0f, 1.0f);
+		crysis->setRotation(180.0f, false, true, false);
+		crysis->draw();
+
+
+
+		/*sponza.Draw(shader);
 
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, -5.0, -2.0f));
@@ -89,7 +111,7 @@ int main(void)
 		model3 = glm::scale(model3, glm::vec3(4.0f, 4.0f, 4.0f));
 		model3 = glm::rotate(model3, glm::radians(180.0f) + (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
 		shader->setUniformMat4("model", model3);
-		garrosh.Draw(shader);
+		garrosh.Draw(shader);*/
 
 		//Render
 		camera.update();
