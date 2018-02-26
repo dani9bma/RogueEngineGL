@@ -14,7 +14,6 @@ namespace Skel { namespace entity {
 	{
 		addComponent(new component::MeshComponent(mesh));
 		m_transform = maths::Transform(shader);
-		m_oldTransform = m_transform.getTransformMatrice();
 		m_shader = shader;
 	}
 

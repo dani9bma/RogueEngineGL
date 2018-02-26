@@ -34,7 +34,7 @@ namespace Skel { namespace graphics {
 
 	void Camera::update()
 	{
-		float cameraSpeed = 20.0f * m_deltaTime;
+		float cameraSpeed = 50.0f * m_deltaTime;
 		float currentFrame = glfwGetTime();
 		m_deltaTime = currentFrame - m_lastFrame;
 		m_lastFrame = currentFrame;

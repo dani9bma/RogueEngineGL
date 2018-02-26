@@ -26,7 +26,6 @@ namespace Skel { namespace entity {
 	private:
 		std::unordered_map<component::ComponentType*, component::Component*> m_components;
 		maths::Transform m_transform;
-		glm::mat4 m_oldTransform;
 		graphics::Shader* m_shader;
 	public:
 		Entity() { }
@@ -49,7 +48,7 @@ namespace Skel { namespace entity {
 			return (T*)it->second;
 		}
 
-		inline maths::Transform getTransform() const { return m_transform; } // Make this a component
+		inline maths::Transform getTransform() const { return m_transform; }
 	};
 
 } }

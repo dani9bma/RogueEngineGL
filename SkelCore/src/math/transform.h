@@ -21,7 +21,7 @@ namespace Skel { namespace maths {
 		glm::vec3 m_position;
 		glm::vec3 m_size;
 		glm::vec3 m_rotation;
-		float m_angle;
+		float	  m_angle;
 
 		graphics::Shader* m_shader;
 	public:

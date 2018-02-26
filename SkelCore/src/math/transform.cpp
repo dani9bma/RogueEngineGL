@@ -31,18 +31,19 @@ namespace Skel { namespace maths {
 
 	glm::mat4 Transform::setRotation(float angle, bool x /*= true*/, bool y /*= true*/, bool z /*= true*/)
 	{
-		float xPos = x ? 1.0f : 0.0f;
-		float yPos = y ? 1.0f : 0.0f;
-		float zPos = z ? 1.0f : 0.0f;
-
 		glm::mat4 s;
 
-		s = glm::translate(s, m_position);
-		s = glm::scale(s, m_size);
-		s = glm::rotate(s, glm::radians(angle), glm::vec3(xPos, yPos, zPos));
+		float xPos	= x ? 1.0f : 0.0f;
+		float yPos	= y ? 1.0f : 0.0f;
+		float zPos	= z ? 1.0f : 0.0f;
 
-		m_angle = angle;
-		m_rotation = glm::vec3(xPos, yPos, zPos);
+
+		s			= glm::translate(s, m_position);
+		s			= glm::scale(s, m_size);
+		s			= glm::rotate(s, glm::radians(angle), glm::vec3(xPos, yPos, zPos));
+
+		m_angle		= angle;
+		m_rotation	= glm::vec3(xPos, yPos, zPos);
 
 		return s;
 	}
@@ -51,11 +52,11 @@ namespace Skel { namespace maths {
 	{
 		glm::mat4 s;
 
-		s = glm::translate(s, glm::vec3(x, y, z));
-		s = glm::scale(s, m_size);
-		s = glm::rotate(s, glm::radians(m_angle), m_rotation);
+		s			= glm::translate(s, glm::vec3(x, y, z));
+		s			= glm::scale(s, m_size);
+		s			= glm::rotate(s, glm::radians(m_angle), m_rotation);
 
-		m_position = glm::vec3(x, y, z);
+		m_position	= glm::vec3(x, y, z);
 
 		return s;
 	}
@@ -64,11 +65,11 @@ namespace Skel { namespace maths {
 	{
 		glm::mat4 s;
 
-		s = glm::translate(s, m_position);
-		s = glm::scale(s, glm::vec3(x, y, z));
-		s = glm::rotate(s, glm::radians(m_angle), m_rotation);
+		s			= glm::translate(s, m_position);
+		s			= glm::scale(s, glm::vec3(x, y, z));
+		s			= glm::rotate(s, glm::radians(m_angle), m_rotation);
 
-		m_size = glm::vec3(x, y, z);
+		m_size		= glm::vec3(x, y, z);
 
 		return s;
 	}

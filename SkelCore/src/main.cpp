@@ -23,23 +23,15 @@ using namespace Skel;
 
 int main(void)
 {
-	float floorVertices[] = {
-		 0.5f,  0.5f, 0.0f, 0.0f,  1.0f,  0.0f,	1.0f, 1.0f,   // top right
-		 0.5f, -0.5f, 0.0f,	0.0f, -1.0f,  0.0f,	1.0f, 0.0f,   // bottom right
-		-0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  0.0f,	0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f, 0.0f,  1.0f,  0.0f,	0.0f, 1.0f
-
-	};
 	
-	unsigned int indices[] = {
-		0, 1, 3, // first triangle
-		1, 2, 3  // second triangle
-	};
-
 	graphics::Window* window = new graphics::Window(1280, 720, "Skel Engine");
-	graphics::Shader* shader = new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/basic.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/basic.frag");
-	graphics::Shader* skyboxShader = new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.frag");
-	graphics::Camera camera = graphics::Camera(1280, 720, 0.1f, window, shader);
+
+	graphics::Shader* shader		= new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/basic.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/basic.frag");
+	graphics::Shader* skyboxShader	= new graphics::Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.frag");
+	
+	shader->enable();
+	
+	graphics::Camera camera	= graphics::Camera(1280, 720, 0.1f, window, shader);
 
 	graphics::DirectionalLight light = graphics::DirectionalLight(shader, camera);
 	glm::vec3 lightPos(1.0f, -5.0f, 15.0f);
@@ -48,21 +40,19 @@ int main(void)
 
 	graphics::Skybox skybox = graphics::Skybox(skyboxShader);
 
-	graphics::Model* crysisModel = new graphics::Model("models/nanosuit/nanosuit.obj");
-	graphics::Model* garroshModel = new graphics::Model("models/garrosh.obj");
-	graphics::Model cube("models/floor.obj");
-	graphics::Model* sponzaModel = new graphics::Model("models/sponza/sponza.obj");
+	graphics::Model* crysisModel	= new graphics::Model("models/nanosuit/nanosuit.obj");
+	graphics::Model* garroshModel	= new graphics::Model("models/garrosh.obj");
+	graphics::Model* sponzaModel	= new graphics::Model("models/sponza/sponza_optimized.obj");
+	graphics::Model* swThroneModel	= new graphics::Model("models/swThrone.obj");
 
-	shader->enable();
 
-	entity::Entity* sponza = new entity::Entity(sponzaModel, shader);
+	entity::Entity* sponza	= new entity::Entity(sponzaModel, shader);
 	entity::Entity* garrosh = new entity::Entity(garroshModel, shader);
-	entity::Entity* crysis = new entity::Entity(crysisModel, shader);
-	//sponza->getTransform().setPosition(0.0f, -0.5f, -2.0f);
-	//sponza->getTransform().setRotation(180.0f, false, true, false);
+	entity::Entity* crysis	= new entity::Entity(crysisModel, shader);
+	entity::Entity* throne	= new entity::Entity(swThroneModel, shader);
 
 	glm::mat4 projection;
-	projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 200.0f);
+	projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 300.0f);
 	shader->setUniformMat4("projection", projection);
 
 	while (!window->closed())
@@ -90,6 +80,10 @@ int main(void)
 		crysis->setRotation(180.0f, false, true, false);
 		//crysis->setTransform(glm::vec3(0.0f, -5.0f, -2.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f);
 		crysis->draw();
+
+		throne->setPosition(0.0f, -5.0f, 15.0f);
+		throne->setSize(1.0f, 1.0f, 1.0f);
+		throne->draw();
 
 
 		//Render
