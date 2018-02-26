@@ -20,15 +20,11 @@ namespace Skel { namespace maths {
 		m_transform = glm::scale(m_transform, glm::vec3(0.1f, 0.1f, 0.1f));
 		m_transform = glm::rotate(m_transform, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-
-		m_oldTransform = glm::translate(m_transform, glm::vec3(0.0f, -5.0, -2.0f));
-		m_oldTransform = glm::scale(m_transform, glm::vec3(0.1f, 0.1f, 0.1f));
-		m_oldTransform = glm::rotate(m_transform, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-
-		m_position = glm::translate(m_position, glm::vec3(0.0f, -5.0, -2.0f));
-		m_size = glm::scale(m_size, glm::vec3(0.1f, 0.1f, 0.1f));
-		m_rotation = glm::rotate(m_rotation, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		m_position	= glm::vec3(0.0f, -5.0f, -2.0f);
+		m_rotation	= glm::vec3(0.0f, 1.0f, 0.0f);
+		m_size		= glm::vec3(0.1f, 0.1f, 0.1f);
+		m_angle		= 180.0f;
+		
 
 		shader->setUniformMat4("model", m_transform);
 	}
@@ -39,41 +35,42 @@ namespace Skel { namespace maths {
 		float yPos = y ? 1.0f : 0.0f;
 		float zPos = z ? 1.0f : 0.0f;
 
-		glm::mat4 rotation;
-		
-		m_transform = glm::rotate(m_transform, glm::radians(angle), glm::vec3(xPos, yPos, zPos));
+		glm::mat4 s;
 
-		//m_transform = glm::translate(m_position, glm::vec3(1.0f, 1.0f, 1.0f));
-		//m_transform = glm::scale(m_size, glm::vec3(1.0f, 1.0f, 1.0f));
+		s = glm::translate(s, m_position);
+		s = glm::scale(s, m_size);
+		s = glm::rotate(s, glm::radians(angle), glm::vec3(xPos, yPos, zPos));
 
-		return m_transform;
+		m_angle = angle;
+		m_rotation = glm::vec3(xPos, yPos, zPos);
+
+		return s;
 	}
 
 	glm::mat4 Transform::setPosition(float x, float y, float z)
 	{
-		glm::mat4 position;
+		glm::mat4 s;
 
-		m_transform = glm::translate(m_transform, glm::vec3(x, y, z));
+		s = glm::translate(s, glm::vec3(x, y, z));
+		s = glm::scale(s, m_size);
+		s = glm::rotate(s, glm::radians(m_angle), m_rotation);
 
-		
-		//m_transform = glm::scale(m_size, glm::vec3(1.0f, 1.0f, 1.0f));
-		//m_transform = glm::rotate(m_rotation, glm::radians(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+		m_position = glm::vec3(x, y, z);
 
-		return m_transform;
+		return s;
 	}
 
 	glm::mat4 Transform::setSize(float x, float y, float z)
 	{
-		glm::mat4 size;
+		glm::mat4 s;
 
-		m_transform = glm::scale(m_transform, glm::vec3(x, y, z));
-		
+		s = glm::translate(s, m_position);
+		s = glm::scale(s, glm::vec3(x, y, z));
+		s = glm::rotate(s, glm::radians(m_angle), m_rotation);
 
-		//m_transform = glm::translate(m_position, glm::vec3(1.0f, 1.0f, 1.0f));
-		//m_transform = glm::rotate(m_rotation, glm::radians(1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+		m_size = glm::vec3(x, y, z);
 
-		return m_transform;
-
+		return s;
 	}
 
 	glm::mat4 Transform::setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle)

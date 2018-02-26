@@ -17,11 +17,11 @@ namespace Skel { namespace maths {
 	{
 	private:
 		glm::mat4 m_transform;
-		glm::mat4 m_oldTransform;
 
-		glm::mat4 m_position;
-		glm::mat4 m_size;
-		glm::mat4 m_rotation;
+		glm::vec3 m_position;
+		glm::vec3 m_size;
+		glm::vec3 m_rotation;
+		float m_angle;
 
 		graphics::Shader* m_shader;
 	public:

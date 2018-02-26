@@ -32,41 +32,22 @@ namespace Skel { namespace entity {
 
 	void Entity::setSize(float x, float y, float z)
 	{
-		glm::mat4 s = m_transform.getTransformMatrice();
-		s = m_transform.setSize(x, y, z);
-		if (s != m_oldTransform)
-		{
-			m_transform.getTransformMatrice() = m_transform.setSize(x, y, z);
-			m_oldTransform = m_transform.getTransformMatrice();
-		}
-
+		m_transform.getTransformMatrice() = m_transform.setSize(x, y, z); // This is bad code
 	}
 
 	void Entity::setRotation(float angle, bool x /*= true*/, bool y /*= true*/, bool z /*= true*/)
 	{
-		glm::mat4 s = m_transform.getTransformMatrice();
-		s = m_transform.setRotation(angle, x, y, z);
-		if (s != m_oldTransform)
-		{
-			m_transform.getTransformMatrice() = m_transform.setRotation(angle, x, y, z);
-			m_oldTransform = m_transform.getTransformMatrice();
-		}
+		m_transform.getTransformMatrice() = m_transform.setRotation(angle, x, y, z); // This is bad code
 	}
 
 	void Entity::setPosition(float x, float y, float z)
 	{
-		glm::mat4 s = m_transform.getTransformMatrice();
-		s = m_transform.setPosition(x, y, z);
-		if (s != m_oldTransform)
-		{
-			m_transform.getTransformMatrice() = m_transform.setPosition(x, y, z);
-			m_oldTransform = m_transform.getTransformMatrice();
-		}
+		m_transform.getTransformMatrice() = m_transform.setPosition(x, y, z); // This is bad code
 	}
 
 	void Entity::setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle)
 	{
-		m_transform.getTransformMatrice() = m_transform.setTransform(position, size, rotation, angle);
+		m_transform.getTransformMatrice() = m_transform.setTransform(position, size, rotation, angle); // This is bad code
 	}
 
 } }

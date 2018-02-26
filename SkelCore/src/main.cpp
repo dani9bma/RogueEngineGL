@@ -77,43 +77,20 @@ int main(void)
 		skybox.update(camera, projection);
 		shader->enable();
 
-		/*glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.0f, -5.0, -2.0f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		shader->setUniformMat4("model", model);*/
-
 		sponza->draw();
 
-		//garrosh->setPosition(50.0f, -5.0f, -2.0f);
-		//garrosh->setSize(4.0f, 4.0f, 4.0f);
-		//garrosh->setRotation(glfwGetTime(), false, true, false);
-		garrosh->setTransform(glm::vec3(10.0f, -5.0, -2.0f), glm::vec3(4.0f, 4.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), glfwGetTime() * 2.0f);
+		garrosh->setPosition(10.0f, -5.0f, -2.0f);
+		garrosh->setSize(4.0f, 4.0f, 4.0f);
+		garrosh->setRotation(glfwGetTime(), false, true, false);
+		//garrosh->setTransform(glm::vec3(10.0f, -5.0, -2.0f), glm::vec3(4.0f, 4.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), glfwGetTime() * 2.0f);
 		garrosh->draw();
 
-		//crysis->setPosition(0.0f, -5.0f, -2.0f);
-		//crysis->setSize(1.0f, 1.0f, 1.0f);
-		//crysis->setRotation(180.0f, false, true, false);
-		crysis->setTransform(glm::vec3(0.0f, -5.0f, -2.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f);
+		crysis->setPosition(0.0f, -5.0f, -2.0f);
+		crysis->setSize(1.0f, 1.0f, 1.0f);
+		crysis->setRotation(180.0f, false, true, false);
+		//crysis->setTransform(glm::vec3(0.0f, -5.0f, -2.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f);
 		crysis->draw();
 
-
-
-		/*sponza.Draw(shader);
-
-		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.0f, -5.0, -2.0f));
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		shader->setUniformMat4("model", model);
-		crysis.Draw(shader);
-
-		glm::mat4 model3;
-		model3 = glm::translate(model3, glm::vec3(10.0f, -5.0, -2.0f));
-		model3 = glm::scale(model3, glm::vec3(4.0f, 4.0f, 4.0f));
-		model3 = glm::rotate(model3, glm::radians(180.0f) + (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f));
-		shader->setUniformMat4("model", model3);
-		garrosh.Draw(shader);*/
 
 		//Render
 		camera.update();
