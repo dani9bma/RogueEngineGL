@@ -26,6 +26,7 @@ namespace Skel { namespace entity {
 	private:
 		std::unordered_map<component::ComponentType*, component::Component*> m_components;
 		maths::Transform m_transform;
+		glm::mat4 m_oldTransform;
 		graphics::Shader* m_shader;
 	public:
 		Entity() { }
@@ -35,6 +36,7 @@ namespace Skel { namespace entity {
 		void setSize(float x, float y, float z);
 		void setRotation(float angle, bool x = true, bool y = true, bool z = true);
 		void setPosition(float x, float y, float z);
+		void setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle);
 
 		template <typename T>
 		T* getComponent()

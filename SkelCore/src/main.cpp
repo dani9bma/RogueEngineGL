@@ -85,14 +85,16 @@ int main(void)
 
 		sponza->draw();
 
-		garrosh->setRotation(glfwGetTime(), false, true, false);
 		//garrosh->setPosition(50.0f, -5.0f, -2.0f);
-		garrosh->setSize(4.0f, 4.0f, 4.0f);
+		//garrosh->setSize(4.0f, 4.0f, 4.0f);
+		//garrosh->setRotation(glfwGetTime(), false, true, false);
+		garrosh->setTransform(glm::vec3(10.0f, -5.0, -2.0f), glm::vec3(4.0f, 4.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), glfwGetTime() * 2.0f);
 		garrosh->draw();
 
-		crysis->setPosition(0.0f, -5.0f, -2.0f);
-		crysis->setSize(1.0f, 1.0f, 1.0f);
-		crysis->setRotation(180.0f, false, true, false);
+		//crysis->setPosition(0.0f, -5.0f, -2.0f);
+		//crysis->setSize(1.0f, 1.0f, 1.0f);
+		//crysis->setRotation(180.0f, false, true, false);
+		crysis->setTransform(glm::vec3(0.0f, -5.0f, -2.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f);
 		crysis->draw();
 
 

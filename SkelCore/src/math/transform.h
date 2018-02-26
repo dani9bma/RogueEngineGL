@@ -17,6 +17,8 @@ namespace Skel { namespace maths {
 	{
 	private:
 		glm::mat4 m_transform;
+		glm::mat4 m_oldTransform;
+
 		glm::mat4 m_position;
 		glm::mat4 m_size;
 		glm::mat4 m_rotation;
@@ -31,6 +33,7 @@ namespace Skel { namespace maths {
 		glm::mat4 setRotation(float angle, bool x = true, bool y = true, bool z = true);
 		glm::mat4 setPosition(float x, float y, float z);
 		glm::mat4 setSize(float x, float y, float z);
+		glm::mat4 setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle);
 
 		inline glm::mat4& getTransformMatrice() { return m_transform; }
 	};
