@@ -69,6 +69,18 @@
     <ClCompile Include="src\platform\opengl\entity\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\platform\directx\graphics\Context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\directx\graphics\DXWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\directx\graphics\DXShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\directx\graphics\DXIndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\imgui\imconfig.h">
@@ -140,5 +152,21 @@
     <ClInclude Include="src\platform\opengl\entity\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\platform\directx\graphics\Context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\directx\graphics\DXWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\directx\graphics\DXShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\directx\graphics\DXIndexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\platform\directx\shaders\basicPixel.hlsl" />
+    <FxCompile Include="src\platform\directx\shaders\basicVert.hlsl" />
   </ItemGroup>
 </Project>
