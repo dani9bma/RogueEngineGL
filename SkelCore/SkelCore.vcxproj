@@ -88,7 +88,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;assimp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>imm32.lib;D3DCompiler.lib;d3d11.lib;dxgi.lib;glew32s.lib;glfw3.lib;opengl32.lib;assimp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,25 +130,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\entity\components\MeshComponent.cpp">
+    <ClCompile Include="src\platform\opengl\entity\components\MeshComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\entity\entity.cpp">
+    <ClCompile Include="src\platform\opengl\entity\entity.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\lighting\DirectionalLight.cpp" />
-    <ClCompile Include="src\graphics\mesh.cpp">
+    <ClCompile Include="src\platform\opengl\graphics\lighting\DirectionalLight.cpp" />
+    <ClCompile Include="src\platform\opengl\graphics\mesh.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\model.cpp">
+    <ClCompile Include="src\platform\opengl\graphics\model.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\skybox.cpp" />
-    <ClCompile Include="src\math\transform.cpp">
+    <ClCompile Include="src\platform\opengl\graphics\skybox.cpp" />
+    <ClCompile Include="src\platform\opengl\math\transform.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -156,26 +156,26 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\camera\camera.cpp" />
-    <ClCompile Include="src\graphics\opengl\IndexBuffer.cpp" />
-    <ClCompile Include="src\graphics\opengl\opengl.h">
+    <ClCompile Include="src\platform\opengl\graphics\camera\camera.cpp" />
+    <ClCompile Include="src\platform\opengl\graphics\opengl\IndexBuffer.cpp" />
+    <ClCompile Include="src\platform\opengl\graphics\opengl\opengl.h">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\opengl\shader.cpp">
+    <ClCompile Include="src\platform\opengl\graphics\opengl\shader.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\opengl\texture.cpp">
+    <ClCompile Include="src\platform\opengl\graphics\opengl\texture.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\opengl\VertexArray.cpp" />
-    <ClCompile Include="src\graphics\opengl\VertexBuffer.cpp">
+    <ClCompile Include="src\platform\opengl\graphics\opengl\VertexArray.cpp" />
+    <ClCompile Include="src\platform\opengl\graphics\opengl\VertexBuffer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\graphics\window.cpp">
+    <ClCompile Include="src\platform\opengl\graphics\window.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -186,28 +186,29 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\entity\components\component.h" />
-    <ClInclude Include="src\entity\components\MeshComponent.h" />
-    <ClInclude Include="src\entity\entity.h" />
+    <ClInclude Include="src\DXScene.h" />
+    <ClInclude Include="src\platform\opengl\entity\components\component.h" />
+    <ClInclude Include="src\platform\opengl\entity\components\MeshComponent.h" />
+    <ClInclude Include="src\platform\opengl\entity\entity.h" />
     <ClInclude Include="src\GLScene.h" />
-    <ClInclude Include="src\graphics\camera\camera.h" />
-    <ClInclude Include="src\graphics\lighting\DirectionalLight.h" />
-    <ClInclude Include="src\graphics\mesh.h" />
-    <ClInclude Include="src\graphics\model.h" />
-    <ClInclude Include="src\graphics\opengl\IndexBuffer.h" />
-    <ClInclude Include="src\graphics\opengl\shader.h" />
-    <ClInclude Include="src\graphics\opengl\texture.h" />
-    <ClInclude Include="src\graphics\opengl\VertexArray.h" />
-    <ClInclude Include="src\graphics\opengl\VertexBuffer.h" />
-    <ClInclude Include="src\graphics\skybox.h" />
-    <ClInclude Include="src\graphics\window.h" />
+    <ClInclude Include="src\platform\opengl\graphics\camera\camera.h" />
+    <ClInclude Include="src\platform\opengl\graphics\lighting\DirectionalLight.h" />
+    <ClInclude Include="src\platform\opengl\graphics\mesh.h" />
+    <ClInclude Include="src\platform\opengl\graphics\model.h" />
+    <ClInclude Include="src\platform\opengl\graphics\opengl\IndexBuffer.h" />
+    <ClInclude Include="src\platform\opengl\graphics\opengl\shader.h" />
+    <ClInclude Include="src\platform\opengl\graphics\opengl\texture.h" />
+    <ClInclude Include="src\platform\opengl\graphics\opengl\VertexArray.h" />
+    <ClInclude Include="src\platform\opengl\graphics\opengl\VertexBuffer.h" />
+    <ClInclude Include="src\platform\opengl\graphics\skybox.h" />
+    <ClInclude Include="src\platform\opengl\graphics\window.h" />
     <ClInclude Include="src\imgui\imconfig.h" />
     <ClInclude Include="src\imgui\imgui.h" />
     <ClInclude Include="src\imgui\imgui_internal.h" />
     <ClInclude Include="src\imgui\stb_rect_pack.h" />
     <ClInclude Include="src\imgui\stb_textedit.h" />
     <ClInclude Include="src\imgui\stb_truetype.h" />
-    <ClInclude Include="src\math\transform.h" />
+    <ClInclude Include="src\platform\opengl\math\transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

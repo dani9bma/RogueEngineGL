@@ -11,8 +11,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#include "../utils/log.h"
-#include "../utils/common.h"
+#include "../../../utils/log.h"
+#include "../../../utils/common.h"
 
 namespace Skel
 {

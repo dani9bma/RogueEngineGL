@@ -11,8 +11,8 @@
 #include <iostream>
 #include "shader.h"
 
-#include "../../utils/common.h"
-#include "../../utils/log.h"
+#include "../../../../utils/common.h"
+#include "../../../../utils/log.h"
 
 namespace Skel
 {

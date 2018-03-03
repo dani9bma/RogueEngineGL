@@ -5,15 +5,15 @@
 * @Github https://github.com/dani9bma
 */
 
-#include "graphics/opengl/opengl.h"
-#include "graphics/window.h"
-#include "graphics/camera/camera.h"
-#include "graphics/lighting/DirectionalLight.h"
+#include "platform/opengl/graphics/opengl/opengl.h"
+#include "platform/opengl/graphics/window.h"
+#include "platform/opengl/graphics/camera/camera.h"
+#include "platform/opengl/graphics/lighting/DirectionalLight.h"
 #include "utils/common.h"
 #include "utils/log.h"
-#include "graphics/model.h"
-#include "graphics/skybox.h"
-#include "entity/entity.h"
+#include "platform/opengl/graphics/model.h"
+#include "platform/opengl/graphics/skybox.h"
+#include "platform/opengl/entity/entity.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -28,8 +28,8 @@ namespace Skel
 		{
 			Window* window = new Window(1280, 720, "Skel Engine");
 
-			Shader* shader = new Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/basic.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/basic.frag");
-			Shader* skyboxShader = new Shader("E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.vert", "E:/Dev/SkelEngine/SkelCore/src/shaders/cubemap.frag");
+			Shader* shader = new Shader("src/platform/opengl/shaders/basic.vert", "src/platform/opengl/shaders/basic.frag");
+			Shader* skyboxShader = new Shader("src/platform/opengl/shaders/cubemap.vert", "src/platform/opengl/shaders/cubemap.frag");
 
 			shader->enable();
 

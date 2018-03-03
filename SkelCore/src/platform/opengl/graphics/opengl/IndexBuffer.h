@@ -9,7 +9,7 @@
 
 #include <GL/glew.h>
 
-#include "../../utils/common.h"
+#include "../../../../utils/common.h"
 
 namespace Skel
 {

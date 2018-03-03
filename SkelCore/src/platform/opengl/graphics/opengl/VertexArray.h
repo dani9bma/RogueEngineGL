@@ -10,7 +10,7 @@
 #include <GL/glew.h>
 
 #include "VertexBuffer.h"
-#include "../../utils/common.h"
+#include "../../../../utils/common.h"
 
 namespace Skel
 {

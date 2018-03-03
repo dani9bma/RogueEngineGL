@@ -3,7 +3,7 @@
 namespace Skel
 {
 	Model::~Model()
-		= default;
+	{}
 
 	void Model::Draw(Shader* shader)
 	{
