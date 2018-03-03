@@ -5,10 +5,10 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "vertex_array.h"
+#include "VertexArray.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	VertexArray::VertexArray()
 	{
 		GLCall(glGenVertexArrays(1, &m_VAO));
@@ -37,5 +37,4 @@ namespace Skel { namespace graphics {
 	{
 		GLCall(glBindVertexArray(0));
 	}
-
-} }
+}

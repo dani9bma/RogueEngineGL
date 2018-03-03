@@ -18,8 +18,8 @@
 #include "../../utils/common.h"
 #include "../../utils/log.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	class Shader
 	{
 	public:
@@ -42,5 +42,4 @@ namespace Skel { namespace graphics {
 	private:
 		unsigned int m_shaderID;
 	};
-
-} }
+}

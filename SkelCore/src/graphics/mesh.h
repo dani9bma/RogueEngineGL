@@ -11,16 +11,16 @@
 #include <sstream>
 #include <iostream>
 
-#include "opengl/vertex_array.h"
-#include "opengl/vertex_buffer.h"
-#include "opengl/index_buffer.h"
+#include "opengl/VertexArray.h"
+#include "opengl/VertexBuffer.h"
+#include "opengl/IndexBuffer.h"
 #include "opengl/shader.h"
 #include "opengl/texture.h"
 
 #include <GLFW/glfw3.h>
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	struct TextureMesh {
 		unsigned int id;
 		std::string type;
@@ -44,5 +44,5 @@ namespace Skel { namespace graphics {
 		VertexBuffer m_vbo;
 		void setupMesh();
 	};
-}}
 
+}

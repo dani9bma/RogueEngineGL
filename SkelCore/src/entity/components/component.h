@@ -9,11 +9,9 @@
 
 #include <string>
 
-namespace Skel { namespace entity {
+namespace Skel
+{
 	class Entity;
-} }
-
-namespace Skel { namespace entity { namespace component {
 
 	struct ComponentType
 	{
@@ -23,11 +21,12 @@ namespace Skel { namespace entity { namespace component {
 	class Component
 	{
 	protected:
-		Entity* m_entity;
+		Entity * m_entity;
 
 	public:
 		virtual Entity* getEntity() const { return m_entity; }
 		virtual ComponentType* getComponentType() const { return nullptr; }
 	};
 
-}}}
+}
+

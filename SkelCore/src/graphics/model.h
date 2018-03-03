@@ -18,10 +18,8 @@
 #include "opengl/stb_image.h"
 #include "../utils/log.h"
 
-namespace Skel { namespace graphics {
-
-	unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma = false);
-
+namespace Skel
+{
 	class Model
 	{
 	public:
@@ -42,7 +40,4 @@ namespace Skel { namespace graphics {
 		Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 		std::vector<TextureMesh> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	};
-
-}}
-
-
+}

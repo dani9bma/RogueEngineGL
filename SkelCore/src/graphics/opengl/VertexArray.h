@@ -9,20 +9,20 @@
 
 #include <GL/glew.h>
 
-#include "vertex_buffer.h"
+#include "VertexBuffer.h"
 #include "../../utils/common.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	class VertexArray
 	{
 	public:
 		VertexArray();
 		~VertexArray();
 		/*
-		 * num Number of vertex attributes
-		 * index Index of the location on the shader
-		 */
+		* num Number of vertex attributes
+		* index Index of the location on the shader
+		*/
 		void addBuffer(int index, int num, VertexBuffer buffer, GLsizei stride = 0, const void* offset = 0);
 		void bind();
 		void unbind();
@@ -31,4 +31,4 @@ namespace Skel { namespace graphics {
 		unsigned int m_VAO;
 	};
 
-} }
+}

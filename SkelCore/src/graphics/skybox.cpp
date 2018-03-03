@@ -1,7 +1,7 @@
 #include "skybox.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	void Skybox::loadCubemap()
 	{
 		float skyboxVertices[] = {
@@ -70,7 +70,7 @@ namespace Skel { namespace graphics {
 			*front, back, up, down, right, left
 			**/
 		};
-		
+
 		for (GLuint i = 0; i < faces.size(); i++)
 		{
 			m_texture.loadCubemapTexture(faces[i], i);
@@ -101,6 +101,4 @@ namespace Skel { namespace graphics {
 	Skybox::~Skybox()
 	{
 	}
-
-}}
-
+}

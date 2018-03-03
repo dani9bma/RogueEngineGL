@@ -7,8 +7,8 @@
 	
 #include "camera.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	Camera::Camera(int width, int height, float sensitivity, Window* window, Shader* shader)
 	{
 		m_cameraPos = glm::vec3(0.0f, 0.0f, 0.f);
@@ -83,5 +83,4 @@ namespace Skel { namespace graphics {
 		m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
 		m_shader->setUniformMat4("view", m_view);
 	}
-
-} }
+}

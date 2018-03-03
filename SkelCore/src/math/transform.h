@@ -11,8 +11,8 @@
 
 #include "../graphics/opengl/shader.h"
 
-namespace Skel { namespace maths {
-
+namespace Skel
+{
 	class Transform
 	{
 	private:
@@ -23,10 +23,10 @@ namespace Skel { namespace maths {
 		glm::vec3 m_rotation;
 		float	  m_angle;
 
-		graphics::Shader* m_shader;
+		Shader* m_shader;
 	public:
 		Transform();
-		Transform(graphics::Shader* shader);
+		Transform(Shader* shader);
 		/*
 		* angle in degrees
 		*/
@@ -37,5 +37,4 @@ namespace Skel { namespace maths {
 
 		inline glm::mat4& getTransformMatrice() { return m_transform; }
 	};
-
-} }
+}

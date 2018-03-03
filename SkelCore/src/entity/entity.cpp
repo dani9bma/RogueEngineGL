@@ -7,17 +7,16 @@
 
 #include "entity.h"
 
-namespace Skel { namespace entity {
-
-
-	Entity::Entity(graphics::Model* mesh, graphics::Shader* shader)
+namespace Skel
+{
+	Entity::Entity(Model* mesh, Shader* shader)
 	{
-		addComponent(new component::MeshComponent(mesh));
-		m_transform = maths::Transform(shader);
+		addComponent(new MeshComponent(mesh));
+		m_transform = Transform(shader);
 		m_shader = shader;
 	}
 
-	void Entity::addComponent(component::Component* component)
+	void Entity::addComponent(Component* component)
 	{
 		m_components[component->getComponentType()] = component;
 	}
@@ -25,7 +24,7 @@ namespace Skel { namespace entity {
 	void Entity::draw()
 	{
 		m_shader->setUniformMat4("model", m_transform.getTransformMatrice());
-		auto mesh = getComponent<entity::component::MeshComponent>();
+		auto mesh = getComponent<MeshComponent>();
 		mesh->draw(m_shader);
 	}
 
@@ -48,5 +47,5 @@ namespace Skel { namespace entity {
 	{
 		m_transform.getTransformMatrice() = m_transform.setTransform(position, size, rotation, angle); // This is bad code
 	}
+}
 
-} }

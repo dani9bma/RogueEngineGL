@@ -1,7 +1,7 @@
 #include "model.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	Model::~Model()
 		= default;
 
@@ -19,7 +19,7 @@ namespace Skel { namespace graphics {
 		// check for errors
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 		{
-			LOG_ERROR("GRAPHICS::MODEL::ASSIMP", "%s", importer.GetErrorString());
+			LOG_ERROR("MODEL::ASSIMP", "%s", importer.GetErrorString());
 			return;
 		}
 		// retrieve the directory path of the filepath
@@ -58,7 +58,7 @@ namespace Skel { namespace graphics {
 		{
 			Vertex vertex;
 			glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
-								// positions
+							  // positions
 			vector.x = mesh->mVertices[i].x;
 			vector.y = mesh->mVertices[i].y;
 			vector.z = mesh->mVertices[i].z;
@@ -168,5 +168,4 @@ namespace Skel { namespace graphics {
 		}
 		return textures;
 	}
-
-}}
+}

@@ -5,11 +5,10 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "directional_light.h"
+#include "DirectionalLight.h"
 
-namespace Skel { namespace graphics {
-
-
+namespace Skel
+{
 	DirectionalLight::DirectionalLight(Shader* shader, Camera camera)
 		: m_shader(shader), m_camera(camera)
 	{
@@ -49,5 +48,4 @@ namespace Skel { namespace graphics {
 	{
 		m_intensity = glm::vec3(value, value, value);
 	}
-
-} }
+}

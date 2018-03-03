@@ -7,9 +7,8 @@
 
 #include "shader.h"
 
-namespace Skel { namespace graphics {
-
-
+namespace Skel
+{
 	Shader::Shader(const char* vertPath, const char* fragPath)
 	{
 		m_shaderID = load(vertPath, fragPath);
@@ -65,7 +64,7 @@ namespace Skel { namespace graphics {
 		if (sucess == GL_FALSE)
 		{
 			GLCall(glGetShaderInfoLog(vertexShader, 512, 0, infoLog));
-			LOG_WARNING("GRAPHICS::SHADER::VERTEX", "%s", infoLog);
+			LOG_WARNING("SHADER::VERTEX", "%s", infoLog);
 		}
 
 		unsigned int fragShader;
@@ -77,7 +76,7 @@ namespace Skel { namespace graphics {
 		if (!sucess)
 		{
 			GLCall(glGetShaderInfoLog(fragShader, 512, 0, infoLog));
-			LOG_WARNING("GRAPHICS::SHADER::FRAGMENT", "%s", infoLog);
+			LOG_WARNING("SHADER::FRAGMENT", "%s", infoLog);
 		}
 
 		GLCall(programID = glCreateProgram());
@@ -88,7 +87,7 @@ namespace Skel { namespace graphics {
 		if (!sucess)
 		{
 			GLCall(glGetProgramInfoLog(fragShader, 512, 0, infoLog));
-			LOG_WARNING("GRAPHICS::SHADER::PROGRAM", "%s", infoLog);
+			LOG_WARNING("SHADER::PROGRAM", "%s", infoLog);
 		}
 		GLCall(glDeleteShader(vertexShader));
 		GLCall(glDeleteShader(fragShader));
@@ -135,5 +134,4 @@ namespace Skel { namespace graphics {
 	{
 		return glGetUniformLocation(m_shaderID, name);
 	}
-
-} }
+}

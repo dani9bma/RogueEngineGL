@@ -14,8 +14,8 @@
 #include "../../utils/common.h"
 #include "../../utils/log.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	class Texture
 	{
 	public:
@@ -30,5 +30,4 @@ namespace Skel { namespace graphics {
 	private:
 		unsigned int m_textureID;
 	};
-
-} }
+}

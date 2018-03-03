@@ -5,10 +5,10 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "vertex_buffer.h"
+#include "VertexBuffer.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	VertexBuffer::VertexBuffer(float data[], GLsizei size, BufferUsage usage)
 	{
 		GLCall(glGenBuffers(1, &m_VBO));
@@ -51,5 +51,4 @@ namespace Skel { namespace graphics {
 	{
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	}
-
-} }
+}

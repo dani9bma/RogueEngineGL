@@ -9,8 +9,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	Texture::Texture(const char* path, Shader* shader)
 	{
 		unsigned int texture;
@@ -40,7 +40,7 @@ namespace Skel { namespace graphics {
 		}
 		else
 		{
-			LOG_WARNING("GRAPHICS::TEXTURE", "Failed to load texture");
+			LOG_WARNING("TEXTURE", "Failed to load texture");
 		}
 		stbi_image_free(data);
 		shader->enable();
@@ -77,7 +77,7 @@ namespace Skel { namespace graphics {
 		}
 		else
 		{
-			LOG_WARNING("GRAPHICS::TEXTURE", "Failed to load texture");
+			LOG_WARNING("TEXTURE", "Failed to load texture");
 		}
 		stbi_image_free(data);
 		m_textureID = texture;
@@ -111,7 +111,7 @@ namespace Skel { namespace graphics {
 		}
 		else
 		{
-			LOG_WARNING("GRAPHICS::TEXTURE", "Failed to load texture");
+			LOG_WARNING("TEXTURE", "Failed to load texture");
 		}
 		stbi_image_free(data);
 		m_textureID = texture;
@@ -126,5 +126,4 @@ namespace Skel { namespace graphics {
 		GLCall(glActiveTexture(GL_TEXTURE0 + n));
 		GLCall(glBindTexture(GL_TEXTURE_2D, m_textureID));
 	}
-
-} }
+}

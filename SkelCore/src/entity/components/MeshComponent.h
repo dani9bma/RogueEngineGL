@@ -12,17 +12,16 @@
 #include "../../graphics/model.h"
 #include "../../graphics/opengl/shader.h"
 
-
-namespace Skel { namespace entity { namespace component {
-
+namespace Skel
+{
 	class MeshComponent : public Component
 	{
 	private:
-		graphics::Model* m_mesh;
+		Model * m_mesh;
 
 	public:
-		MeshComponent(graphics::Model* mesh);
-		void draw(graphics::Shader* shader);
+		MeshComponent(Model* mesh);
+		void draw(Shader* shader);
 
 		static ComponentType* getStaticType()
 		{
@@ -34,4 +33,4 @@ namespace Skel { namespace entity { namespace component {
 
 	};
 
-}}}
+}

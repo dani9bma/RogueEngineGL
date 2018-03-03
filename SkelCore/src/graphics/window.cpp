@@ -7,8 +7,8 @@
 
 #include "window.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
 		glViewport(0.5, 0.0, width, height);
@@ -24,9 +24,9 @@ namespace Skel { namespace graphics {
 	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
 		/*if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		else
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);*/
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);*/
 	}
 
 	Window::Window(int width, int height, const char* title)
@@ -39,7 +39,7 @@ namespace Skel { namespace graphics {
 		m_window = glfwCreateWindow(width, height, title, NULL, NULL);
 		if (!m_window)
 		{
-			LOG_ERROR("GRAPHICS::WINDOW", "Failed to create Window");
+			LOG_ERROR("WINDOW", "Failed to create Window");
 			glfwTerminate();
 			return;
 		}
@@ -61,6 +61,10 @@ namespace Skel { namespace graphics {
 		glfwSwapInterval(0); //V-Sync
 		m_lastTime = glfwGetTime();
 		m_fps = 0;
+
+		//		Input* input = Input(this);
+		//	m_input = input;
+		//delete[] input;
 	}
 
 	Window::~Window()
@@ -70,11 +74,13 @@ namespace Skel { namespace graphics {
 
 	void Window::update()
 	{
+
+
 		// Measure speed
 		double currentTime = glfwGetTime();
 		m_fps++;
 		if (currentTime - m_lastTime >= 1.0) // If last prinf() was more than 1 sec ago
-		{ 
+		{
 			LOG_INFO("UTILS", "%d FPS", m_fps);
 			m_fps = 0;
 			m_lastTime += 1.0;
@@ -83,10 +89,10 @@ namespace Skel { namespace graphics {
 			this->close();
 		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_K) == GLFW_PRESS)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		if(glfwGetKey(this->getGLFWwindow(), GLFW_KEY_O) == GLFW_PRESS)
+		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_O) == GLFW_PRESS)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		
-			
+
+
 
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
@@ -101,5 +107,4 @@ namespace Skel { namespace graphics {
 	{
 		glfwSetWindowShouldClose(m_window, 1);
 	}
-
-} }
+}

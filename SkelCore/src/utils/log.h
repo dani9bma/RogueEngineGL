@@ -10,8 +10,6 @@
 #include <stdio.h>
 #include <Windows.h>
 
-namespace Skel { namespace utils {
-
 #define LOG_INFO(module, x, ...) {HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);\
 			printf("[SKEL::" module"] "  x "\n", __VA_ARGS__);}
 
@@ -24,5 +22,3 @@ namespace Skel { namespace utils {
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); \
 			printf("[SKEL::" module"] "  x "\n", __VA_ARGS__); \
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);} 
-
-} }

@@ -10,8 +10,8 @@
 #include "../window.h"
 #include "../opengl/shader.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	class Camera
 	{
 	public:
@@ -39,5 +39,4 @@ namespace Skel { namespace graphics {
 		Shader* m_shader;
 		glm::mat4 m_view;
 	};
-
-} }
+}

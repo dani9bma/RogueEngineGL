@@ -5,11 +5,10 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "index_buffer.h"
+#include "IndexBuffer.h"
 
-namespace Skel { namespace graphics {
-
-
+namespace Skel
+{
 	IndexBuffer::IndexBuffer(unsigned int data[], int count)
 		: m_count(count)
 	{
@@ -37,5 +36,4 @@ namespace Skel { namespace graphics {
 	{
 		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	}
-
-} }
+}

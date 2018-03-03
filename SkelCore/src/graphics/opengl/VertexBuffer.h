@@ -13,8 +13,8 @@
 
 #include "../../utils/common.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	struct Vertex {
 		glm::vec3 Position;
 		glm::vec3 Normal;
@@ -43,5 +43,4 @@ namespace Skel { namespace graphics {
 		unsigned int m_VBO;
 		int m_componentCount; //Gets the the size of the vertex attribute
 	};
-
-} }
+}

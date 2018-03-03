@@ -5,19 +5,18 @@
  * @Github https://github.com/dani9bma
  */
 
-#include "mesh_component.h"
+#include "MeshComponent.h"
 
-namespace Skel { namespace entity { namespace component {
-
-
-	MeshComponent::MeshComponent(graphics::Model* mesh)
+namespace Skel
+{
+	MeshComponent::MeshComponent(Model* mesh)
 		: m_mesh(mesh)
 	{
 	}
 
-	void MeshComponent::draw(graphics::Shader* shader)
+	void MeshComponent::draw(Shader* shader)
 	{
 		m_mesh->Draw(shader);
 	}
+}
 
-} } }

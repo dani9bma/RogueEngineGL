@@ -11,8 +11,8 @@
 
 #include "../../utils/common.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	class IndexBuffer
 	{
 	public:
@@ -27,5 +27,4 @@ namespace Skel { namespace graphics {
 		unsigned int m_EBO;
 		int m_count;
 	};
-
-} }
+}

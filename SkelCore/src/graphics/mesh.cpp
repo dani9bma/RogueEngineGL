@@ -1,8 +1,7 @@
 #include "mesh.h"
 
-
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureMesh> texture)
 	{
 		this->vertices = vertices;
@@ -68,5 +67,4 @@ namespace Skel { namespace graphics {
 		// always good practice to set everything back to defaults once configured.
 		glActiveTexture(GL_TEXTURE0);
 	}
-
-}}
+}

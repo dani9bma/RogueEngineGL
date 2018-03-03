@@ -12,9 +12,10 @@
 #include <iostream>
 
 #include "../utils/log.h"
+#include "../utils/common.h"
 
-namespace Skel { namespace graphics {
-
+namespace Skel
+{
 	class Window
 	{
 	public:
@@ -38,5 +39,4 @@ namespace Skel { namespace graphics {
 	private:
 		friend static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	};
-
-} }
+}
