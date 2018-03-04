@@ -117,5 +117,5 @@ void Context::update()
 
 void Context::draw()
 {
-	m_swapChain->Present(0, 0);
+	m_swapChain->Present(1, 0);
 }

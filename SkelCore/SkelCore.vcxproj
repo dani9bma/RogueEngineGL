@@ -368,6 +368,7 @@
     <ClCompile Include="src\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\imgui\imgui_draw.cpp" />
     <ClCompile Include="src\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="src\platform\directx\graphics\DXCamera.cpp" />
     <ClCompile Include="src\platform\directx\graphics\Context.cpp" />
     <ClCompile Include="src\platform\directx\graphics\DXIndexBuffer.cpp" />
@@ -435,6 +436,7 @@
     <ClInclude Include="src\imgui\imconfig.h" />
     <ClInclude Include="src\imgui\imgui.h" />
     <ClInclude Include="src\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="src\imgui\imgui_impl_glfw_gl3.h" />
     <ClInclude Include="src\imgui\imgui_internal.h" />
     <ClInclude Include="src\imgui\stb_rect_pack.h" />
     <ClInclude Include="src\imgui\stb_textedit.h" />
@@ -466,6 +468,7 @@
   <ItemGroup>
     <FxCompile Include="src\platform\directx\shaders\basicPixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='DirectXDebug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='OpenGLDebug|Win32'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="src\platform\directx\shaders\basicVert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='DirectXDebug|Win32'">Vertex</ShaderType>
@@ -473,6 +476,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="src\platform\opengl\shaders\basic.frag" />
+    <None Include="src\platform\opengl\shaders\basic.vert" />
+    <None Include="src\platform\opengl\shaders\cubemap.frag" />
+    <None Include="src\platform\opengl\shaders\cubemap.vert" />
+    <None Include="src\platform\opengl\shaders\lamp.frag" />
+    <None Include="src\platform\opengl\shaders\lamp.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

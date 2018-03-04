@@ -19,6 +19,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "imgui/imgui.h"
+
+extern bool        ImGui_ImplGlfwGL3_Init(GLFWwindow* window, bool install_callbacks);
+extern void        ImGui_ImplGlfwGL3_Shutdown();
+extern void        ImGui_ImplGlfwGL3_NewFrame();
+extern void        ImGui_ImplGlfwGL3_RenderDrawData(ImDrawData* draw_data);
+extern void        ImGui_ImplGlfwGL3_InvalidateDeviceObjects();
+extern bool        ImGui_ImplGlfwGL3_CreateDeviceObjects();
+
+
 namespace Skel
 {
 	class Scene3DOpenGL
@@ -57,8 +67,26 @@ namespace Skel
 			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 300.0f);
 			shader->setUniformMat4("projection", projection);
 
+			// Setup ImGui binding
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+			io.MouseDrawCursor = false;
+			io.Fonts->AddFontFromFileTTF("C:/Users/dinho/Desktop/Roboto-Regular.ttf", 18.0f);
+			ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+			ImGui_ImplGlfwGL3_Init(window->getGLFWwindow(), true);
+
+			// Setup style
+			ImGui::StyleColorsDark();
+
+			bool show_another_window = true;
+
+			bool wireframe = false;
+
+			bool gameMode = true;
+			
 			while (!window->closed())
 			{
+
 				//Render
 				GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
 				GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -86,10 +114,58 @@ namespace Skel
 				throne->setSize(1.0f, 1.0f, 1.0f);
 				throne->draw();
 
+				ImGui_ImplGlfwGL3_NewFrame();
+
+				if (show_another_window)
+				{
+					ImGui::Begin("Debug", &show_another_window);
+					ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);					if(ImGui::Button("Wireframe"))
+						if (!wireframe)
+						{
+							glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+							wireframe = true;
+						}
+						else
+						{
+							glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
+							wireframe = false;
+						}
+
+					ImGui::Text("Press G to enter Game Mode");
+					ImGui::Text("Press Shift-G to exit Game Mode");
+
+					ImGui::End();
+				}
+
+				if (glfwGetKey(window->getGLFWwindow(), GLFW_KEY_G) == GLFW_PRESS && glfwGetKey(window->getGLFWwindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+				{
+					camera.setGameMode(false);
+					gameMode = false;
+					glfwSetInputMode(window->getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				}
+				else if (glfwGetKey(window->getGLFWwindow(), GLFW_KEY_G) == GLFW_PRESS)
+				{
+					camera.setGameMode(true);
+					gameMode = true;
+					glfwSetInputMode(window->getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				}
+					
+					
+				
+					
+				
+				
+
 				//Render
 				camera.update();
+				ImGui::Render();
+				ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+
 				window->update();
 			}
+
+			ImGui_ImplGlfwGL3_Shutdown();
+			ImGui::DestroyContext();
 
 		}
 	};

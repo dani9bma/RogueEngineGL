@@ -39,23 +39,27 @@ namespace Skel
 		m_deltaTime = currentFrame - m_lastFrame;
 		m_lastFrame = currentFrame;
 
-		//#TODO: Make Input class
-		if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_W) == GLFW_PRESS)
-			m_cameraPos += cameraSpeed * m_cameraFront;
-		if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_S) == GLFW_PRESS)
-			m_cameraPos -= cameraSpeed * m_cameraFront;
-		if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_A) == GLFW_PRESS)
-			m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-		if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_D) == GLFW_PRESS)
-			m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-		if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-			m_cameraPos -= cameraSpeed * m_cameraUp;
-		if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
-			m_cameraPos += cameraSpeed * m_cameraUp;
+		double x = 0, y = 0;
 
-		double x, y;
-		m_window->getMousePosition(x, y);
+		if (m_gameMode)
+		{
+			//#TODO: Make Input class
+			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_W) == GLFW_PRESS)
+				m_cameraPos += cameraSpeed * m_cameraFront;
+			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_S) == GLFW_PRESS)
+				m_cameraPos -= cameraSpeed * m_cameraFront;
+			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_A) == GLFW_PRESS)
+				m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
+			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_D) == GLFW_PRESS)
+				m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
+			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+				m_cameraPos -= cameraSpeed * m_cameraUp;
+			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+				m_cameraPos += cameraSpeed * m_cameraUp;
 
+			m_window->getMousePosition(x, y);
+		}
+	
 		float xoffset = x - m_lastX;
 		float yoffset = m_lastY - y;
 		m_lastX = x;

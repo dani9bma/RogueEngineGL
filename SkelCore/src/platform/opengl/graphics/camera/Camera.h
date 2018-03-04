@@ -21,6 +21,7 @@ namespace Skel
 		void update();
 		inline glm::mat4 getView() const { return m_view; }
 		inline glm::vec3 getPosition() const { return m_cameraPos; }
+		inline void setGameMode(bool gm) { m_gameMode = gm; }
 	private:
 		glm::vec3 m_cameraPos;
 		glm::vec3 m_cameraTarget;
@@ -38,5 +39,6 @@ namespace Skel
 		Window* m_window;
 		Shader* m_shader;
 		glm::mat4 m_view;
+		bool m_gameMode = true;
 	};
 }

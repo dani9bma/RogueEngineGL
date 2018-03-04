@@ -1,5 +1,7 @@
 #include "DXCamera.h"
 
+#include <Windows.h>
+
 using namespace Skel;
 
 DXCamera::DXCamera(Context* context, DXWindow* window)
@@ -52,7 +54,7 @@ void DXCamera::update()
 	//Set cube1's world space using the transformations
 	auto cube1World = Rotation;
 
-	WVP = cube1World * camView * camProjection;
+	WVP = World * camView * camProjection;
 
 	m_cbObj.WVP = XMMatrixTranspose(WVP);
 
