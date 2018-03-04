@@ -2,7 +2,7 @@
 
 namespace Skel
 {
-	Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureMesh> texture)
+	Mesh::Mesh(std::vector<Vertices> vertices, std::vector<unsigned int> indices, std::vector<TextureMesh> texture)
 	{
 		this->vertices = vertices;
 		this->indices = indices;
@@ -17,14 +17,14 @@ namespace Skel
 	void Mesh::setupMesh()
 	{
 		m_vao.bind();
-		m_vbo = VertexBuffer(&vertices[0], vertices.size() * sizeof(Vertex), BufferUsage::STATIC);
+		m_vbo = VertexBuffer(&vertices[0], vertices.size() * sizeof(Vertices), BufferUsage::STATIC);
 		IndexBuffer ibo = IndexBuffer(&indices[0], indices.size() * sizeof(unsigned int));
 
-		m_vao.addBuffer(0, 3, m_vbo, sizeof(Vertex), (void*)0);
-		m_vao.addBuffer(1, 2, m_vbo, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-		m_vao.addBuffer(2, 3, m_vbo, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-		m_vao.addBuffer(3, 3, m_vbo, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-		m_vao.addBuffer(4, 3, m_vbo, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+		m_vao.addBuffer(0, 3, m_vbo, sizeof(Vertices), (void*)0);
+		m_vao.addBuffer(1, 2, m_vbo, sizeof(Vertices), (void*)offsetof(Vertices, TexCoords));
+		m_vao.addBuffer(2, 3, m_vbo, sizeof(Vertices), (void*)offsetof(Vertices, Normal));
+		m_vao.addBuffer(3, 3, m_vbo, sizeof(Vertices), (void*)offsetof(Vertices, Tangent));
+		m_vao.addBuffer(4, 3, m_vbo, sizeof(Vertices), (void*)offsetof(Vertices, Bitangent));
 
 		m_vao.unbind();
 

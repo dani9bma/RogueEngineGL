@@ -31,11 +31,11 @@ namespace Skel
 	{
 	public:
 		/*Mesh Data*/
-		std::vector<Vertex> vertices;
+		std::vector<Vertices> vertices;
 		std::vector<unsigned int> indices;
 		std::vector<TextureMesh> textures;
 
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureMesh> texture);
+		Mesh(std::vector<Vertices> vertices, std::vector<unsigned int> indices, std::vector<TextureMesh> texture);
 		~Mesh();
 		void Draw(Shader* shader);
 	private:

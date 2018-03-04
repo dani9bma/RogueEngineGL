@@ -23,7 +23,7 @@ namespace Skel
 		}
 	}
 
-	VertexBuffer::VertexBuffer(Vertex data[], GLsizei size, BufferUsage usage)
+	VertexBuffer::VertexBuffer(Vertices data[], GLsizei size, BufferUsage usage)
 	{
 		GLCall(glGenBuffers(1, &m_VBO));
 		bind();

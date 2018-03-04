@@ -13,5 +13,7 @@ namespace Skel
 	public:
 		DXIndexBuffer(unsigned long indices[], int size, Context* context);
 		~DXIndexBuffer();
+		void bind();
+		void unbind();
 	};
 }

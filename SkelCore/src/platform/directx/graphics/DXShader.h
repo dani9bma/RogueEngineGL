@@ -14,9 +14,11 @@ namespace Skel
 		ID3DBlob* m_PSBuffer;
 		ID3D11VertexShader* m_VS;
 		ID3D11PixelShader* m_PS;
+		ID3D11InputLayout* m_inputLayout;
 	public:
 		DXShader(Context* context);
 		~DXShader();
-		void SetShaders(const wchar_t* vsPath, const wchar_t* psPath);
+		void setShaders(const wchar_t* vsPath, const wchar_t* psPath);
+		void setInputLayout(D3D11_INPUT_ELEMENT_DESC layout[]);
 	};
 }

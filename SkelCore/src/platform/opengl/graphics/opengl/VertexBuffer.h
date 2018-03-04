@@ -15,7 +15,7 @@
 
 namespace Skel
 {
-	struct Vertex {
+	struct Vertices {
 		glm::vec3 Position;
 		glm::vec3 Normal;
 		glm::vec2 TexCoords;
@@ -34,7 +34,7 @@ namespace Skel
 	public:
 		VertexBuffer() { }
 		VertexBuffer(float data[], GLsizei size, BufferUsage usage);
-		VertexBuffer(Vertex data[], GLsizei size, BufferUsage usage);
+		VertexBuffer(Vertices data[], GLsizei size, BufferUsage usage);
 		~VertexBuffer();
 		void bind();
 		void unbind();

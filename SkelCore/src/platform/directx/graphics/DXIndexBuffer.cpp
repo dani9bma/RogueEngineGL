@@ -19,10 +19,20 @@ DXIndexBuffer::DXIndexBuffer(unsigned long indices[], int size, Context* context
 	iinitData.pSysMem = indices;
 	m_context->getDevice()->CreateBuffer(&indexBufferDesc, &iinitData, &m_indexBuffer);
 
-	m_context->getDeviceContext()->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	bind();
 }
 
 DXIndexBuffer::~DXIndexBuffer()
 {
+	unbind();
+}
 
+void DXIndexBuffer::bind()
+{
+	m_context->getDeviceContext()->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+}
+
+void DXIndexBuffer::unbind()
+{
+	m_indexBuffer->Release();
 }
