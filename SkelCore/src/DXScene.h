@@ -10,6 +10,16 @@
 
 #include <DirectXMath.h>
 
+#include "imgui/imgui.h"
+
+
+extern bool ImGui_ImplDX11_Init(void* hwnd, ID3D11Device* device, ID3D11DeviceContext* device_context);
+extern void ImGui_ImplDX11_Shutdown();
+extern void ImGui_ImplDX11_NewFrame();
+extern void ImGui_ImplDX11_RenderDrawData(ImDrawData* draw_data);
+extern void ImGui_ImplDX11_InvalidateDeviceObjects();
+extern bool ImGui_ImplDX11_CreateDeviceObjects();
+
 using namespace DirectX;
 
 struct Vertex    //Overloaded Vertex Structure
@@ -113,11 +123,34 @@ public:
 		DXTexture* texture = new DXTexture(context, L"src/textures/ice.jpg");
 
 
+		// Setup ImGui binding
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.Fonts->AddFontFromFileTTF("C:/Users/dinho/Desktop/Roboto-Regular.ttf", 18.0f);
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+		ImGui_ImplDX11_Init(window->getHandle(), context->getDevice(), context->getDeviceContext());
+
+		// Setup style
+		ImGui::StyleColorsDark();
+
+		bool show_another_window = true;
+
 		while (!window->closed())
 		{
 			window->update();
-			context->update();
+
+			ImGui_ImplDX11_NewFrame();
+
+
+			if (show_another_window)
+			{
+				ImGui::Begin("Debug", &show_another_window);
+				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+				ImGui::End();
+			}
+
 			//Render
+			context->update();
 
 			camera->update();
 			texture->update();
@@ -125,6 +158,10 @@ public:
 
 			context->draw();
 		}
+		
+		ImGui_ImplDX11_Shutdown();
+		ImGui::DestroyContext();
 
 	}
+
 };

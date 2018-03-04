@@ -364,6 +364,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\imgui\imgui.cpp" />
+    <ClCompile Include="src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="src\platform\directx\graphics\DXCamera.cpp" />
     <ClCompile Include="src\platform\directx\graphics\Context.cpp" />
     <ClCompile Include="src\platform\directx\graphics\DXIndexBuffer.cpp" />
@@ -428,6 +432,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DXScene.h" />
+    <ClInclude Include="src\imgui\imconfig.h" />
+    <ClInclude Include="src\imgui\imgui.h" />
+    <ClInclude Include="src\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="src\imgui\imgui_internal.h" />
+    <ClInclude Include="src\imgui\stb_rect_pack.h" />
+    <ClInclude Include="src\imgui\stb_textedit.h" />
+    <ClInclude Include="src\imgui\stb_truetype.h" />
     <ClInclude Include="src\platform\directx\graphics\Context.h" />
     <ClInclude Include="src\platform\directx\graphics\DXCamera.h" />
     <ClInclude Include="src\platform\directx\graphics\DXIndexBuffer.h" />
@@ -450,12 +461,6 @@
     <ClInclude Include="src\platform\opengl\graphics\opengl\VertexBuffer.h" />
     <ClInclude Include="src\platform\opengl\graphics\skybox.h" />
     <ClInclude Include="src\platform\opengl\graphics\window.h" />
-    <ClInclude Include="src\imgui\imconfig.h" />
-    <ClInclude Include="src\imgui\imgui.h" />
-    <ClInclude Include="src\imgui\imgui_internal.h" />
-    <ClInclude Include="src\imgui\stb_rect_pack.h" />
-    <ClInclude Include="src\imgui\stb_textedit.h" />
-    <ClInclude Include="src\imgui\stb_truetype.h" />
     <ClInclude Include="src\platform\opengl\math\transform.h" />
   </ItemGroup>
   <ItemGroup>

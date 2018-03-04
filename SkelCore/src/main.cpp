@@ -16,5 +16,5 @@ int main(void)
 	Scene3DOpenGL* sceneOpengl = new Scene3DOpenGL();
 #elif SKEL_DX
 	DXScene* sceneDX = new DXScene();
-}
 #endif
+}

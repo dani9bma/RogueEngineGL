@@ -1,4 +1,14 @@
 #include "Context.h"
+#include "../../../imgui/imgui.h"
+
+
+extern bool ImGui_ImplDX11_Init(void* hwnd, ID3D11Device* device, ID3D11DeviceContext* device_context);
+extern void ImGui_ImplDX11_Shutdown();
+extern void ImGui_ImplDX11_NewFrame();
+extern void ImGui_ImplDX11_RenderDrawData(ImDrawData* draw_data);
+extern void ImGui_ImplDX11_InvalidateDeviceObjects();
+extern bool ImGui_ImplDX11_CreateDeviceObjects();
+
 
 using namespace Skel;
 
@@ -62,8 +72,6 @@ Context::Context(DXWindow* window)
 	m_device->CreateTexture2D(&depthStencilDesc, NULL, &m_depthStencilBuffer);
 	m_device->CreateDepthStencilView(m_depthStencilBuffer, NULL, &m_depthStencilView);
 
-	m_deviceContext->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
-
 
 	//Create the Viewport
 	D3D11_VIEWPORT viewport;
@@ -94,8 +102,14 @@ void Context::update()
 {
 	//Clear our backbuffer
 	float bgColor[4] = { (0.0f, 0.0f, 0.0f, 0.0f) };
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	//Set our Render Target
-	m_deviceContext->ClearRenderTargetView(m_renderTargetView, bgColor);
+	m_deviceContext->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+	m_deviceContext->ClearRenderTargetView(m_renderTargetView, (float*)&clear_color);
+
+
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	//Refresh the Depth/Stencil view
 	m_deviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);

@@ -8,10 +8,15 @@
 #include "DXWindow.h"
 #include "../../../utils/log.h"
 
+
 using namespace Skel;
 
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WinProc(HWND handle, UINT msg, WPARAM wparam, LPARAM lparam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(handle, msg, wparam, lparam))
+		return true;
+
 	switch (msg)
 	{
 	case WM_KEYDOWN:
@@ -44,6 +49,9 @@ DXWindow::DXWindow(int width, int height, const char* title)
 		WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_VISIBLE,
 		width / 2, height / 2, width, height,
 		nullptr, nullptr, nullptr, nullptr);
+
+	ShowWindow(m_window, SW_SHOWDEFAULT);
+	UpdateWindow(m_window);
 }
 
 DXWindow::~DXWindow()
