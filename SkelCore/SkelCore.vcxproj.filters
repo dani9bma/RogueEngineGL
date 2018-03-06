@@ -214,7 +214,7 @@
     <None Include="src\platform\opengl\shaders\basic.vert" />
     <None Include="src\platform\opengl\shaders\cubemap.frag" />
     <None Include="src\platform\opengl\shaders\cubemap.vert" />
-    <None Include="src\platform\opengl\shaders\lamp.frag" />
-    <None Include="src\platform\opengl\shaders\lamp.vert" />
+    <None Include="src\platform\opengl\shaders\glass.frag" />
+    <None Include="src\platform\opengl\shaders\glass.vert" />
   </ItemGroup>
 </Project>

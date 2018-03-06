@@ -36,10 +36,36 @@ namespace Skel
 	public:
 		Scene3DOpenGL()
 		{
+			float transparentVertices[] = {
+				// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
+				0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+				0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
+				1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+
+				0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+				1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+				1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+			};
+
+
+
 			Window* window = new Window(1280, 720, "Skel Engine");
 
 			Shader* shader = new Shader("src/platform/opengl/shaders/basic.vert", "src/platform/opengl/shaders/basic.frag");
+			Shader* glassShader = new Shader("src/platform/opengl/shaders/glass.vert", "src/platform/opengl/shaders/glass.frag");
 			Shader* skyboxShader = new Shader("src/platform/opengl/shaders/cubemap.vert", "src/platform/opengl/shaders/cubemap.frag");
+
+			unsigned int transparentVAO, transparentVBO;
+			glGenVertexArrays(1, &transparentVAO);
+			glGenBuffers(1, &transparentVBO);
+			glBindVertexArray(transparentVAO);
+			glBindBuffer(GL_ARRAY_BUFFER, transparentVBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), transparentVertices, GL_STATIC_DRAW);
+			glEnableVertexAttribArray(0);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+			glEnableVertexAttribArray(1);
+			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+			glBindVertexArray(0);
 
 			shader->enable();
 
@@ -63,6 +89,8 @@ namespace Skel
 			Entity*crysis = new Entity(crysisModel, shader);
 			Entity*throne = new Entity(swThroneModel, shader);
 
+			Texture windowTexture("src/textures/window.png", shader);
+
 			glm::mat4 projection;
 			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 300.0f);
 			shader->setUniformMat4("projection", projection);
@@ -83,6 +111,7 @@ namespace Skel
 			bool wireframe = false;
 
 			bool gameMode = true;
+
 			
 			while (!window->closed())
 			{
@@ -91,11 +120,14 @@ namespace Skel
 				GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
 				GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 				GLCall(glEnable(GL_DEPTH_TEST));
+				GLCall(glEnable(GL_BLEND));
+				GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 				light.update();
 				skybox.update(camera, projection);
-				shader->enable();
 
+				shader->enable();
+				
 				sponza->draw();
 
 				garrosh->setPosition(10.0f, -5.0f, -2.0f);
@@ -113,6 +145,22 @@ namespace Skel
 				throne->setPosition(0.0f, -5.0f, 15.0f);
 				throne->setSize(1.0f, 1.0f, 1.0f);
 				throne->draw();
+
+				glassShader->enable();
+				glm::mat4 model;
+				model = glm::translate(model, glm::vec3(0.0f, 0.0, 2.0f));
+				model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
+				model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+				glassShader->setUniformMat4("model", model);
+				glassShader->setUniformMat4("projection", projection);
+				glassShader->setUniformMat4("view", camera.getView());
+
+				glBindVertexArray(transparentVAO);
+				windowTexture.draw(0);
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+				glBindVertexArray(0);
+				
+				shader->enable();
 
 				ImGui_ImplGlfwGL3_NewFrame();
 
@@ -132,12 +180,12 @@ namespace Skel
 						}
 
 					ImGui::Text("Press G to enter Game Mode");
-					ImGui::Text("Press Shift-G to exit Game Mode");
+					ImGui::Text("Press Ctrl-G to exit Game Mode");
 
 					ImGui::End();
 				}
 
-				if (glfwGetKey(window->getGLFWwindow(), GLFW_KEY_G) == GLFW_PRESS && glfwGetKey(window->getGLFWwindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+				if (glfwGetKey(window->getGLFWwindow(), GLFW_KEY_G) == GLFW_PRESS && glfwGetKey(window->getGLFWwindow(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 				{
 					camera.setGameMode(false);
 					gameMode = false;
@@ -151,11 +199,6 @@ namespace Skel
 				}
 					
 					
-				
-					
-				
-				
-
 				//Render
 				camera.update();
 				ImGui::Render();
