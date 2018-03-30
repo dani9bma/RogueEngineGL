@@ -99,7 +99,7 @@ namespace Skel
 			ImGui::CreateContext();
 			ImGuiIO& io = ImGui::GetIO(); (void)io;
 			io.MouseDrawCursor = false;
-			io.Fonts->AddFontFromFileTTF("C:/Users/dinho/Desktop/Roboto-Regular.ttf", 18.0f);
+			io.Fonts->AddFontFromFileTTF("fonts/Roboto-Regular.ttf", 18.0f);
 			ImGui::SetMouseCursor(ImGuiMouseCursor_None);
 			ImGui_ImplGlfwGL3_Init(window->getGLFWwindow(), true);
 
