@@ -528,6 +528,7 @@
     <ClInclude Include="SkelCore\src\platform\opengl\graphics\Skybox.h" />
     <ClInclude Include="SkelCore\src\platform\opengl\graphics\window.h" />
     <ClInclude Include="SkelCore\src\platform\opengl\math\Transform.h" />
+    <ClInclude Include="SkelCore\src\ui\ui_window.h" />
     <ClInclude Include="SkelCore\src\utils\Common.h" />
     <ClInclude Include="SkelCore\src\utils\Log.h" />
   </ItemGroup>
@@ -559,6 +560,7 @@
     <ClCompile Include="SkelCore\src\platform\opengl\graphics\Skybox.cpp" />
     <ClCompile Include="SkelCore\src\platform\opengl\graphics\window.cpp" />
     <ClCompile Include="SkelCore\src\platform\opengl\math\Transform.cpp" />
+    <ClCompile Include="SkelCore\src\ui\ui_window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

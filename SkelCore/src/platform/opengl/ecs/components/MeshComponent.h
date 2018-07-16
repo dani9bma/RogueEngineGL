@@ -30,7 +30,6 @@ namespace Skel
 		}
 
 		inline virtual ComponentType* getComponentType() const override { return getStaticType(); }
-
 	};
 
 }

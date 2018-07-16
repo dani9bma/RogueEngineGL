@@ -19,7 +19,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "imgui/imgui.h"
+#include "ui/ui_window.h"
 
 extern bool        ImGui_ImplGlfwGL3_Init(GLFWwindow* window, bool install_callbacks);
 extern void        ImGui_ImplGlfwGL3_Shutdown();
@@ -28,6 +28,21 @@ extern void        ImGui_ImplGlfwGL3_RenderDrawData(ImDrawData* draw_data);
 extern void        ImGui_ImplGlfwGL3_InvalidateDeviceObjects();
 extern bool        ImGui_ImplGlfwGL3_CreateDeviceObjects();
 
+bool m_wireframe(false);
+
+void Wireframe()
+{
+	if (!m_wireframe)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		m_wireframe = true;
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		m_wireframe = false;
+	}
+}
 
 namespace Skel
 {
@@ -36,36 +51,10 @@ namespace Skel
 	public:
 		Scene3DOpenGL()
 		{
-			float transparentVertices[] = {
-				// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
-				0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
-				0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
-				1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
-
-				0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
-				1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
-				1.0f,  0.5f,  0.0f,  1.0f,  0.0f
-			};
-
-
-
 			Window* window = new Window(1280, 720, "Skel Engine");
 
 			Shader* shader = new Shader("SkelCore/src/platform/opengl/shaders/basic.vert", "SkelCore/src/platform/opengl/shaders/basic.frag");
-			Shader* glassShader = new Shader("SkelCore/src/platform/opengl/shaders/glass.vert", "SkelCore/src/platform/opengl/shaders/glass.frag");
 			Shader* skyboxShader = new Shader("SkelCore/src/platform/opengl/shaders/cubemap.vert", "SkelCore/src/platform/opengl/shaders/cubemap.frag");
-
-			unsigned int transparentVAO, transparentVBO;
-			glGenVertexArrays(1, &transparentVAO);
-			glGenBuffers(1, &transparentVBO);
-			glBindVertexArray(transparentVAO);
-			glBindBuffer(GL_ARRAY_BUFFER, transparentVBO);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), transparentVertices, GL_STATIC_DRAW);
-			glEnableVertexAttribArray(0);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-			glBindVertexArray(0);
 
 			shader->enable();
 
@@ -89,22 +78,9 @@ namespace Skel
 			Entity* crysis = new Entity(crysisModel, shader);
 			Entity* throne = new Entity(swThroneModel, shader);
 
-			Texture windowTexture("SkelCore/src/textures/window.png", shader);
-
 			glm::mat4 projection;
 			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 300.0f);
 			shader->setUniformMat4("projection", projection);
-
-			// Setup ImGui binding
-			ImGui::CreateContext();
-			ImGuiIO& io = ImGui::GetIO(); (void)io;
-			io.MouseDrawCursor = false;
-			io.Fonts->AddFontFromFileTTF("SkelCore/fonts/Roboto-Regular.ttf", 18.0f);
-			ImGui::SetMouseCursor(ImGuiMouseCursor_None);
-			ImGui_ImplGlfwGL3_Init(window->getGLFWwindow(), true);
-
-			// Setup style
-			ImGui::StyleColorsDark();
 
 			bool show_another_window = true;
 
@@ -112,7 +88,8 @@ namespace Skel
 
 			bool gameMode = true;
 
-			
+			UIWindow* debugWindow = new UIWindow(window, Dark, "Debug", "SkelCore/fonts/Roboto-Regular.ttf");
+
 			while (!window->closed())
 			{
 
@@ -146,44 +123,12 @@ namespace Skel
 				throne->setSize(1.0f, 1.0f, 1.0f);
 				throne->draw();
 
-				glassShader->enable();
-				glm::mat4 model;
-				model = glm::translate(model, glm::vec3(0.0f, 0.0, 2.0f));
-				model = glm::scale(model, glm::vec3(6.0f, 6.0f, 6.0f));
-				model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-				glassShader->setUniformMat4("model", model);
-				glassShader->setUniformMat4("projection", projection);
-				glassShader->setUniformMat4("view", camera.getView());
-
-				glBindVertexArray(transparentVAO);
-				windowTexture.draw(0);
-				glDrawArrays(GL_TRIANGLES, 0, 6);
-				glBindVertexArray(0);
-				
-				shader->enable();
-
-				ImGui_ImplGlfwGL3_NewFrame();
-
-				if (show_another_window)
-				{
-					ImGui::Begin("Debug", &show_another_window);
-					ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);					if(ImGui::Button("Wireframe"))
-						if (!wireframe)
-						{
-							glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
-							wireframe = true;
-						}
-						else
-						{
-							glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
-							wireframe = false;
-						}
-
-					ImGui::Text("Press G to enter Game Mode");
-					ImGui::Text("Press Ctrl-G to exit Game Mode");
-
-					ImGui::End();
-				}
+				debugWindow->Begin();
+				debugWindow->AddLabel("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+				debugWindow->AddButton("Wireframe", Wireframe);
+				debugWindow->AddLabel("Press G to enter Game Mode");
+				debugWindow->AddLabel("Press Ctrl-G to exit Game Mode");
+				debugWindow->End();
 
 				if (glfwGetKey(window->getGLFWwindow(), GLFW_KEY_G) == GLFW_PRESS && glfwGetKey(window->getGLFWwindow(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 				{
@@ -201,14 +146,10 @@ namespace Skel
 					
 				//Render
 				camera.update();
-				ImGui::Render();
-				ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+				
 
 				window->update();
 			}
-
-			ImGui_ImplGlfwGL3_Shutdown();
-			ImGui::DestroyContext();
 
 		}
 	};

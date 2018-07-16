@@ -82,6 +82,9 @@
     <ClCompile Include="SkelCore\src\platform\opengl\math\Transform.cpp">
       <Filter>src\platform\opengl\math</Filter>
     </ClCompile>
+    <ClCompile Include="SkelCore\src\ui\ui_window.cpp">
+      <Filter>src\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SkelCore\src\DXScene.h">
@@ -192,6 +195,9 @@
     <ClInclude Include="SkelCore\src\utils\Log.h">
       <Filter>src\utils</Filter>
     </ClInclude>
+    <ClInclude Include="SkelCore\src\ui\ui_window.h">
+      <Filter>src\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -235,6 +241,9 @@
     </Filter>
     <Filter Include="src\utils">
       <UniqueIdentifier>{e930d7aa-d855-6a29-06b4-c875bb03fdc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui">
+      <UniqueIdentifier>{45951d7e-30de-4bd3-a868-ca3cf5798528}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
