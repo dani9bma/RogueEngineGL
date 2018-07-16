@@ -69,11 +69,12 @@ namespace Skel
 
 			Model* crysisModel = new Model("SkelCore/models/nanosuit/nanosuit.obj");
 			Model* garroshModel = new Model("SkelCore/models/garrosh.obj");
-			Model* sponzaModel = new Model("SkelCore/models/sponza/sponza_optimized.obj");
+			Model* sponzaModel = new Model("SkelCore/models/SmallTropicalIsland/Small_Tropical_Island.obj");
 			Model* swThroneModel = new Model("SkelCore/models/swThrone.obj");
 
 
 			Entity* sponza = new Entity(sponzaModel, shader);
+			sponza->setPosition(-100.0f, -7.0f, 50.0f);
 			Entity* garrosh = new Entity(garroshModel, shader);
 			Entity* crysis = new Entity(crysisModel, shader);
 			Entity* throne = new Entity(swThroneModel, shader);
@@ -82,9 +83,7 @@ namespace Skel
 			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 300.0f);
 			shader->setUniformMat4("projection", projection);
 
-			bool show_another_window = true;
-
-			bool wireframe = false;
+			sponza->setSize(1.0f, 1.0f, 1.0f);
 
 			bool gameMode = true;
 
