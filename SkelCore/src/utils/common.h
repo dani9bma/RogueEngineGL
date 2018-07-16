@@ -12,22 +12,26 @@
 #include "log.h"
 
 #define ASSERT(x) if(!(x)) __debugbreak();
-#define GLCall(x) GLClearError();\
+#define GLCall(x) Common::GLClearError();\
 	x;\
-	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+	ASSERT(Common::GLLogCall(#x, __FILE__, __LINE__))
 
-static void GLClearError()
+class Common
 {
-	while (glGetError() != GL_NO_ERROR);
-}
-
-static bool GLLogCall(const char* func, const char* file, int line)
-{
-	while (GLenum error = glGetError())
+public:
+	static void GLClearError()
 	{
-		LOG_ERROR("OPENGL::ERROR", "(%d)%s:%d->%s", error, file, line, func);
-		return false;
+		while (glGetError() != GL_NO_ERROR);
 	}
 
-	return true;
-}
+	static bool GLLogCall(const char* func, const char* file, int line)
+	{
+		while (GLenum error = glGetError())
+		{
+			LOG_ERROR("OPENGL::ERROR", "(%d)%s:%d->%s", error, file, line, func);
+			return false;
+		}
+
+		return true;
+	}
+};

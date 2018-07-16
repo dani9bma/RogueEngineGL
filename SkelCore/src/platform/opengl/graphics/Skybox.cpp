@@ -58,12 +58,12 @@ namespace Skel
 
 		std::vector<const char*> faces
 		{
-			"cubemaptextures/right.jpg",
-			"cubemaptextures/left.jpg",
-			"cubemaptextures/top.jpg",
-			"cubemaptextures/bottom.jpg",
-			"cubemaptextures/front.jpg",
-			"cubemaptextures/back.jpg",
+			"SkelCore/cubemaptextures/right.jpg",
+			"SkelCore/cubemaptextures/left.jpg",
+			"SkelCore/cubemaptextures/top.jpg",
+			"SkelCore/cubemaptextures/bottom.jpg",
+			"SkelCore/cubemaptextures/front.jpg",
+			"SkelCore/cubemaptextures/back.jpg",
 
 			//TGA: 
 			/*

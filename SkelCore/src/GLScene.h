@@ -51,9 +51,9 @@ namespace Skel
 
 			Window* window = new Window(1280, 720, "Skel Engine");
 
-			Shader* shader = new Shader("src/platform/opengl/shaders/basic.vert", "src/platform/opengl/shaders/basic.frag");
-			Shader* glassShader = new Shader("src/platform/opengl/shaders/glass.vert", "src/platform/opengl/shaders/glass.frag");
-			Shader* skyboxShader = new Shader("src/platform/opengl/shaders/cubemap.vert", "src/platform/opengl/shaders/cubemap.frag");
+			Shader* shader = new Shader("SkelCore/src/platform/opengl/shaders/basic.vert", "SkelCore/src/platform/opengl/shaders/basic.frag");
+			Shader* glassShader = new Shader("SkelCore/src/platform/opengl/shaders/glass.vert", "SkelCore/src/platform/opengl/shaders/glass.frag");
+			Shader* skyboxShader = new Shader("SkelCore/src/platform/opengl/shaders/cubemap.vert", "SkelCore/src/platform/opengl/shaders/cubemap.frag");
 
 			unsigned int transparentVAO, transparentVBO;
 			glGenVertexArrays(1, &transparentVAO);
@@ -78,10 +78,10 @@ namespace Skel
 
 			Skybox skybox = Skybox(skyboxShader);
 
-			Model* crysisModel = new Model("models/nanosuit/nanosuit.obj");
-			Model* garroshModel = new Model("models/garrosh.obj");
-			Model* sponzaModel = new Model("models/sponza/sponza_optimized.obj");
-			Model* swThroneModel = new Model("models/swThrone.obj");
+			Model* crysisModel = new Model("SkelCore/models/nanosuit/nanosuit.obj");
+			Model* garroshModel = new Model("SkelCore/models/garrosh.obj");
+			Model* sponzaModel = new Model("SkelCore/models/sponza/sponza_optimized.obj");
+			Model* swThroneModel = new Model("SkelCore/models/swThrone.obj");
 
 
 			Entity* sponza = new Entity(sponzaModel, shader);
@@ -89,7 +89,7 @@ namespace Skel
 			Entity* crysis = new Entity(crysisModel, shader);
 			Entity* throne = new Entity(swThroneModel, shader);
 
-			Texture windowTexture("src/textures/window.png", shader);
+			Texture windowTexture("SkelCore/src/textures/window.png", shader);
 
 			glm::mat4 projection;
 			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 300.0f);
@@ -99,7 +99,7 @@ namespace Skel
 			ImGui::CreateContext();
 			ImGuiIO& io = ImGui::GetIO(); (void)io;
 			io.MouseDrawCursor = false;
-			io.Fonts->AddFontFromFileTTF("fonts/Roboto-Regular.ttf", 18.0f);
+			io.Fonts->AddFontFromFileTTF("SkelCore/fonts/Roboto-Regular.ttf", 18.0f);
 			ImGui::SetMouseCursor(ImGuiMouseCursor_None);
 			ImGui_ImplGlfwGL3_Init(window->getGLFWwindow(), true);
 

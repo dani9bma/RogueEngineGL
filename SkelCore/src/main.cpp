@@ -10,6 +10,8 @@
 
 using namespace Skel;
 
+#define SKEL_OPENGL 1
+
 int main(void)
 {
 #if SKEL_OPENGL

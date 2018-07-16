@@ -31,7 +31,7 @@ namespace Skel
 		int m_height;
 		double m_lastTime;
 		int m_fps;
-		double m_x, m_y;
+		double m_x = 0, m_y = 0;
 		std::string m_title;
 		GLFWwindow* m_window;
 		bool m_wireframe = false;
