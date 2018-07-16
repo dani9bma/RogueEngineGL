@@ -63,12 +63,6 @@
     <ClCompile Include="src\platform\opengl\graphics\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\platform\opengl\entity\components\MeshComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\platform\opengl\entity\entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\platform\directx\graphics\Context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,6 +97,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\imgui\imgui_impl_glfw_gl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\opengl\ecs\components\MeshComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\opengl\ecs\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,15 +149,6 @@
     <ClInclude Include="src\platform\opengl\graphics\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\platform\opengl\entity\components\component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\platform\opengl\entity\components\MeshComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\platform\opengl\entity\entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\platform\directx\graphics\Context.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -201,6 +192,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\imgui\imgui_impl_glfw_gl3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\opengl\ecs\components\component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\opengl\ecs\components\MeshComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\opengl\ecs\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

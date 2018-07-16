@@ -13,7 +13,7 @@
 #include "utils/log.h"
 #include "platform/opengl/graphics/model.h"
 #include "platform/opengl/graphics/skybox.h"
-#include "platform/opengl/entity/entity.h"
+#include "platform/opengl/ecs/entity.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -84,10 +84,10 @@ namespace Skel
 			Model* swThroneModel = new Model("models/swThrone.obj");
 
 
-			Entity*sponza = new Entity(sponzaModel, shader);
-			Entity*garrosh = new Entity(garroshModel, shader);
-			Entity*crysis = new Entity(crysisModel, shader);
-			Entity*throne = new Entity(swThroneModel, shader);
+			Entity* sponza = new Entity(sponzaModel, shader);
+			Entity* garrosh = new Entity(garroshModel, shader);
+			Entity* crysis = new Entity(crysisModel, shader);
+			Entity* throne = new Entity(swThroneModel, shader);
 
 			Texture windowTexture("src/textures/window.png", shader);
 

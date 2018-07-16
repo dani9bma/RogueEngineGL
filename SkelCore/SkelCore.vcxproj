@@ -318,7 +318,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glew32s.lib;glfw3.lib;opengl32.lib;assimp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>imm32.lib;D3DCompiler.lib;d3d11.lib;dxgi.lib;glew32s.lib;glfw3.lib;opengl32.lib;assimp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -376,11 +376,11 @@
     <ClCompile Include="src\platform\directx\graphics\DXTexture.cpp" />
     <ClCompile Include="src\platform\directx\graphics\DXVertexBuffer.cpp" />
     <ClCompile Include="src\platform\directx\graphics\DXWindow.cpp" />
-    <ClCompile Include="src\platform\opengl\entity\components\MeshComponent.cpp">
+    <ClCompile Include="src\platform\opengl\ecs\components\MeshComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="src\platform\opengl\entity\entity.cpp">
+    <ClCompile Include="src\platform\opengl\ecs\entity.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -448,9 +448,9 @@
     <ClInclude Include="src\platform\directx\graphics\DXTexture.h" />
     <ClInclude Include="src\platform\directx\graphics\DXVertexBuffer.h" />
     <ClInclude Include="src\platform\directx\graphics\DXWindow.h" />
-    <ClInclude Include="src\platform\opengl\entity\components\component.h" />
-    <ClInclude Include="src\platform\opengl\entity\components\MeshComponent.h" />
-    <ClInclude Include="src\platform\opengl\entity\entity.h" />
+    <ClInclude Include="src\platform\opengl\ecs\components\component.h" />
+    <ClInclude Include="src\platform\opengl\ecs\components\MeshComponent.h" />
+    <ClInclude Include="src\platform\opengl\ecs\entity.h" />
     <ClInclude Include="src\GLScene.h" />
     <ClInclude Include="src\platform\opengl\graphics\camera\camera.h" />
     <ClInclude Include="src\platform\opengl\graphics\lighting\DirectionalLight.h" />
@@ -469,9 +469,11 @@
     <FxCompile Include="src\platform\directx\shaders\basicPixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='DirectXDebug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='OpenGLDebug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='OpenGLRelease|Win32'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="src\platform\directx\shaders\basicVert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='DirectXDebug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='OpenGLRelease|Win32'">Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
