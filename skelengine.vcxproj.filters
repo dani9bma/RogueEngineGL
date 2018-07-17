@@ -198,6 +198,9 @@
     <ClInclude Include="SkelCore\src\ui\ui_window.h">
       <Filter>src\ui</Filter>
     </ClInclude>
+    <ClInclude Include="SkelCore\src\utils\Input.h">
+      <Filter>src\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">

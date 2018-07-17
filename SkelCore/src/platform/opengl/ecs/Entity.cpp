@@ -23,9 +23,12 @@ namespace Skel
 
 	void Entity::draw()
 	{
-		m_shader->setUniformMat4("model", m_transform.getTransformMatrice());
-		auto mesh = getComponent<MeshComponent>();
-		mesh->draw(m_shader);
+		if (m_visible)
+		{
+			m_shader->setUniformMat4("model", m_transform.getTransformMatrice());
+			auto mesh = getComponent<MeshComponent>();
+			mesh->draw(m_shader);
+		}
 	}
 
 	void Entity::setSize(float x, float y, float z)
@@ -47,5 +50,11 @@ namespace Skel
 	{
 		m_transform.getTransformMatrice() = m_transform.setTransform(position, size, rotation, angle); // This is bad code
 	}
+
+	void Entity::setVisibility(bool visible)
+	{
+		m_visible = visible;
+	}
+
 }
 

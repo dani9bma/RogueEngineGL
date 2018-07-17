@@ -530,6 +530,7 @@
     <ClInclude Include="SkelCore\src\platform\opengl\math\Transform.h" />
     <ClInclude Include="SkelCore\src\ui\ui_window.h" />
     <ClInclude Include="SkelCore\src\utils\Common.h" />
+    <ClInclude Include="SkelCore\src\utils\Input.h" />
     <ClInclude Include="SkelCore\src\utils\Log.h" />
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
  */
 	
 #include "camera.h"
+#include "..\..\..\..\utils\Input.h"
 
 namespace Skel
 {
@@ -34,7 +35,7 @@ namespace Skel
 
 	void Camera::update()
 	{
-		float cameraSpeed = 50.0f * m_deltaTime;
+		float cameraSpeed = 70.0f * m_deltaTime;
 		float currentFrame = glfwGetTime();
 		m_deltaTime = currentFrame - m_lastFrame;
 		m_lastFrame = currentFrame;
@@ -44,20 +45,20 @@ namespace Skel
 		if (m_gameMode)
 		{
 			//#TODO: Make Input class
-			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_W) == GLFW_PRESS)
+			if (Input::isKeyPressed(m_window, KEY_W))
 				m_cameraPos += cameraSpeed * m_cameraFront;
-			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_S) == GLFW_PRESS)
+			if (Input::isKeyPressed(m_window, KEY_S))
 				m_cameraPos -= cameraSpeed * m_cameraFront;
-			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_A) == GLFW_PRESS)
+			if (Input::isKeyPressed(m_window, KEY_A))
 				m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_D) == GLFW_PRESS)
+			if (Input::isKeyPressed(m_window, KEY_D))
 				m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+			if (Input::isKeyPressed(m_window, KEY_LEFT_SHIFT))
 				m_cameraPos -= cameraSpeed * m_cameraUp;
-			if (glfwGetKey(m_window->getGLFWwindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
+			if (Input::isKeyPressed(m_window, KEY_SPACE))
 				m_cameraPos += cameraSpeed * m_cameraUp;
 
-			m_window->getMousePosition(x, y);
+			Input::GetMousePosition(m_window, x, y);
 		}
 	
 		float xoffset = x - m_lastX;

@@ -28,6 +28,7 @@ namespace Skel
 		std::unordered_map<ComponentType*, Component*> m_components;
 		Transform m_transform;
 		Shader* m_shader;
+		bool m_visible = true;
 	public:
 		Entity() { }
 		Entity(Model* mesh, Shader* shader);
@@ -37,6 +38,7 @@ namespace Skel
 		void setRotation(float angle, bool x = true, bool y = true, bool z = true);
 		void setPosition(float x, float y, float z);
 		void setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle);
+		void setVisibility(bool visible);
 
 		template <typename T>
 		T* getComponent()

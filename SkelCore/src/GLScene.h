@@ -20,6 +20,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "ui/ui_window.h"
+#include "utils/Input.h"
 
 extern bool        ImGui_ImplGlfwGL3_Init(GLFWwindow* window, bool install_callbacks);
 extern void        ImGui_ImplGlfwGL3_Shutdown();
@@ -28,20 +29,49 @@ extern void        ImGui_ImplGlfwGL3_RenderDrawData(ImDrawData* draw_data);
 extern void        ImGui_ImplGlfwGL3_InvalidateDeviceObjects();
 extern bool        ImGui_ImplGlfwGL3_CreateDeviceObjects();
 
-bool m_wireframe(false);
+Skel::Entity* sponza = nullptr;
+Skel::Entity* garrosh = nullptr;
+Skel::Entity* crysis = nullptr;
+Skel::Entity* throne = nullptr;
 
-void Wireframe()
+void GarroshVisible()
 {
-	if (!m_wireframe)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		m_wireframe = true;
-	}
-	else
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		m_wireframe = false;
-	}
+	garrosh->setVisibility(true);
+}
+
+void GarroshInvisible()
+{
+	garrosh->setVisibility(false);
+}
+
+void SponzaVisible()
+{
+	sponza->setVisibility(true);
+}
+
+void SponzaInvisible()
+{
+	sponza->setVisibility(false);
+}
+
+void CrysisVisible()
+{
+	crysis->setVisibility(true);
+}
+
+void CrysisInvisible()
+{
+	crysis->setVisibility(false);
+}
+
+void ThroneVisible()
+{
+	throne->setVisibility(true);
+}
+
+void ThroneInvisible()
+{
+	throne->setVisibility(false);
 }
 
 namespace Skel
@@ -49,6 +79,8 @@ namespace Skel
 	class Scene3DOpenGL
 	{
 	public:
+		
+
 		Scene3DOpenGL()
 		{
 			Window* window = new Window(1280, 720, "Skel Engine");
@@ -61,9 +93,9 @@ namespace Skel
 			Camera camera = Camera(1280, 720, 0.1f, window, shader);
 
 			DirectionalLight light = DirectionalLight(shader, camera);
-			glm::vec3 lightPos(1.0f, -5.0f, 15.0f);
+			glm::vec3 lightPos(0.0f, -5.0f, -2.0f);
 			light.setLightDirection(lightPos);
-			light.setIntensity(3.f);
+			light.setIntensity(1.0f);
 
 			Skybox skybox = Skybox(skyboxShader);
 
@@ -73,14 +105,14 @@ namespace Skel
 			Model* swThroneModel = new Model("SkelCore/models/swThrone.obj");
 
 
-			Entity* sponza = new Entity(sponzaModel, shader);
+			sponza = new Entity(sponzaModel, shader);
 			sponza->setPosition(-100.0f, -7.0f, 50.0f);
-			Entity* garrosh = new Entity(garroshModel, shader);
-			Entity* crysis = new Entity(crysisModel, shader);
-			Entity* throne = new Entity(swThroneModel, shader);
+			garrosh = new Entity(garroshModel, shader);
+			crysis = new Entity(crysisModel, shader);
+			throne = new Entity(swThroneModel, shader);
 
 			glm::mat4 projection;
-			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 300.0f);
+			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 500.0f);
 			shader->setUniformMat4("projection", projection);
 
 			sponza->setSize(1.0f, 1.0f, 1.0f);
@@ -124,29 +156,34 @@ namespace Skel
 
 				debugWindow->Begin();
 				debugWindow->AddLabel("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-				debugWindow->AddButton("Wireframe", Wireframe);
+				debugWindow->AddButton("Garrosh Visible", GarroshVisible);
+				debugWindow->AddButton("Garrosh Invisible", GarroshInvisible);
+				debugWindow->AddButton("Sponza Visible", SponzaVisible);
+				debugWindow->AddButton("Sponza Invisible", SponzaInvisible);
+				debugWindow->AddButton("Crysis Visible", CrysisVisible);
+				debugWindow->AddButton("Crysis Invisible", CrysisInvisible);
+				debugWindow->AddButton("Throne Visible", ThroneVisible);
+				debugWindow->AddButton("Throne Invisible", ThroneInvisible);
 				debugWindow->AddLabel("Press G to enter Game Mode");
 				debugWindow->AddLabel("Press Ctrl-G to exit Game Mode");
 				debugWindow->End();
 
-				if (glfwGetKey(window->getGLFWwindow(), GLFW_KEY_G) == GLFW_PRESS && glfwGetKey(window->getGLFWwindow(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+				if (Input::isKeyPressed(window, KEY_G) && Input::isKeyPressed(window, KEY_LEFT_CONTROL))
 				{
 					camera.setGameMode(false);
 					gameMode = false;
-					glfwSetInputMode(window->getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+					Input::ShowMouseCursor(window, true);
 				}
-				else if (glfwGetKey(window->getGLFWwindow(), GLFW_KEY_G) == GLFW_PRESS)
+				else if (Input::isKeyPressed(window, KEY_G))
 				{
 					camera.setGameMode(true);
 					gameMode = true;
-					glfwSetInputMode(window->getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+					Input::ShowMouseCursor(window, false);
 				}
 					
 					
 				//Render
 				camera.update();
-				
-
 				window->update();
 			}
 

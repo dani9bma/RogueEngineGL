@@ -6,6 +6,7 @@
  */
 
 #include "window.h"
+#include "..\..\..\utils\Input.h"
 
 namespace Skel
 {
@@ -86,11 +87,11 @@ namespace Skel
 			m_lastTime += 1.0;
 		}
 
-		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_K) == GLFW_PRESS)
+		if (Input::isKeyPressed(this, KEY_K))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_O) == GLFW_PRESS)
+		if (Input::isKeyPressed(this, KEY_O))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		if (glfwGetKey(this->getGLFWwindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		if (Input::isKeyPressed(this, KEY_ESCAPE))
 			this->close();
 
 
