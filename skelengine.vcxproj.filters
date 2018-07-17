@@ -85,6 +85,9 @@
     <ClCompile Include="SkelCore\src\ui\ui_window.cpp">
       <Filter>src\ui</Filter>
     </ClCompile>
+    <ClCompile Include="SkelCore\src\utils\Input.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SkelCore\src\DXScene.h">

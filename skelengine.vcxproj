@@ -562,6 +562,7 @@
     <ClCompile Include="SkelCore\src\platform\opengl\graphics\window.cpp" />
     <ClCompile Include="SkelCore\src\platform\opengl\math\Transform.cpp" />
     <ClCompile Include="SkelCore\src\ui\ui_window.cpp" />
+    <ClCompile Include="SkelCore\src\utils\Input.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

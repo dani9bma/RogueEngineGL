@@ -101,21 +101,38 @@ namespace Skel
 
 			Model* crysisModel = new Model("SkelCore/models/nanosuit/nanosuit.obj");
 			Model* garroshModel = new Model("SkelCore/models/garrosh.obj");
-			Model* sponzaModel = new Model("SkelCore/models/SmallTropicalIsland/Small_Tropical_Island.obj");
+			Model* sponzaModel = new Model("SkelCore/models/sponza/sponza_optimized.obj");
 			Model* swThroneModel = new Model("SkelCore/models/swThrone.obj");
 
 
 			sponza = new Entity(sponzaModel, shader);
-			sponza->setPosition(-100.0f, -7.0f, 50.0f);
+			//sponza->setPosition(-100.0f, -7.0f, 50.0f);
+			sponza->setSize(0.2f, 0.2f, 0.2f);
+
 			garrosh = new Entity(garroshModel, shader);
+			garrosh->setPosition(1.0f, -5.0f, -2.0f);
+			garrosh->setSize(4.0f, 4.0f, 4.0f);
+
 			crysis = new Entity(crysisModel, shader);
+			crysis->setPosition(0.0f, -5.0f, -2.0f);
+			crysis->setSize(1.0f, 1.0f, 1.0f);
+			crysis->setRotation(180.0f, false, true, false);
+
 			throne = new Entity(swThroneModel, shader);
-
-			sponza->setSize(1.0f, 1.0f, 1.0f);
-
-			bool gameMode = true;
+			throne->setPosition(0.0f, -5.0f, 15.0f);
+			throne->setSize(1.0f, 1.0f, 1.0f);
 
 			UIWindow* debugWindow = new UIWindow(window, Dark, "Debug", "SkelCore/fonts/Roboto-Regular.ttf");
+
+			float garroshRotationY = garrosh->getTransform().getRotation().y;
+			float garroshLocationX = garrosh->getTransform().getPosition().x;
+			float garroshSizeX = garrosh->getTransform().getSize().x;
+			float garroshRotationX = garrosh->getTransform().getRotation().x;
+			float garroshLocationY = garrosh->getTransform().getPosition().y;
+			float garroshSizeY = garrosh->getTransform().getSize().y;
+			float garroshRotationZ = garrosh->getTransform().getRotation().z;
+			float garroshLocationZ = garrosh->getTransform().getPosition().z;
+			float garroshSizeZ = garrosh->getTransform().getSize().z;
 
 			while (!window->closed())
 			{
@@ -134,20 +151,12 @@ namespace Skel
 				
 				sponza->draw();
 
-				garrosh->setPosition(10.0f, -5.0f, -2.0f);
-				garrosh->setSize(4.0f, 4.0f, 4.0f);
-				garrosh->setRotation(glfwGetTime(), false, true, false);
-				//garrosh->setTransform(glm::vec3(10.0f, -5.0, -2.0f), glm::vec3(4.0f, 4.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), glfwGetTime() * 2.0f);
-				garrosh->draw();
+				
 
-				crysis->setPosition(0.0f, -5.0f, -2.0f);
-				crysis->setSize(1.0f, 1.0f, 1.0f);
-				crysis->setRotation(180.0f, false, true, false);
 				//crysis->setTransform(glm::vec3(0.0f, -5.0f, -2.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f);
 				crysis->draw();
 
-				throne->setPosition(0.0f, -5.0f, 15.0f);
-				throne->setSize(1.0f, 1.0f, 1.0f);
+				
 				throne->draw();
 
 				debugWindow->Begin();
@@ -160,8 +169,40 @@ namespace Skel
 				debugWindow->AddButton("Crysis Invisible", CrysisInvisible);
 				debugWindow->AddButton("Throne Visible", ThroneVisible);
 				debugWindow->AddButton("Throne Invisible", ThroneInvisible);
-				debugWindow->AddLabel("Press G to enter Game Mode");
-				debugWindow->AddLabel("Press Ctrl-G to exit Game Mode");
+				debugWindow->AddLabel("Garrosh Location X:%f Y:%f Z:%f", garrosh->getTransform().getPosition().x, garrosh->getTransform().getPosition().y, garrosh->getTransform().getPosition().z);
+				debugWindow->AddLabel("Garrosh Rotation X:%f Y:%f Z:%f", garrosh->getTransform().getRotation().x, garrosh->getTransform().getRotation().y, garrosh->getTransform().getRotation().z);
+				debugWindow->AddLabel("Garrosh Size X:%f Y:%f Z:%f", garrosh->getTransform().getSize().x, garrosh->getTransform().getSize().y, garrosh->getTransform().getSize().z);
+				garrosh->setPosition(garroshLocationX, garroshLocationY, garroshLocationZ);
+				garrosh->setSize(garroshSizeX, garroshSizeY, garroshSizeZ);
+				
+				
+				//garrosh->setTransform(glm::vec3(10.0f, -5.0, -2.0f), glm::vec3(4.0f, 4.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), glfwGetTime() * 2.0f);
+				if (ImGui::SliderFloat("Rotation X", &garroshRotationX, 1.0f, 360.0f))
+				{
+					garrosh->setRotation(garroshRotationX, true, false, false);
+					ImGui::SliderFloat("Rotation Y", &garroshRotationY, 1.0f, 360.0f);
+					ImGui::SliderFloat("Rotation Z", &garroshRotationZ, 1.0f, 360.0f);
+				}
+				else if (ImGui::SliderFloat("Rotation Y", &garroshRotationY, 1.0f, 360.0f))
+				{
+					garrosh->setRotation(garroshRotationY, false, true, false);
+					ImGui::SliderFloat("Rotation Z", &garroshRotationZ, 1.0f, 360.0f);
+				}
+				else if (ImGui::SliderFloat("Rotation Z", &garroshRotationZ, 1.0f, 360.0f))
+				{
+					garrosh->setRotation(garroshRotationZ, false, false, true);
+				}
+				
+				garrosh->draw();
+
+				ImGui::InputFloat("Size X", &garroshSizeX, 0.0f, 0.0f, 1);
+				ImGui::InputFloat("Size Y", &garroshSizeY, 0.0f, 0.0f, 1);
+				ImGui::InputFloat("Size Z", &garroshSizeZ, 0.0f, 0.0f, 1);
+
+				ImGui::InputFloat("Position X", &garroshLocationX, 0.0f, 0.0f, 1);
+				ImGui::InputFloat("Position Y", &garroshLocationY, 0.0f, 0.0f, 1);
+				ImGui::InputFloat("Position Z", &garroshLocationZ, 0.0f, 0.0f, 1);
+
 				debugWindow->End();
 
 					

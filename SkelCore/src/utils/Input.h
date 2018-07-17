@@ -222,6 +222,13 @@ namespace Skel
 		{
 			window->setMousePosition(x, y);
 		}
+
+
+		static void SetMouseScrollOffset(double y);
+
+		static bool isMouseScrollUp();
+
+		static bool isMouseScrollDown();
 		
 	};
 

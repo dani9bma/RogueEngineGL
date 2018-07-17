@@ -10,22 +10,9 @@
 
 namespace Skel
 {
-	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-	{
-		glViewport(0.5, 0.0, width, height);
-	}
-
-	void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-	{
-		auto* win = (Window*)glfwGetWindowUserPointer(window);
-		win->m_x = xpos;
-		win->m_y = ypos;
-	}
-
-	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-	{
-		LOG_WARNING("DEBUG", "working")
-	}
+	void mouse_wheel_callback(GLFWwindow* window, double xoffset, double yoffset);
+	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 	Window::Window(int width, int height, const char* title)
 		: m_width(width), m_height(height), m_title(title)
@@ -41,6 +28,11 @@ namespace Skel
 			glfwTerminate();
 			return;
 		}
+		glViewport(0.5, 0.0, m_width, m_height);
+		glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+		glfwSetCursorPosCallback(m_window, mouse_callback);
+		glfwSetScrollCallback(m_window, mouse_wheel_callback);
+		glfwSetMouseButtonCallback(m_window, mouse_button_callback);
 		glfwMakeContextCurrent(m_window);
 		if (glewInit() != GLEW_OK)
 		{
@@ -50,10 +42,7 @@ namespace Skel
 
 		LOG_INFO("GRAPHICS", "GLEW Initialized %s", glewGetString(GLEW_VERSION));
 		LOG_INFO("GRAPHICS", "OpenGL initialized %s", glGetString(GL_VERSION));
-		glViewport(0.5, 0.0, m_width, m_height);
-		glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
-		glfwSetCursorPosCallback(m_window, mouse_callback);
-		glfwSetMouseButtonCallback(m_window, mouse_button_callback);
+		
 		Input::ShowMouseCursor(this, true);
 		glfwSetWindowUserPointer(m_window, this);
 		glfwSwapInterval(0); //V-Sync
@@ -111,5 +100,29 @@ namespace Skel
 		m_x = x;
 		m_y = y;
 		glfwSetCursorPos(this->getGLFWwindow(), x, y);
+	}
+
+	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+	{
+		glViewport(0.5, 0.0, width, height);
+	}
+
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+	{
+		auto* win = (Window*)glfwGetWindowUserPointer(window);
+		win->m_x = xpos;
+		win->m_y = ypos;
+	}
+
+	void mouse_wheel_callback(GLFWwindow* window, double xoffset, double yoffset)
+	{
+		Input::SetMouseScrollOffset(yoffset);
+		glfwSetWindowShouldClose(window, 1);
+		LOG_WARNING("DEBUG", "scroll working");
+	}
+
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+	{
+		LOG_WARNING("DEBUG", "working");
 	}
 }

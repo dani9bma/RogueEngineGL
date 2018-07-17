@@ -43,7 +43,7 @@ namespace Skel
 		s = glm::rotate(s, glm::radians(angle), glm::vec3(xPos, yPos, zPos));
 
 		m_angle = angle;
-		m_rotation = glm::vec3(xPos, yPos, zPos);
+		m_rotation = glm::vec3(xPos * angle, yPos * angle, zPos * angle);
 
 		return s;
 	}

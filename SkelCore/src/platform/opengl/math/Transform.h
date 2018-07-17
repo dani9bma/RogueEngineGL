@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 #include "../graphics/opengl/shader.h"
 
@@ -34,6 +35,10 @@ namespace Skel
 		glm::mat4 setPosition(float x, float y, float z);
 		glm::mat4 setSize(float x, float y, float z);
 		glm::mat4 setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle);
+
+		inline glm::vec3 getPosition() { return m_position; }
+		inline glm::vec3 getRotation() { return m_rotation; }
+		inline glm::vec3 getSize() { return m_size; }
 
 		inline glm::mat4& getTransformMatrice() { return m_transform; }
 	};

@@ -12,8 +12,8 @@ namespace Skel
 {
 	Camera::Camera(int width, int height, float sensitivity, Window* window, Shader* shader)
 	{
-		m_cameraPos = glm::vec3(0.0f, 0.0f, 0.f);
-		m_cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+		m_cameraPos = glm::vec3(4.0f, 10.0f, -30.0f);
+		m_cameraTarget = glm::vec3(0.0f, 0.0f, -10.0f);
 		m_cameraDirection = glm::normalize(m_cameraPos - m_cameraTarget);
 		m_cameraRight = glm::normalize(glm::cross(m_cameraUp, m_cameraDirection));
 		m_cameraFront = glm::vec3(0.0f, 0.0f, -10.0f);
