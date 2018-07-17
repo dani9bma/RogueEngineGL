@@ -27,6 +27,11 @@ namespace Skel
 		m_sensitivity = sensitivity;
 		m_window = window;
 		m_shader = shader;
+		m_fov = 60.0f;
+
+	
+		m_projection = glm::perspective(glm::radians(m_fov), (float)1280 / (float)720, 0.1f, 500.0f);
+		shader->setUniformMat4("projection", m_projection);
 	}
 
 	Camera::~Camera()
@@ -40,31 +45,44 @@ namespace Skel
 		m_deltaTime = currentFrame - m_lastFrame;
 		m_lastFrame = currentFrame;
 
-		double x = 0, y = 0;
+		if (Input::isKeyPressed(m_window, KEY_W))
+			m_cameraPos += cameraSpeed * m_cameraFront;
+		if (Input::isKeyPressed(m_window, KEY_S))
+			m_cameraPos -= cameraSpeed * m_cameraFront;
+		if (Input::isKeyPressed(m_window, KEY_A))
+			m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
+		if (Input::isKeyPressed(m_window, KEY_D))
+			m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
+		if (Input::isKeyPressed(m_window, KEY_LEFT_SHIFT))
+			m_cameraPos -= cameraSpeed * m_cameraUp;
+		if (Input::isKeyPressed(m_window, KEY_SPACE))
+			m_cameraPos += cameraSpeed * m_cameraUp;
 
-		if (m_gameMode)
+		
+		if (Input::isMouseButtonPressed(m_window, MOUSE_BUTTON_RIGHT))
 		{
-			//#TODO: Make Input class
-			if (Input::isKeyPressed(m_window, KEY_W))
-				m_cameraPos += cameraSpeed * m_cameraFront;
-			if (Input::isKeyPressed(m_window, KEY_S))
-				m_cameraPos -= cameraSpeed * m_cameraFront;
-			if (Input::isKeyPressed(m_window, KEY_A))
-				m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-			if (Input::isKeyPressed(m_window, KEY_D))
-				m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-			if (Input::isKeyPressed(m_window, KEY_LEFT_SHIFT))
-				m_cameraPos -= cameraSpeed * m_cameraUp;
-			if (Input::isKeyPressed(m_window, KEY_SPACE))
-				m_cameraPos += cameraSpeed * m_cameraUp;
-
-			Input::GetMousePosition(m_window, x, y);
+			double x, y;
+			Input::GetMousePosition(m_window, m_x, m_y);
+			Input::ShowMouseCursor(m_window, false);
+			timer++;
+			if (timer < 5)
+			{
+				m_x = m_lastX;
+				m_y = m_lastY;
+				Input::SetMousePosition(m_window, m_x, m_y);
+			}
 		}
-	
-		float xoffset = x - m_lastX;
-		float yoffset = m_lastY - y;
-		m_lastX = x;
-		m_lastY = y;
+		else
+		{
+			Input::ShowMouseCursor(m_window, true);
+			timer = 0;
+		}
+
+
+		float xoffset = m_x - m_lastX;
+		float yoffset = m_lastY - m_y;
+		m_lastX = m_x;
+		m_lastY = m_y;
 		xoffset *= m_sensitivity;
 		yoffset *= m_sensitivity;
 
@@ -88,4 +106,11 @@ namespace Skel
 		m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
 		m_shader->setUniformMat4("view", m_view);
 	}
+
+	void Camera::changeFOV(float value)
+	{
+		m_projection = glm::perspective(glm::radians(value), (float)1280 / (float)720, 0.1f, 500.0f);
+		m_shader->setUniformMat4("projection", m_projection);
+	}
+
 }

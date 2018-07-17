@@ -5,9 +5,11 @@
 * @Github https://github.com/dani9bma
 */
 
-#include <GLFW/glfw3.h>
+#pragma once
+
 
 #include "../platform/opengl/graphics/window.h"
+#include <GLFW/glfw3.h>
 
 namespace Skel
 {
@@ -166,31 +168,41 @@ namespace Skel
 		*
 		*  @ingroup input
 		*  @{ */
-		MOUSE_BUTTON_1 =            0,
-		MOUSE_BUTTON_2 =            1,
-		MOUSE_BUTTON_3 =            2,
-		MOUSE_BUTTON_4 =            3,
-		MOUSE_BUTTON_5 =            4,
-		MOUSE_BUTTON_6 =            5,
-		MOUSE_BUTTON_7 =            6,
-		MOUSE_BUTTON_8 =            7,
-		MOUSE_BUTTON_LAST =		    MOUSE_BUTTON_8,
-		MOUSE_BUTTON_LEFT =		    MOUSE_BUTTON_1,
-		MOUSE_BUTTON_RIGHT =	    MOUSE_BUTTON_2,
-		MOUSE_BUTTON_MIDDLE =	    MOUSE_BUTTON_3,
-		MOUSE_CURSOR =			    0x00033001,
-		MOUSE_CURSOR_ENABLED =       0x00034001,
-		MOUSE_CURSOR_DISABLED =     0x00034003,
-
 		KEY_PRESS =					1,
+	};
+
+	enum MouseButtons
+	{
+		MOUSE_BUTTON_1 = 0,
+		MOUSE_BUTTON_2 = 1,
+		MOUSE_BUTTON_3 = 2,
+		MOUSE_BUTTON_4 = 3,
+		MOUSE_BUTTON_5 = 4,
+		MOUSE_BUTTON_6 = 5,
+		MOUSE_BUTTON_7 = 6,
+		MOUSE_BUTTON_8 = 7,
+		MOUSE_BUTTON_LAST = MOUSE_BUTTON_8,
+		MOUSE_BUTTON_LEFT = MOUSE_BUTTON_1,
+		MOUSE_BUTTON_RIGHT = MOUSE_BUTTON_2,
+		MOUSE_BUTTON_MIDDLE = MOUSE_BUTTON_3,
+		MOUSE_CURSOR = 0x00033001,
+		MOUSE_CURSOR_ENABLED = 0x00034001,
+		MOUSE_CURSOR_DISABLED = 0x00034003,
 	};
 
 	class Input
 	{
 	public:
+		static double scroll;
+
 		static bool isKeyPressed(Window* window, Keys key)
 		{
 			return glfwGetKey(window->getGLFWwindow(), key) == KEY_PRESS ? true : false;
+		}
+
+		static bool isMouseButtonPressed(Window* window, MouseButtons button)
+		{
+			return glfwGetMouseButton(window->getGLFWwindow(), button) == KEY_PRESS ? true : false;
 		}
 
 		static void ShowMouseCursor(Window* window, bool showCursor = true)
@@ -205,5 +217,12 @@ namespace Skel
 		{
 			window->getMousePosition(x, y);
 		}
+
+		static void SetMousePosition(Window* window, double x, double y)
+		{
+			window->setMousePosition(x, y);
+		}
+		
 	};
+
 }

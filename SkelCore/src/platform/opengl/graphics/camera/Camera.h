@@ -22,6 +22,8 @@ namespace Skel
 		inline glm::mat4 getView() const { return m_view; }
 		inline glm::vec3 getPosition() const { return m_cameraPos; }
 		inline void setGameMode(bool gm) { m_gameMode = gm; }
+		inline glm::mat4 getProjection() const { return m_projection; }
+		void changeFOV(float value);
 	private:
 		glm::vec3 m_cameraPos;
 		glm::vec3 m_cameraTarget;
@@ -36,9 +38,14 @@ namespace Skel
 		float m_lastY;
 		float m_yaw;
 		float m_pitch;
+		float m_fov;
 		Window* m_window;
 		Shader* m_shader;
 		glm::mat4 m_view;
+		glm::mat4 m_projection;
 		bool m_gameMode = true;
+		double m_x = 0, m_y = 0;
+		double m_lastSysX = 0, m_lastSysY = 0;
+		int timer = 0;
 	};
 }

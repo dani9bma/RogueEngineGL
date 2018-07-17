@@ -90,7 +90,7 @@ namespace Skel
 
 			shader->enable();
 
-			Camera camera = Camera(1280, 720, 0.1f, window, shader);
+			Camera camera = Camera(1280, 720, 0.2f, window, shader);
 
 			DirectionalLight light = DirectionalLight(shader, camera);
 			glm::vec3 lightPos(0.0f, -5.0f, -2.0f);
@@ -111,10 +111,6 @@ namespace Skel
 			crysis = new Entity(crysisModel, shader);
 			throne = new Entity(swThroneModel, shader);
 
-			glm::mat4 projection;
-			projection = glm::perspective(glm::radians(60.0f), (float)1280 / (float)720, 0.1f, 500.0f);
-			shader->setUniformMat4("projection", projection);
-
 			sponza->setSize(1.0f, 1.0f, 1.0f);
 
 			bool gameMode = true;
@@ -132,7 +128,7 @@ namespace Skel
 				GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 				light.update();
-				skybox.update(camera, projection);
+				skybox.update(camera, camera.getProjection());
 
 				shader->enable();
 				
@@ -168,18 +164,6 @@ namespace Skel
 				debugWindow->AddLabel("Press Ctrl-G to exit Game Mode");
 				debugWindow->End();
 
-				if (Input::isKeyPressed(window, KEY_G) && Input::isKeyPressed(window, KEY_LEFT_CONTROL))
-				{
-					camera.setGameMode(false);
-					gameMode = false;
-					Input::ShowMouseCursor(window, true);
-				}
-				else if (Input::isKeyPressed(window, KEY_G))
-				{
-					camera.setGameMode(true);
-					gameMode = true;
-					Input::ShowMouseCursor(window, false);
-				}
 					
 					
 				//Render
