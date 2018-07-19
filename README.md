@@ -1,4 +1,4 @@
-# SkelEngine
+# RogueEngine
 Game Engine made with C++ using opengl.
 
 # Dependencies
