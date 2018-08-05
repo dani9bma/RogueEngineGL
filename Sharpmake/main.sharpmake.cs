@@ -3,165 +3,6 @@ using Sharpmake;
 namespace SkelEngine
 {
 	[Sharpmake.Generate]
-	public class EASTL : Project
-	{
-		public string BasePath = @"[project.SharpmakeCsPath]/../ThirdParty/EASTL";
-
-		public EASTL()
-		{
-			Name = "EASTL";
-
-			AddTargets(new Target(
-				Platform.win64 | Platform.win32,
-				DevEnv.vs2017,
-				Optimization.Debug | Optimization.Release,
-				OutputType.Lib
-			));
-
-			SourceRootPath = "[project.BasePath]";
-
-			IsFileNameToLower = false;
-		}
-
-		[Configure()]
-		public void Configure(Configuration conf, Target target)
-		{
-			conf.Output = Project.Configuration.OutputType.Lib;
-			conf.IncludePaths.Add("[project.BasePath]/src/include");
-			conf.TargetLibraryPath = "[project.BasePath]/../EASTL/libs";
-			conf.ProjectPath = "[project.SharpmakeCsPath]/../ThirdParty/EASTL";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/EASTL";
-			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
-			conf.SolutionFolder = "ThirdParty";
-
-			if (target.Optimization == Optimization.Debug)
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDebugDLL);
-			else
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
-		}
-	}
-
-	[Sharpmake.Generate]
-	public class ImGUI : Project
-	{
-		public string BasePath = @"[project.SharpmakeCsPath]/../ThirdParty/ImGUI";
-
-		public ImGUI()
-		{
-			Name = "ImGUI";
-
-			AddTargets(new Target(
-				Platform.win64 | Platform.win32,
-				DevEnv.vs2017,
-				Optimization.Debug | Optimization.Release,
-				OutputType.Lib
-			));
-
-			SourceRootPath = "[project.BasePath]/src";
-
-			IsFileNameToLower = false;
-		}
-
-		[Configure()]
-		public void Configure(Configuration conf, Target target)
-		{
-			conf.Output = Project.Configuration.OutputType.Lib;
-			conf.IncludePaths.Add("[project.BasePath]/src");
-			conf.TargetLibraryPath = "[project.BasePath]/../ImGUI/libs";
-			conf.ProjectPath = "[project.SharpmakeCsPath]/../ThirdParty/ImGUI";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/ImGUI";
-			conf.SolutionFolder = "ThirdParty";
-
-			if (target.Optimization == Optimization.Debug)
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDebugDLL);
-			else
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
-		}
-	}
-
-	[Sharpmake.Generate]
-	public class GLEW : Project
-	{
-		public string BasePath = @"[project.SharpmakeCsPath]/../ThirdParty/GLEW";
-
-		public GLEW()
-		{
-			Name = "GLEW";
-
-			AddTargets(new Target(
-				Platform.win64 | Platform.win32,
-				DevEnv.vs2017,
-				Optimization.Debug | Optimization.Release,
-				OutputType.Lib
-			));
-
-			SourceRootPath = "[project.BasePath]/Source";
-
-			IsFileNameToLower = false;
-		}
-
-		[Configure()]
-		public void Configure(Configuration conf, Target target)
-		{
-			conf.Output = Project.Configuration.OutputType.Lib;
-			conf.IncludePaths.Add("[project.BasePath]/Source");
-			conf.Defines.Add("GLEW_STATIC");
-			conf.TargetLibraryPath = "[project.BasePath]/../GLEW/libs";
-			conf.ProjectPath = "[project.SharpmakeCsPath]/../ThirdParty/GLEW";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/GLEW";
-			conf.SolutionFolder = "ThirdParty";
-			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
-
-			if (target.Optimization == Optimization.Debug)
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDebugDLL);
-			else
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
-		}
-	}
-
-
-	[Sharpmake.Generate]
-	public class GLM : Project
-	{
-		public string BasePath = @"[project.SharpmakeCsPath]/../ThirdParty/GLM";
-
-		public GLM()
-		{
-			Name = "GLM";
-
-			AddTargets(new Target(
-				Platform.win64 | Platform.win32,
-				DevEnv.vs2017,
-				Optimization.Debug | Optimization.Release,
-				OutputType.Lib
-			));
-
-			SourceRootPath = "[project.BasePath]/Source";
-
-			IsFileNameToLower = false;
-		}
-
-		[Configure()]
-		public void Configure(Configuration conf, Target target)
-		{
-			conf.Output = Project.Configuration.OutputType.Lib;
-			conf.IncludePaths.Add("[project.BasePath]/Source");
-			conf.TargetLibraryPath = "[project.BasePath]/../GLM/libs";
-			conf.ProjectPath = "[project.SharpmakeCsPath]/../ThirdParty/GLM";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/GLM";
-			conf.SolutionFolder = "ThirdParty";
-
-			if (target.Optimization == Optimization.Debug)
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDebugDLL);
-			else
-				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
-
-			conf.Options.Add(new Sharpmake.Options.Vc.Compiler.DisableSpecificWarnings("4201"));
-			
-		}
-	}
-
-	[Sharpmake.Generate]
 	public class SkelEngine : Project
 	{
 		public string BasePath = @"[project.SharpmakeCsPath]/../Engine";
@@ -174,7 +15,7 @@ namespace SkelEngine
 				Platform.win64 | Platform.win32,
 				DevEnv.vs2017,
 				Optimization.Debug | Optimization.Release,
-				OutputType.Lib
+				OutputType.Dll | OutputType.Lib
 			));
 
 			SourceRootPath = "[project.BasePath]";
@@ -183,44 +24,77 @@ namespace SkelEngine
 		}
 
 		[Configure()]
-		public void Configure(Configuration conf, Target target)
+		public void ConfigureAll(Configuration conf, Target target)
 		{
-			conf.Output = Project.Configuration.OutputType.Lib;
 			conf.IncludePaths.Add("[project.BasePath]");
-			conf.IncludePaths.Add("[project.BasePath]/../Thirdparty/GLFW/include");
-			conf.IncludePaths.Add("[project.BasePath]/../Thirdparty/assimp/include");
-			conf.TargetLibraryPath = "[project.BasePath]/../ThirdParty/Engine/libs";
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/GLFW/include/");
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/assimp/include/");
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/EASTL/src/include/");
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/GLEW/Source/");
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/glm/Source/");
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/ImGui/src/");
+
+			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/GLFW/lib-vc2015");
+			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/assimp/lib");
+
+			conf.TargetLibraryPath = "[project.BasePath]/../bin/libs";
 			conf.ProjectPath = "[project.SharpmakeCsPath]/../Engine";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/Engine";
+			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/Intermediate/Engine";
+			conf.TargetPath = "[project.SharpmakeCsPath]/../bin";
 			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
 			conf.Defines.Add("GLEW_STATIC");
+			conf.LibraryFiles.Add("assimp.lib");
+			conf.LibraryFiles.Add("glfw3.lib");
+			conf.LibraryFiles.Add("opengl32.lib");
 			conf.SolutionFolder = "Engine";
+
+			// The library wants LIBRARY_COMPILE defined when it compiles the
+			// library, so that it knows whether it must use dllexport or
+			// dllimport.
+			conf.Defines.Add("SKEL_COMPILE");
+
+			if (target.OutputType == OutputType.Dll)
+			{
+				// We want this to output a shared library. (DLL)
+				conf.Output = Configuration.OutputType.Dll;
+
+				// This library project expects LIBRARY_DLL symbol to be defined
+				// when used as a DLL. While we could define it in the executable,
+				// it is better to put it as an exported define. That way, any
+				// projects with a dependency on this one will have LIBRARY_DLL
+				// automatically defined by Sharpmake.
+				conf.ExportDefines.Add("SKEL_DLL");
+
+				// Exported defines are not necessarily defines as well, so we need
+				// to add LIBRARY_DLL as an ordinary define too.
+				conf.Defines.Add("SKEL_DLL");
+			}
+			else if (target.OutputType == OutputType.Lib)
+			{
+				// We want this to output a static library. (LIB)
+				conf.Output = Configuration.OutputType.Lib;
+			}
 
 			if (target.Optimization == Optimization.Debug)
 				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDebugDLL);
 			else
 				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
 
+			conf.Options.Add(Options.Vc.Compiler.Exceptions.Enable);
 			conf.Options.Add(new Sharpmake.Options.Vc.Compiler.DisableSpecificWarnings("4201", "4005"));
-			conf.Options.Add(Sharpmake.Options.Vc.Compiler.Exceptions.Enable);
-
-			conf.AddPublicDependency<EASTL>(target);
-			conf.AddPublicDependency<ImGUI>(target);
-			conf.AddPublicDependency<GLEW>(target);
-			conf.AddPublicDependency<GLM>(target);
 		}
 	}
 
 	[Sharpmake.Generate]
-	public class SkelEngineSandbox : Project
+	public class SkelEditor : Project
 	{
-		public SkelEngineSandbox()
+		public SkelEditor()
 		{
-			Name = "Sandbox";
+			Name = "Editor";
 			AddTargets(new Target(Platform.win64 | Platform.win32,
 				DevEnv.vs2017,
 				Optimization.Debug | Optimization.Release));
-			SourceRootPath = "[project.SharpmakeCsPath]/../Sandbox";
+			SourceRootPath = "[project.SharpmakeCsPath]/../Editor";
 
 			IsFileNameToLower = false;
 		}
@@ -228,17 +102,14 @@ namespace SkelEngine
 		[Configure()]
 		public void ConfigureAll(Configuration conf, Target target)
 		{
-			conf.ProjectFileName = "Sandbox";
-			conf.ProjectPath = @"[project.SharpmakeCsPath]/../Sandbox";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/Sandbox";
-			conf.LibraryPaths.Add("[project.SharpmakeCsPath]/../Thirdparty/GLFW/lib-vc2015");
-			conf.LibraryPaths.Add("[project.SharpmakeCsPath]/../Thirdparty/assimp/lib");
+			conf.ProjectFileName = "Editor";
+			conf.ProjectPath = @"[project.SharpmakeCsPath]/../Editor";
+			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/Editor";
 			conf.Options.Add(Sharpmake.Options.Vc.Compiler.Exceptions.Enable);
+			conf.TargetPath = "[project.SharpmakeCsPath]/../bin";
 			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
+			conf.SolutionFolder = "Engine";
 			conf.Defines.Add("GLEW_STATIC");
-			conf.LibraryFiles.Add("assimp.lib");
-			conf.LibraryFiles.Add("glfw3.lib");
-			conf.LibraryFiles.Add("opengl32.lib");
 
 			conf.Options.Add(Sharpmake.Options.Vc.Linker.SubSystem.Console);
 
@@ -251,11 +122,10 @@ namespace SkelEngine
 			{
 				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
 			}
-
+			
 			conf.Options.Add(new Sharpmake.Options.Vc.Compiler.DisableSpecificWarnings("4201"));
 
-			conf.AddPublicDependency<GLEW>(target);
-			conf.AddPublicDependency<SkelEngine>(target);
+			conf.AddPrivateDependency<SkelEngine>(target);
 		}
 	}
 
@@ -275,7 +145,8 @@ namespace SkelEngine
 		{
 			conf.SolutionFileName = "SkelEngine";
 			conf.SolutionPath = @"[solution.SharpmakeCsPath]/..";
-			conf.AddProject<SkelEngineSandbox>(target);
+			conf.AddProject<SkelEditor>(target);
+			conf.AddProject<SkelEngine>(target);
 		}
 	}
 
