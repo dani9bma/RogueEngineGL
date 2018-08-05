@@ -17,6 +17,10 @@ namespace Skel
 	Window::Window(int width, int height, const char* title)
 		: m_width(width), m_height(height), m_title(title)
 	{
+#if defined(_WIN32)
+		HWND hWin = GetForegroundWindow();
+		ShowWindow(hWin, SW_HIDE);
+#endif
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -24,7 +28,7 @@ namespace Skel
 		m_window = glfwCreateWindow(width, height, title, NULL, NULL);
 		if (!m_window)
 		{
-			LOG_ERROR("WINDOW", "Failed to create Window");
+			SK_LOG(Error, System, "Failed to Initialize Window");
 			glfwTerminate();
 			return;
 		}
@@ -36,12 +40,12 @@ namespace Skel
 		glfwMakeContextCurrent(m_window);
 		if (glewInit() != GLEW_OK)
 		{
-			LOG_ERROR("GRAPHICS", "Failed to load GLEW");
+			SK_LOG(Error, Rendering, "Failed to Initialize GLEW");
 			return;
 		}
 
-		LOG_INFO("GRAPHICS", "GLEW Initialized %s", glewGetString(GLEW_VERSION));
-		LOG_INFO("GRAPHICS", "OpenGL initialized %s", glGetString(GL_VERSION));
+		SK_LOGP(Warning, System, "GLEW Initialized! Version: %s", glewGetString(GLEW_VERSION));
+		SK_LOGP(Warning, System, "OpenGL Initialized! Version: %s", glGetString(GL_VERSION));
 		
 		Input::ShowMouseCursor(this, true);
 		glfwSetWindowUserPointer(m_window, this);
@@ -68,7 +72,7 @@ namespace Skel
 		m_fps++;
 		if (currentTime - m_lastTime >= 1.0) // If last prinf() was more than 1 sec ago
 		{
-			LOG_INFO("UTILS", "%d FPS", m_fps);
+			SK_LOGP(Warning, System, "%d FPS", m_fps);
 			m_fps = 0;
 			m_lastTime += 1.0;
 		}
@@ -118,11 +122,10 @@ namespace Skel
 	{
 		Input::SetMouseScrollOffset(yoffset);
 		glfwSetWindowShouldClose(window, 1);
-		LOG_WARNING("DEBUG", "scroll working");
 	}
 
 	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
-		LOG_WARNING("DEBUG", "working");
+
 	}
 }

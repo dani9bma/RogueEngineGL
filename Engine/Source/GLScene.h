@@ -24,7 +24,6 @@
 extern bool        ImGui_ImplGlfwGL3_Init(GLFWwindow* window, bool install_callbacks);
 extern void        ImGui_ImplGlfwGL3_Shutdown();
 extern void        ImGui_ImplGlfwGL3_NewFrame();
-extern void        ImGui_ImplGlfwGL3_RenderDrawData(ImDrawData* draw_data);
 extern void        ImGui_ImplGlfwGL3_InvalidateDeviceObjects();
 extern bool        ImGui_ImplGlfwGL3_CreateDeviceObjects();
 
@@ -84,8 +83,8 @@ namespace Skel
 		{
 			Window* window = new Window(1280, 720, "Skel Engine");
 
-			Shader* shader = new Shader("../Engine/Source/platform/opengl/shaders/basic.vert", "../Engine/Source/platform/opengl/shaders/basic.frag");
-			Shader* skyboxShader = new Shader("../Engine/Source/platform/opengl/shaders/cubemap.vert", "../Engine/Source/platform/opengl/shaders/cubemap.frag");
+			Shader* shader = new Shader("../Engine/Res/Shaders/basic.vert", "../Engine/Res/Shaders/basic.frag");
+			Shader* skyboxShader = new Shader("../Engine/Res/Shaders/cubemap.vert", "../Engine/Res/Shaders/cubemap.frag");
 
 			shader->enable();
 
@@ -98,15 +97,15 @@ namespace Skel
 
 			Skybox skybox = Skybox(skyboxShader);
 
-			Model* crysisModel = new Model("../Engine/models/nanosuit/nanosuit.obj");
-			Model* garroshModel = new Model("../Engine/models/garrosh.obj");
-			//Model* sponzaModel = new Model("../Engine/models/sponza/sponza_optimized.obj");
-			Model* swThroneModel = new Model("../Engine/models/swThrone.obj");
+			Model* crysisModel = new Model("../Engine/Res/models/nanosuit/nanosuit.obj");
+			Model* garroshModel = new Model("../Engine/Res/models/garrosh.obj");
+			Model* sponzaModel = new Model("../Engine/Res/models/sponza/sponza_optimized.obj");
+			Model* swThroneModel = new Model("../Engine/Res/models/swThrone.obj");
 
 
-			//sponza = new Entity(sponzaModel, shader);
+			sponza = new Entity(sponzaModel, shader);
 			//sponza->setPosition(-100.0f, -7.0f, 50.0f);
-			//sponza->setSize(0.2f, 0.2f, 0.2f);
+			sponza->setSize(0.2f, 0.2f, 0.2f);
 
 			garrosh = new Entity(garroshModel, shader);
 			garrosh->setPosition(1.0f, -5.0f, -2.0f);
@@ -147,7 +146,7 @@ namespace Skel
 
 				shader->enable();
 				
-				//sponza->draw();
+				sponza->draw();
 
 				
 

@@ -40,7 +40,7 @@ namespace Skel
 		}
 		else
 		{
-			LOG_WARNING("TEXTURE", "Failed to load texture");
+			SK_LOGP(Error, Rendering, "Failed to load Texture! Path: %s", path);
 		}
 		stbi_image_free(data);
 		shader->enable();
@@ -77,7 +77,7 @@ namespace Skel
 		}
 		else
 		{
-			LOG_WARNING("TEXTURE", "Failed to load texture");
+			SK_LOGP(Error, Rendering, "Failed to load Texture! Path: %s", path);
 		}
 		stbi_image_free(data);
 		m_textureID = texture;
@@ -111,7 +111,7 @@ namespace Skel
 		}
 		else
 		{
-			LOG_WARNING("TEXTURE", "Failed to load texture");
+			SK_LOGP(Error, Rendering, "Failed to load Texture! Path: %s", path);
 		}
 		stbi_image_free(data);
 		m_textureID = texture;

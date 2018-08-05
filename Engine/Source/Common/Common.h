@@ -16,22 +16,27 @@
 	x;\
 	ASSERT(Common::GLLogCall(#x, __FILE__, __LINE__))
 
-class Common
+namespace Skel
 {
-public:
-	static void GLClearError()
+	class Common
 	{
-		while (glGetError() != GL_NO_ERROR);
-	}
-
-	static bool GLLogCall(const char* func, const char* file, int line)
-	{
-		while (GLenum error = glGetError())
+	public:
+		static void GLClearError()
 		{
-			SK_LOGP(Error, Rendering, "(%d)%s:%d->%s", error, file, line, func);
-			return false;
+			while (glGetError() != GL_NO_ERROR);
 		}
 
-		return true;
-	}
-};
+		static bool GLLogCall(const char* func, const char* file, int line)
+		{
+			while (GLenum error = glGetError())
+			{
+				SK_LOGP(Error, Rendering, "(%d)%s:%d->%s", error, file, line, func);
+				return false;
+			}
+
+			return true;
+		}
+	};
+
+}
+

@@ -87,7 +87,7 @@ namespace Skel
 		if (!sucess)
 		{
 			GLCall(glGetProgramInfoLog(fragShader, 512, 0, infoLog));
-			LOG_WARNING("SHADER::PROGRAM", "%s", infoLog);
+			SK_LOGP(Error, Rendering, "%s", infoLog);
 		}
 		GLCall(glDeleteShader(vertexShader));
 		GLCall(glDeleteShader(fragShader));

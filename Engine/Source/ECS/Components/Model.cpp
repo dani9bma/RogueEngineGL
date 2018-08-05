@@ -19,7 +19,7 @@ namespace Skel
 		// check for errors
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 		{
-			LOG_ERROR("MODEL::ASSIMP", "%s", importer.GetErrorString());
+			SK_LOGP(Error, Rendering, "%s", importer.GetErrorString());
 			return;
 		}
 		// retrieve the directory path of the filepath

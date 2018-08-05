@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../Common/Types.h"
+#if defined(_WIN32) || defined(_WIN64)
 #include <windows.h>
+#endif
 #include <cstdarg>
 #include "FileSystem.h"
 
@@ -54,6 +56,8 @@ namespace Skel
 			}
 		}
 
+#if defined(_WIN32) || defined(_WIN64)
+
 		inline static void PrintLogLevelColor(const LogLevel logLevel)
 		{
 			const HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -99,6 +103,32 @@ namespace Skel
 			PrintLogLevelColor(LogLevel::Info);
 		}
 
+		inline static void PlatformLogPNoFile(const LogLevel logLevel, LogModule logModule, EAString buffer)
+		{
+			SYSTEMTIME time;
+			GetSystemTime(&time);
+
+			char date[1024];
+			sprintf(date, "[%02d/%02d/%d]", time.wDay, time.wMonth, time.wYear);
+
+			char year[1024];
+			sprintf(year, "[%02d:%02d]", time.wHour, time.wMinute);
+
+			EAString txt = date;
+			txt.append(year);
+			txt.append(LogModuleToString(logModule));
+			txt.append(LogLevelToString(logLevel));
+			txt.append(buffer);
+			txt.append("\n");
+
+
+			PrintLogLevelColor(logLevel);
+
+			OutputDebugString(txt.c_str());
+
+			PrintLogLevelColor(LogLevel::Info);
+		}
+
 		inline static void PlatformLog(LogLevel logLevel, LogModule logModule, EAString text)
 		{
 			SYSTEMTIME time;
@@ -122,10 +152,176 @@ namespace Skel
 
 			OutputDebugString(txt.c_str());
 			FileSystem::PrintToLogFile(txt.c_str());
+			
 
 			PrintLogLevelColor(LogLevel::Info);
-
 		}
+
+		inline static void PlatformLogNoFile(LogLevel logLevel, LogModule logModule, EAString text)
+		{
+			SYSTEMTIME time;
+			GetSystemTime(&time);
+
+			char date[1024];
+			sprintf(date, "[%02d/%02d/%d]", time.wDay, time.wMonth, time.wYear);
+
+			char year[1024];
+			sprintf(year, "[%02d:%02d]", time.wHour, time.wMinute);
+
+			EAString txt = date;
+			txt.append(year);
+			txt.append(LogModuleToString(logModule));
+			txt.append(LogLevelToString(logLevel));
+			txt.append(text);
+			txt.append("\n");
+
+
+			PrintLogLevelColor(logLevel);
+
+			OutputDebugString(txt.c_str());
+
+
+			PrintLogLevelColor(LogLevel::Info);
+		}
+#else
+
+		/*			foreground  background
+		black        30         40
+		red          31         41
+		green        32         42
+		yellow       33         43
+		blue         34         44
+		magenta      35         45
+		cyan         36         46
+		white        37         47
+		
+		*/
+inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
+{
+	switch (logLevel)
+	{
+	case LogLevel::Info:
+		text.append("\033[1;0");
+		break;
+	case LogLevel::Warning:
+		text.append("\033[1;33");
+		break;
+	case LogLevel::Error:
+		text.append("\033[1;31");
+
+	}
+}
+
+
+		inline static void PlatformLogP(const LogLevel logLevel, LogModule logModule, EAString buffer)
+		{
+
+			char time[10];
+			_strtime(time);
+
+			char date[10];
+			_strdate(date);
+
+			EAString txt;
+
+			PrintLogLevelColor(logLevel, txt);
+			
+			txt.append(date);
+			txt.append(year);
+			txt.append(LogModuleToString(logModule));
+			txt.append(LogLevelToString(logLevel));
+			txt.append(buffer);
+			txt.append("\n");
+
+
+			printf(txt.c_str());
+			FileSystem::PrintToLogFile(txt.c_str());
+
+			PrintLogLevelColor(LogLevel::Info);
+		}
+
+		inline static void PlatformLogPNoFile(const LogLevel logLevel, LogModule logModule, EAString buffer)
+		{
+			char time[10];
+			_strtime(time);
+
+			char date[10];
+			_strdate(date);
+
+			EAString txt;
+
+			PrintLogLevelColor(logLevel, txt);
+
+			txt.append(date);
+
+			txt.append(year);
+			txt.append(LogModuleToString(logModule));
+			txt.append(LogLevelToString(logLevel));
+			txt.append(buffer);
+			txt.append("\n");
+
+
+
+			printf(txt.c_str());
+
+			PrintLogLevelColor(LogLevel::Info);
+		}
+
+		inline static void PlatformLog(LogLevel logLevel, LogModule logModule, EAString text)
+		{
+			char time[10];
+			_strtime(time);
+
+			char date[10];
+			_strdate(date);
+
+			EAString txt;
+
+			PrintLogLevelColor(logLevel, txt);
+
+			txt.append(date);
+
+			txt.append(year);
+			txt.append(LogModuleToString(logModule));
+			txt.append(LogLevelToString(logLevel));
+			txt.append(text);
+			txt.append("\n");
+
+
+
+			printf(txt.c_str());
+			FileSystem::PrintToLogFile(txt.c_str());
+
+
+			PrintLogLevelColor(LogLevel::Info);
+		}
+
+		inline static void PlatformLogNoFile(LogLevel logLevel, LogModule logModule, EAString text)
+		{
+			char time[10];
+			_strtime(time);
+
+			char date[10];
+			_strdate(date);
+
+			EAString txt;
+
+			PrintLogLevelColor(logLevel, txt);
+
+			txt.append(date);
+
+			txt.append(year);
+			txt.append(LogModuleToString(logModule));
+			txt.append(LogLevelToString(logLevel));
+			txt.append(text);
+			txt.append("\n");
+
+			printf(txt.c_str());
+
+
+			PrintLogLevelColor(LogLevel::Info);
+		}
+#endif
 
 	};
 }
@@ -146,6 +342,13 @@ namespace Skel
 	Skel::Log::PlatformLogP(logLevel, logModule, buf); \
 	}\
 
+#define SK_LOGPNF(logLevel, logModule, txt,  ...) \
+	{ \
+	char buf[1024]; \
+	sprintf(buf, txt, __VA_ARGS__); \
+	Skel::Log::PlatformLogPNoFile(logLevel, logModule, buf); \
+	}\
+
  /**
  * \brief
  * \param logLevel
@@ -156,6 +359,7 @@ namespace Skel
 #define SK_LOG(logLevel, logModule, txt) \
 	Skel::Log::PlatformLog(logLevel, logModule, txt);\
 
-
+#define SK_LOGNF(logLevel, logModule, txt) \
+	Skel::Log::PlatformLogNoFile(logLevel, logModule, txt);\
 
 

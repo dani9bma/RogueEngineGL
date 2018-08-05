@@ -2,9 +2,7 @@
 
 #include "../utils/Log.h"
 
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#include <winerror.h>
+#if 0
 
 static EAString GetHRError(HRESULT hr)
 {
@@ -60,6 +58,6 @@ CheckD3D(hr, __LINE__, __FILE__);\
 #define Assert(x) \
 		if(!(x)) LOG_P(Skel::LogLevel::Error, Skel::LogModule::Rendering, "Assertion Failed at %d - %s", __LINE__, __FILE__);
 
-
+#endif
 #define FORCEINLINE __forceinline									/* Force code to be inline */
 #define FORCENOINLINE __declspec(noinline)							/* Force code to NOT be inline */
