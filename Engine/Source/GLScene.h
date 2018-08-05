@@ -14,6 +14,7 @@
 #include "ECS/components/model.h"
 #include "Graphics/Skybox.h"
 #include "ECS/Entity.h"
+#include "Graphics/FrameBuffer.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -21,11 +22,9 @@
 
 #include "Utils/Input.h"
 
-extern bool        ImGui_ImplGlfwGL3_Init(GLFWwindow* window, bool install_callbacks);
-extern void        ImGui_ImplGlfwGL3_Shutdown();
-extern void        ImGui_ImplGlfwGL3_NewFrame();
-extern void        ImGui_ImplGlfwGL3_InvalidateDeviceObjects();
-extern bool        ImGui_ImplGlfwGL3_CreateDeviceObjects();
+#include <ImGui/imgui.h>
+#include <ImGui/imgui_impl_glfw.h>
+#include <ImGui/imgui_impl_opengl3.h>
 
 Skel::Entity* sponza = nullptr;
 Skel::Entity* garrosh = nullptr;
@@ -77,7 +76,6 @@ namespace Skel
 	class Scene3DOpenGL
 	{
 	public:
-		
 
 		Scene3DOpenGL()
 		{
@@ -99,16 +97,16 @@ namespace Skel
 
 			Model* crysisModel = new Model("../Engine/Res/models/nanosuit/nanosuit.obj");
 			Model* garroshModel = new Model("../Engine/Res/models/garrosh.obj");
-			Model* sponzaModel = new Model("../Engine/Res/models/sponza/sponza_optimized.obj");
+			//Model* sponzaModel = new Model("../Engine/Res/models/OBJ.obj");
 			Model* swThroneModel = new Model("../Engine/Res/models/swThrone.obj");
 
 
-			sponza = new Entity(sponzaModel, shader);
+			//sponza = new Entity(sponzaModel, shader);
 			//sponza->setPosition(-100.0f, -7.0f, 50.0f);
-			sponza->setSize(0.2f, 0.2f, 0.2f);
+			//sponza->setSize(0.2f, 0.2f, 0.2f);
 
 			garrosh = new Entity(garroshModel, shader);
-			garrosh->setPosition(1.0f, -5.0f, -2.0f);
+			garrosh->setPosition(7.0f, -5.0f, -2.0f);
 			garrosh->setSize(4.0f, 4.0f, 4.0f);
 
 			crysis = new Entity(crysisModel, shader);
@@ -131,22 +129,44 @@ namespace Skel
 			float garroshLocationZ = garrosh->getTransform().getPosition().z;
 			float garroshSizeZ = garrosh->getTransform().getSize().z;
 #endif
+
+			FrameBuffer* frameBuffer = new FrameBuffer();
+			// Setup Dear ImGui binding
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+			//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+
+			ImGui_ImplGlfw_InitForOpenGL(window->getGLFWwindow(), true);
+			ImGui_ImplOpenGL3_Init("#version 130");
+
+			// Setup style
+			ImGui::StyleColorsDark();
+
+			// Setup style
+			ImGui::StyleColorsDark();
+
 			while (!window->closed())
 			{
+				
+				ImGui_ImplOpenGL3_NewFrame();
+				ImGui_ImplGlfw_NewFrame();
+				ImGui::NewFrame();
 
 				//Render
+				frameBuffer->bind();
 				GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
 				GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 				GLCall(glEnable(GL_DEPTH_TEST));
-				GLCall(glEnable(GL_BLEND));
-				GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
+				
 				light.update();
 				skybox.update(camera, camera.getProjection());
 
 				shader->enable();
 				
-				sponza->draw();
+				//sponza->draw();
 
 				
 
@@ -158,12 +178,31 @@ namespace Skel
 				
 				garrosh->draw();
 
+				frameBuffer->unbind();
+				GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
+				GLCall(glClear(GL_COLOR_BUFFER_BIT));
+				GLCall(glEnable(GL_DEPTH_TEST));
 					
-					
+				ImGui::Begin("Scene Window");
+
+				ImVec2 pos = ImGui::GetCursorScreenPos();
+
+				ImGui::GetWindowDrawList()->AddImage(
+					(void *)frameBuffer->GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+					ImVec2(ImGui::GetCursorScreenPos().x + 1920 / 2, ImGui::GetCursorScreenPos().y + 1080 / 2), ImVec2(0, 1), ImVec2(1, 0));
+
+				ImGui::End();
+				ImGui::Render();
+				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 				//Render
 				camera.update();
 				window->update();
+
 			}
+
+			ImGui_ImplOpenGL3_Shutdown();
+			ImGui_ImplGlfw_Shutdown();
+			ImGui::DestroyContext();
 
 		}
 	};

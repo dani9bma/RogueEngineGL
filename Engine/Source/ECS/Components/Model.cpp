@@ -128,7 +128,7 @@ namespace Skel
 		std::vector<TextureMesh> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 		// 3. normal maps
-		std::vector<TextureMesh> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+		std::vector<TextureMesh> normalMaps = loadMaterialTextures(material, aiTextureType_NORMALS, "texture_normal");
 		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 		// 4. height maps
 		std::vector<TextureMesh> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
