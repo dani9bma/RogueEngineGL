@@ -11,6 +11,7 @@
 #include <iostream>
 #include "../Utils/Log.h"
 
+#define UNREF_PARAM(P)          (P)
 #define ASSERT(x) if(!(x)) __debugbreak();
 #define GLCall(x) Common::GLClearError();\
 	x;\

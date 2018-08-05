@@ -15,6 +15,8 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <unistd.h>
+#elif defined(EA_PLATFORM_WIN32) || defined(EA_PLATFORM_WIN32)
+#define UNREFERENCED_PARAMETER(p) (p)
 #endif
 
 namespace EA {
@@ -51,6 +53,7 @@ namespace Thread {
         int result = setpriority(PRIO_PROCESS, pid, newPriority);
         return result >= 0;
     #else
+		UNREFERENCED_PARAMETER(priority);
         return false;
     #endif
     }

@@ -15,7 +15,9 @@
 	#ifndef WIN32_LEAN_AND_MEAN
 		#define WIN32_LEAN_AND_MEAN
 	#endif
-	#include <Windows.h>
+#ifndef APIENTRY
+#include <Windows.h>
+#endif
 	#pragma warning(pop)
 #elif defined(EA_PLATFORM_ANDROID)
 	#include <android/log.h>

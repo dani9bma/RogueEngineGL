@@ -27,7 +27,7 @@ namespace Skel
 		unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
 		if (data)
 		{
-			GLenum format;
+			GLenum format = 0;
 			if (nrChannels == 1)
 				format = GL_RED;
 			else if (nrChannels == 3)
@@ -64,7 +64,7 @@ namespace Skel
 		unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
-			GLenum format;
+			GLenum format = 0;
 			if (nrChannels == 1)
 				format = GL_RED;
 			else if (nrChannels == 3)
@@ -77,7 +77,7 @@ namespace Skel
 		}
 		else
 		{
-			SK_LOGP(Error, Rendering, "Failed to load Texture! Path: %s", path);
+			SK_LOGP(Error, Rendering, "Failed to load Texture! Path: %s", path.c_str());
 		}
 		stbi_image_free(data);
 		m_textureID = texture;

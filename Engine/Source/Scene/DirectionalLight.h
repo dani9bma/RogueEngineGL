@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "../../Core/Camera.h"
-#include "../../Graphics/Shader.h"
+#include "Camera.h"
+#include "../Graphics/Shader.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

@@ -16287,6 +16287,8 @@ static void eglewInfo ()
 
 /* ------------------------------------------------------------------------ */
 
+#if 0
+
 int main (int argc, char** argv)
 {
   GLuint err;
@@ -16400,6 +16402,7 @@ int main (int argc, char** argv)
   return 0;
 }
 
+#endif
 /* ------------------------------------------------------------------------ */
 
 GLboolean glewParseArgs (int argc, char** argv, struct createParams *params)

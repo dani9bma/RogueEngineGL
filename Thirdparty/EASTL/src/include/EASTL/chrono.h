@@ -34,7 +34,9 @@
 	EA_DISABLE_ALL_VC_WARNINGS()
 	#undef NOMINMAX
 	#define NOMINMAX
+#ifndef APIENTRY
 	#include <Windows.h>
+#endif
 	#ifdef min
 		#undef min
 	#endif

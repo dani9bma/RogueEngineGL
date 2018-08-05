@@ -67,7 +67,9 @@
 #  ifndef WIN32_LEAN_AND_MEAN
 #    define WIN32_LEAN_AND_MEAN 1
 #  endif
-#include <windows.h>
+#ifndef APIENTRY
+#include <Windows.h>
+#endif
 #  undef WIN32_LEAN_AND_MEAN
 #endif
 

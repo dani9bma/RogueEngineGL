@@ -1,6 +1,6 @@
 #pragma once
 #include "Shader.h"
-#include "../Core/Camera.h"
+#include "../Scene/Camera.h"
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "Texture.h"

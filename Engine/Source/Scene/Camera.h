@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Window.h"
+#include "../Core/Window.h"
 #include "../Graphics/Shader.h"
 
 namespace Skel

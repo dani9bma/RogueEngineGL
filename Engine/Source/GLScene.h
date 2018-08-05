@@ -7,8 +7,8 @@
 
 #include "Graphics/opengl.h"
 #include "Core/window.h"
-#include "Core/camera.h"
-#include "ECS/components/DirectionalLight.h"
+#include "Scene/camera.h"
+#include "Scene/DirectionalLight.h"
 #include "Common/Common.h"
 #include "Utils/Log.h"
 #include "ECS/components/model.h"
@@ -120,7 +120,7 @@ namespace Skel
 			throne->setPosition(0.0f, -5.0f, 15.0f);
 			throne->setSize(1.0f, 1.0f, 1.0f);
 
-
+#if 0
 			float garroshRotationY = garrosh->getTransform().getRotation().y;
 			float garroshLocationX = garrosh->getTransform().getPosition().x;
 			float garroshSizeX = garrosh->getTransform().getSize().x;
@@ -130,7 +130,7 @@ namespace Skel
 			float garroshRotationZ = garrosh->getTransform().getRotation().z;
 			float garroshLocationZ = garrosh->getTransform().getPosition().z;
 			float garroshSizeZ = garrosh->getTransform().getSize().z;
-
+#endif
 			while (!window->closed())
 			{
 

@@ -16162,7 +16162,7 @@ static GLenum GLEWAPIENTRY glewContextInit ()
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
-  size_t n;
+  GLint n;
 
   #ifdef _WIN32
   getString = glGetString;
@@ -16218,7 +16218,7 @@ static GLenum GLEWAPIENTRY glewContextInit ()
 
   if (GLEW_VERSION_3_0)
   {
-    GLint n = 0;
+    n = 0;
     GLint i;
     PFNGLGETINTEGERVPROC getIntegerv;
     PFNGLGETSTRINGIPROC getStringi;

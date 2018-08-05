@@ -32,7 +32,7 @@ namespace Skel
 			glfwTerminate();
 			return;
 		}
-		glViewport(0.5, 0.0, m_width, m_height);
+		glViewport(0, 0, m_width, m_height);
 		glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 		glfwSetCursorPosCallback(m_window, mouse_callback);
 		glfwSetScrollCallback(m_window, mouse_wheel_callback);
@@ -108,7 +108,8 @@ namespace Skel
 
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
-		glViewport(0.5, 0.0, width, height);
+		UNREF_PARAM(window);
+		glViewport(0, 0, width, height);
 	}
 
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -120,12 +121,17 @@ namespace Skel
 
 	void mouse_wheel_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
+		UNREF_PARAM(xoffset);
+		UNREF_PARAM(yoffset);
 		Input::SetMouseScrollOffset(yoffset);
 		glfwSetWindowShouldClose(window, 1);
 	}
 
 	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	{
-
+		UNREF_PARAM(window);
+		UNREF_PARAM(button);
+		UNREF_PARAM(action);
+		UNREF_PARAM(mods);
 	}
 }
