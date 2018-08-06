@@ -11,7 +11,6 @@
 namespace Skel
 {
 	void mouse_wheel_callback(GLFWwindow* window, double xoffset, double yoffset);
-	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 	Window::Window(int width, int height, const char* title)
@@ -108,7 +107,10 @@ namespace Skel
 
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
-		UNREF_PARAM(window);
+		auto* win = (Window*)glfwGetWindowUserPointer(window);
+		win->m_width = width;
+		win->m_height = height;
+
 		glViewport(0, 0, width, height);
 	}
 

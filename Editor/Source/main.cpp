@@ -25,6 +25,7 @@
 #include <ImGui/imgui.h>
 #include <ImGui/imgui_impl_glfw.h>
 #include <ImGui/imgui_impl_opengl3.h>
+#include <ImGUI/imgui_dock.h>
 
 using namespace Skel;
 
@@ -55,7 +56,6 @@ int main(void)
 	Model* garroshModel = new Model("../Engine/Res/models/floor.obj");
 	Model* sponzaModel = new Model("../Engine/Res/models/knob/mitsuba.obj");
 	Model* knobModel = new Model("../Engine/Res/models/knob/mitsuba.obj");
-
 
 	sponza = new Entity(sponzaModel, shader);
 	sponza->setPosition(-50.0f, -5.0f, 30.0f);
@@ -90,6 +90,7 @@ int main(void)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.Fonts->AddFontFromFileTTF("../Engine/Res/fonts/Roboto-Regular.ttf", 17.0f);
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
@@ -102,6 +103,10 @@ int main(void)
 	// Setup style
 	ImGui::StyleColorsDark();
 
+	ImGui::InitDock();
+
+	ImVec2 size = ImVec2(1280, 720);
+
 	while (!window->closed())
 	{
 
@@ -110,7 +115,7 @@ int main(void)
 		ImGui::NewFrame();
 
 		//Render
-		frameBuffer->bind();
+		frameBuffer->bind(size.x, size.y);
 		GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
@@ -122,8 +127,6 @@ int main(void)
 		skybox.update(camera, camera.getProjection());
 
 		shader->enable();
-
-
 
 
 		//crysis->setTransform(glm::vec3(0.0f, -5.0f, -2.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 180.0f);
@@ -139,15 +142,61 @@ int main(void)
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
 
-		ImGui::Begin("Scene Window");
+		if (ImGui::BeginMainMenuBar())
+		{
+			if (ImGui::BeginMenu("File"))
+			{
+				if (ImGui::MenuItem("Exit"))
+					// Exit...
+					ImGui::EndMenu();
+			}
 
-		ImVec2 pos = ImGui::GetCursorScreenPos();
+			if (ImGui::BeginMenu("Edit"))
+			{
+				//...
+				ImGui::EndMenu();
+			}
 
-		ImGui::GetWindowDrawList()->AddImage(
-			(void *)frameBuffer->GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
-			ImVec2(ImGui::GetCursorScreenPos().x + 1920 / 2, ImGui::GetCursorScreenPos().y + 1080 / 2), ImVec2(0, 1), ImVec2(1, 0));
+			if (ImGui::BeginMenu("Window"))
+			{
+				//...
+				ImGui::EndMenu();
+			}
 
+			ImGui::EndMainMenuBar();
+		}
+
+		if (ImGui::Begin("Engine", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus))
+		{
+			ImGui::SetWindowPos("Engine", ImVec2(0.0f, 5.0f));
+			ImGui::SetWindowSize("Engine", ImVec2(window->GetWidth(), window->GetHeight()));
+			// dock layout by hard-coded or .ini file
+			ImGui::BeginDockspace();
+
+			if (ImGui::BeginDock("Game")) {
+				size = ImGui::GetWindowSize();
+
+				ImGui::GetWindowDrawList()->AddImage(
+					(void *)frameBuffer->GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
+					ImVec2((ImGui::GetCursorScreenPos().x + size.x) - 2.0f, (ImGui::GetCursorScreenPos().y + size.y) - 15.0f), ImVec2(0, 1), ImVec2(1, 0));
+
+			}
+			ImGui::EndDock();
+
+			if (ImGui::BeginDock("Debug")) {
+				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			}
+			ImGui::EndDock();
+
+			if (ImGui::BeginDock("Transform")) {
+				ImGui::Text("TODO");
+			}
+			ImGui::EndDock();
+
+			ImGui::EndDockspace();
+		}
 		ImGui::End();
+
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		//Render

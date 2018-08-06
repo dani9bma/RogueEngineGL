@@ -18,7 +18,7 @@ namespace Skel
 	public:
 		FrameBuffer();
 		~FrameBuffer();
-		void bind();
+		void bind(int width, int height);
 		void unbind();
 		void AttachTexture();
 		void AttachDepthStencil();
@@ -29,5 +29,7 @@ namespace Skel
 		uint m_FBO;
 		uint m_RBO;
 		uint m_texture;
+		int m_width = 0;
+		int m_height = 0;
 	};
 }

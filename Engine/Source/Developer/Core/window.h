@@ -26,6 +26,9 @@ namespace Skel
 		void close();
 		inline GLFWwindow* getGLFWwindow() const { return m_window; }
 		inline void getMousePosition(double& x, double& y) const { x = m_x; y = m_y; };
+		inline int GetWidth() const { return m_width; }
+		inline int GetHeight() const { return m_height; }
+
 		void setMousePosition(double x, double y);
 	private:
 		int m_width;
@@ -39,6 +42,8 @@ namespace Skel
 
 	private:
 		friend static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+		friend static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 		
 	};
 }

@@ -33,6 +33,7 @@
 
 // GLFW
 #include "../../GLFW/include/GLFW/glfw3.h"
+
 #ifdef _WIN32
 #undef APIENTRY
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -94,6 +95,7 @@ void ImGui_ImplGlfw_KeyCallback(GLFWwindow*, int key, int, int action, int mods)
     io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
     io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
 }
+
 
 void ImGui_ImplGlfw_CharCallback(GLFWwindow*, unsigned int c)
 {
