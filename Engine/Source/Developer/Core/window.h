@@ -21,9 +21,9 @@ namespace Skel
 	public:
 		Window(int width, int height, const char*);
 		~Window();
-		void update();
-		int closed();
-		void close();
+		void Update();
+		int IsClosed();
+		void Close();
 		inline GLFWwindow* getGLFWwindow() const { return m_window; }
 		inline void getMousePosition(double& x, double& y) const { x = m_x; y = m_y; };
 		inline int GetWidth() const { return m_width; }

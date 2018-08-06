@@ -718,16 +718,10 @@ struct DockContext
 					draw_list->AddLine(
 						center + ImVec2(3.5f, -3.5f), center + ImVec2(-3.5f, 3.5f), text_color);
 				}
+				size.x += 16;
 				tab_base = pos.y;
 				draw_list->PathClear();
-				draw_list->PathLineTo(pos + ImVec2(-15, size.y));
-				draw_list->PathBezierCurveTo(
-					pos + ImVec2(-10, size.y), pos + ImVec2(-5, 0), pos + ImVec2(0, 0), 10);
-				draw_list->PathLineTo(pos + ImVec2(size.x, 0));
-				draw_list->PathBezierCurveTo(pos + ImVec2(size.x + 5, 0),
-					pos + ImVec2(size.x + 10, size.y),
-					pos + ImVec2(size.x + 15, size.y),
-					10);
+				draw_list->PathRect(ImVec2(0, 0), ImVec2(pos.x + size.x + 5.0f, pos.y + size.y));
 				draw_list->PathFillConvex(
 					hovered ? color_hovered : (dock_tab->active ? color_active : color));
 				draw_list->AddText(pos + ImVec2(0, 1), text_color, dock_tab->label, text_end);

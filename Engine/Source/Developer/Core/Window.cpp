@@ -62,7 +62,7 @@ namespace Skel
 		glfwTerminate();
 	}
 
-	void Window::update()
+	void Window::Update()
 	{
 
 
@@ -81,19 +81,19 @@ namespace Skel
 		if (Input::isKeyPressed(this, KEY_O))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		if (Input::isKeyPressed(this, KEY_ESCAPE))
-			this->close();
+			this->Close();
 
 
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
 	}
 
-	int Window::closed()
+	int Window::IsClosed()
 	{
 		return glfwWindowShouldClose(m_window);
 	}
 
-	void Window::close()
+	void Window::Close()
 	{
 		glfwSetWindowShouldClose(m_window, 1);
 	}

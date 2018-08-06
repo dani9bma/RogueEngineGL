@@ -98,16 +98,13 @@ int main(void)
 	ImGui_ImplOpenGL3_Init("#version 130");
 
 	// Setup style
-	ImGui::StyleColorsDark();
-
-	// Setup style
-	ImGui::StyleColorsDark();
+	ImGui::StyleColorsSkel();
 
 	ImGui::InitDock();
 
 	ImVec2 size = ImVec2(1280, 720);
 
-	while (!window->closed())
+	while (!window->IsClosed())
 	{
 
 		ImGui_ImplOpenGL3_NewFrame();
@@ -146,23 +143,18 @@ int main(void)
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				if (ImGui::MenuItem("Exit"))
-					// Exit...
-					ImGui::EndMenu();
+				ImGui::EndMenu();
 			}
-
 			if (ImGui::BeginMenu("Edit"))
 			{
-				//...
+				if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+				if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+				ImGui::Separator();
+				if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+				if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+				if (ImGui::MenuItem("Paste", "CTRL+V")) {}
 				ImGui::EndMenu();
 			}
-
-			if (ImGui::BeginMenu("Window"))
-			{
-				//...
-				ImGui::EndMenu();
-			}
-
 			ImGui::EndMainMenuBar();
 		}
 
@@ -201,7 +193,7 @@ int main(void)
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		//Render
 		camera.update();
-		window->update();
+		window->Update();
 
 	}
 
