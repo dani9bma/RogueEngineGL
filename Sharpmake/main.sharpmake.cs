@@ -123,7 +123,7 @@ namespace SkelEngine
 				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
 			}
 			
-			conf.Options.Add(new Sharpmake.Options.Vc.Compiler.DisableSpecificWarnings("4201"));
+			conf.Options.Add(new Sharpmake.Options.Vc.Compiler.DisableSpecificWarnings("4201", "4251"));
 
 			conf.AddPrivateDependency<SkelEngine>(target);
 		}

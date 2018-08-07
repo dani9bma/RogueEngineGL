@@ -21,12 +21,12 @@ namespace Skel
 		VertexArray m_vao = VertexArray();
 		Texture m_texture = Texture();
 
-		void loadCubemap();
+		void LoadCubemap();
 	public:
 		Skybox() {}
 		Skybox(Shader* shader);
 		~Skybox();
-		void update(Camera camera, glm::mat4 projection);
+		void Update(Camera* camera, glm::mat4 projection);
 	};
 
 }

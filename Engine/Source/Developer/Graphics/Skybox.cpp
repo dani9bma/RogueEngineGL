@@ -2,7 +2,7 @@
 
 namespace Skel
 {
-	void Skybox::loadCubemap()
+	void Skybox::LoadCubemap()
 	{
 		float skyboxVertices[] = {
 			// positions          
@@ -78,11 +78,11 @@ namespace Skel
 
 	}
 
-	void Skybox::update(Camera camera, glm::mat4 projection)
+	void Skybox::Update(Camera* camera, glm::mat4 projection)
 	{
 		glDepthFunc(GL_LEQUAL);
 		m_shader->enable();
-		auto view = glm::mat4(glm::mat3(camera.getView()));
+		auto view = glm::mat4(glm::mat3(camera->getView()));
 		m_shader->setUniformMat4("view", view);
 		m_shader->setUniformMat4("projection", projection);
 		m_vao.bind();
@@ -95,7 +95,7 @@ namespace Skel
 	Skybox::Skybox(Shader* shader)
 		: m_shader(shader)
 	{
-		loadCubemap();
+		LoadCubemap();
 	}
 
 	Skybox::~Skybox()

@@ -20,14 +20,14 @@ namespace Skel
 	{
 	public:
 		DirectionalLight() {}
-		DirectionalLight(Shader* shader, Camera camera);
+		DirectionalLight(Shader* shader, Camera* camera);
 		~DirectionalLight();
 		void update();
 		void setLightDirection(glm::vec3 direction);
 		void setIntensity(float value);
 	private:
 		Shader * m_shader;
-		Camera m_camera;
+		Camera* m_camera;
 		glm::vec3 m_direction = glm::vec3(1.0f, 1.0f, 1.0f);
 		glm::vec3 m_intensity = glm::vec3(1.0f, 1.0f, 1.0f);
 	};

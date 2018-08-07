@@ -9,7 +9,7 @@
 
 namespace Skel
 {
-	DirectionalLight::DirectionalLight(Shader* shader, Camera camera)
+	DirectionalLight::DirectionalLight(Shader* shader, Camera* camera)
 		: m_shader(shader), m_camera(camera)
 	{
 	}
@@ -35,7 +35,7 @@ namespace Skel
 		m_shader->setUniform3f("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
 		m_shader->setUniform3f("light.diffuse", glm::vec3(1.0f, 1.0f, 1.0f)); // darken the light a bit to fit the scene
 		m_shader->setUniform3f("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
-		m_shader->setUniform3f("viewPos", m_camera.getPosition());
+		m_shader->setUniform3f("viewPos", m_camera->getPosition());
 		m_shader->disable();
 	}
 
