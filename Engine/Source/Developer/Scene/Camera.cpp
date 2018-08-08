@@ -3,8 +3,11 @@
 
 namespace Skel
 {
-	Camera::Camera(int width, int height, float sensitivity, Window* window, Shader* shader)
+	Camera::Camera(float sensitivity, Window* window, Shader* shader)
 	{
+		m_sensitivity = sensitivity;
+		m_window = window;
+		m_shader = shader;
 		m_cameraPos = glm::vec3(4.0f, 10.0f, -30.0f);
 		m_cameraTarget = glm::vec3(0.0f, 0.0f, -10.0f);
 		m_cameraDirection = glm::normalize(m_cameraPos - m_cameraTarget);
@@ -13,17 +16,14 @@ namespace Skel
 		m_cameraUp = glm::vec3(0.0f, 3.0f, 0.0f);
 		m_deltaTime = 0.0f;
 		m_lastFrame = 0.0f;
-		m_lastX = static_cast<float>(width) / 2;
-		m_lastY = static_cast<float>(height) / 2;
+		m_lastX = static_cast<float>(m_window->GetWidth()) / 2;
+		m_lastY = static_cast<float>(m_window->GetHeight()) / 2;
 		m_yaw = 0.0f;
 		m_pitch = 0.0f;
-		m_sensitivity = sensitivity;
-		m_window = window;
-		m_shader = shader;
 		m_fov = 60.0f;
 
 	
-		m_projection = glm::perspective(glm::radians(m_fov), (float)1280 / (float)720, 0.1f, 500.0f);
+		m_projection = glm::perspective(glm::radians(m_fov), (float)m_window->GetWidth() / (float)m_window->GetHeight(), 0.1f, 500.0f);
 		shader->setUniformMat4("projection", m_projection);
 	}
 
@@ -94,6 +94,9 @@ namespace Skel
 		m_cameraFront = glm::normalize(front);
 		m_view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
 		m_shader->setUniformMat4("view", m_view);
+
+		m_projection = glm::perspective(glm::radians(m_fov), (float)m_window->GetWidth() / (float)m_window->GetHeight(), 0.1f, 500.0f);
+		m_shader->setUniformMat4("projection", m_projection);
 	}
 
 	void Camera::changeFOV(float value)

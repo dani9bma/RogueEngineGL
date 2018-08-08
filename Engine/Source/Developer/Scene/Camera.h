@@ -9,7 +9,7 @@ namespace Skel
 	{
 	public:
 		Camera() {};
-		Camera(int width, int height, float sensitivity, Window* window, Shader* shader);
+		Camera(float sensitivity, Window* window, Shader* shader);
 		~Camera();
 		void update();
 		inline glm::mat4 getView() const { return m_view; }

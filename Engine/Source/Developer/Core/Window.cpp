@@ -81,7 +81,7 @@ namespace Skel
 		if (Input::isKeyPressed(this, KEY_O))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		if (Input::isKeyPressed(this, KEY_ESCAPE))
-			this->Close();
+			m_paused = true;
 
 
 		glfwSwapBuffers(m_window);

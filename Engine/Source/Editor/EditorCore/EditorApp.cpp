@@ -37,7 +37,7 @@ namespace Skel
 
 		shader->enable();
 
-		camera = new Camera(1280, 720, 0.2f, m_window, shader);
+		camera = new Camera(0.2f, m_window, shader);
 
 		light = new DirectionalLight(shader, camera);
 		glm::vec3 lightPos(0.0f, -5.0f, -2.0f);
@@ -162,7 +162,7 @@ namespace Skel
 			{
 				if (m_window->IsPaused())
 				{
-					if (ImGui::Button("Play"))
+					if (ImGui::Button("Play", ImVec2(50, 0)))
 						m_window->SetGameState(PLAY);
 				}
 				else
@@ -241,8 +241,9 @@ namespace Skel
 
 
 		//Render
-		if(!m_window->IsPaused())
+		if (!m_window->IsPaused())
 			camera->update();
+			
 		m_window->Update();
 	}
 
