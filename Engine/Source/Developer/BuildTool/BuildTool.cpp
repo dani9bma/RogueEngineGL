@@ -1,4 +1,8 @@
 #include "BuildTool.h"
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <json.hpp>
 
 #if defined(_WIN32) || defined(_WIN64)
 #include <direct.h>
@@ -7,6 +11,7 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
+using json = nlohmann::json;
 
 namespace Skel
 {
@@ -23,6 +28,7 @@ namespace Skel
 		EnginePath.append("\"");
 
 		EAString ProjectName = Name;
+
 		EAString ProjectSolution = ProjectName + "Solution";
 
 		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution);
@@ -60,15 +66,33 @@ namespace Skel
 		EAString dirPath = "../../../SkelProjects/" + ProjectName;
 
 #if defined(_WIN32) || defined(_WIN64)
-		CreateDirectory(dirPath.c_str(), NULL);
-		dirPath.append("/Build/");
-		CreateDirectory(dirPath.c_str(), NULL);
-		dirPath = "../../../SkelProjects/" + ProjectName + "/Source";
-		CreateDirectory(dirPath.c_str(), NULL);
+		EAString path = dirPath;
+		CreateDirectory(path.c_str(), NULL);
+		path.append("/Build/");
+		CreateDirectory(path.c_str(), NULL);
+		path = "../../../SkelProjects/" + ProjectName + "/Source/";
+		CreateDirectory(path.c_str(), NULL);
 #endif
 
 		FileSystem::WriteFile(filePath, result);
+
+		FileSystem::ReadFile("build/class.cpp.template", result);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		FileSystem::WriteFile(path + ProjectName + ".cpp", result);
+
+		FileSystem::ReadFile("build/class.h.template", result);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
+		FileSystem::WriteFile(path + ProjectName + ".h", result);
+
 		GenerateVSProject(filePath);
+		CompileProject(dirPath, ProjectName);
+		CreateEProject(dirPath, ProjectName);
 	}
 
 	void BuildTool::GenerateVSProject(EAString filePath)
@@ -79,6 +103,34 @@ namespace Skel
 		command.append(path);
 		system(command.c_str());
 #endif
+	}
+
+	void BuildTool::CompileProject(EAString path, EAString ProjectName)
+	{
+#if defined(_WIN32) || defined(_WIN64)
+		EAString command = "cd ";
+		command.append(path);
+		command.append(" && msbuild.exe ");
+		command.append(ProjectName);
+		command.append(".vcxproj");
+		system(command.c_str());
+#endif
+	}
+
+	void BuildTool::CreateEProject(EAString path, EAString ProjectName)
+	{
+		json j;
+
+		j["name"] = ProjectName.c_str();
+		EAString dllPath = path + "binaries/" + ProjectName + ".dll";
+		j["dll"] = dllPath.c_str();
+
+		EAString file = path + "/";
+		file.append(ProjectName);
+		file.append(".eproject");
+
+		std::ofstream o(file.c_str());
+		o << std::setw(4) << j << std::endl;
 	}
 
 }

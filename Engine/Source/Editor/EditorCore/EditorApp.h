@@ -53,8 +53,6 @@ namespace Skel
 		FrameBuffer* frameBuffer = nullptr;
 		ImVec2 size = ImVec2(1280, 720);
 
-		char name[1024];
-
 	private:
 		Window * m_window = nullptr;
 	};

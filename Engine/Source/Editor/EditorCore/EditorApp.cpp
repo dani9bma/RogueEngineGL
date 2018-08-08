@@ -182,6 +182,7 @@ namespace Skel
 
 			if (ImGui::BeginDock("Project Settings"))
 			{
+				char name[1024];
 				ImGui::InputText("Project Name", name, sizeof(name));
 				if (ImGui::Button("Create Project"))
 				{
@@ -230,7 +231,11 @@ namespace Skel
 	}
 }
 
+#include <json.hpp>
+#include <iomanip>
+
 using namespace Skel;
+using namespace nlohmann;
 
 int main()
 {

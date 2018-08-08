@@ -1,10 +1,3 @@
-/*
- * @module Graphics
- * @project Skel Engine(https://github.com/dani9bma/SkelEngine)
- * @author Daniel Assunção
- * @Github https://github.com/dani9bma
- */
-
 #include "texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"

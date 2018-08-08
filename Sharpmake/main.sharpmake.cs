@@ -28,14 +28,15 @@ namespace SkelEngine
 			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/GLEW/Source/");
 			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/glm/Source/");
 			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/ImGui/src/");
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/Json/");
 
 			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/GLFW/lib-vc2015");
 			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/assimp/lib");
 
-			conf.TargetLibraryPath = "[project.BasePath]/../bin/libs";
+			conf.TargetLibraryPath = "[project.BasePath]/../Binaries/libs";
 			conf.ProjectPath = "[project.SharpmakeCsPath]/../Engine";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/Intermediate/Engine";
-			conf.TargetPath = "[project.SharpmakeCsPath]/../bin";
+			conf.IntermediatePath = "[project.SharpmakeCsPath]/../Binaries/Intermediate/Engine";
+			conf.TargetPath = "[project.SharpmakeCsPath]/../Binaries";
 			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
 			conf.Defines.Add("GLEW_STATIC");
 			conf.LibraryFiles.Add("assimp.lib");

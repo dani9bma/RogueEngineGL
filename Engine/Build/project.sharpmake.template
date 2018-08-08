@@ -32,9 +32,9 @@ namespace SkelEngine
 			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/GLFW/lib-vc2015");
 			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/assimp/lib");
 
-			conf.TargetLibraryPath = "[project.BasePath]/../bin/libs";
-			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/Intermediate/Engine";
-			conf.TargetPath = "[project.SharpmakeCsPath]/../bin";
+			conf.TargetLibraryPath = "[project.BasePath]/../Binaries/libs";
+			conf.IntermediatePath = "[project.SharpmakeCsPath]/../Binaries/Intermediate/Engine";
+			conf.TargetPath = "[project.SharpmakeCsPath]/../Binaries";
 			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
 			conf.Defines.Add("GLEW_STATIC");
 			conf.LibraryFiles.Add("assimp.lib");
@@ -95,6 +95,8 @@ namespace SkelEngine
 			conf.TargetPath = "[project.SharpmakeCsPath]/../Binaries";
 			conf.SolutionFolder = "Game";
 
+			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
+			
 			conf.Defines.Add("SKEL_GAME_COMPILE");
 
 			if (target.OutputType == OutputType.Dll)
@@ -120,6 +122,7 @@ namespace SkelEngine
 			}
 
 			conf.Options.Add(Options.Vc.Compiler.Exceptions.Enable);
+			conf.Options.Add(new Sharpmake.Options.Vc.Compiler.DisableSpecificWarnings("4201"));
 
 		}
 	}
@@ -140,6 +143,7 @@ namespace SkelEngine
 		{
 			conf.SolutionFileName = "{projectname}";
 			conf.SolutionPath = @"[solution.SharpmakeCsPath]/..";
+
 			conf.AddProject<SkelEngine>(target);
 			conf.AddProject<{projectname}>(target);
 		}

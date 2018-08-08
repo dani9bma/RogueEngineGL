@@ -1,0 +1,13 @@
+#include "{projectname}.h";
+
+using namespace Skel;
+
+{projectname}::{projectname}()
+{
+	
+}
+
+{projectname}::~{projectname}()
+{
+	
+}
