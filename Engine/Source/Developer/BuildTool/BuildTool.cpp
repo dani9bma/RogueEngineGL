@@ -75,7 +75,7 @@ namespace Skel
 	{
 #if defined(_WIN32) || defined(_WIN64)
 		EAString path = "../" + filePath;
-		EAString command = "cd Build && build_win.bat ";
+		EAString command = "cd Build && dir && build_win.bat ";
 		command.append(path);
 		system(command.c_str());
 #endif
