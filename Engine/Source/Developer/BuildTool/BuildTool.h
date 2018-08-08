@@ -9,8 +9,8 @@ namespace Skel
 	class SKEL_API BuildTool
 	{
 	public:
-		static void CreateProject(EAString Name);
-		static void CreateBuildProjectFile(EAString EnginePath, EAString ProjectName, EAString ProjectSolution);
+		static void CreateProject(EAString Name, EAString Path);
+		static void CreateBuildProjectFile(EAString EnginePath, EAString ProjectName, EAString ProjectSolution, EAString ProjectPath);
 		static void GenerateVSProject(EAString filePath);
 		static void CompileProject(EAString path, EAString ProjectName);
 		static void CreateEProject(EAString path, EAString ProjectName);

@@ -9,6 +9,12 @@
 
 namespace Skel
 {
+	enum GameState
+	{
+		PAUSED,
+		PLAY
+	};
+
 	class SKEL_API Window
 	{
 	public:
@@ -21,6 +27,8 @@ namespace Skel
 		inline void getMousePosition(double& x, double& y) const { x = m_x; y = m_y; };
 		inline int GetWidth() { if (m_width == 0) m_width = 1280; return m_width; }
 		inline int GetHeight() { if (m_height == 0) m_height = 720; return m_height; }
+		inline void SetGameState(GameState state) { if (state == PAUSED) m_paused = true; else m_paused = false; }
+		inline bool IsPaused() const { return m_paused; }
 
 		void setMousePosition(double x, double y);
 	private:
@@ -32,6 +40,7 @@ namespace Skel
 		eastl::string m_title;
 		GLFWwindow* m_window;
 		bool m_wireframe = false;
+		bool m_paused = true;
 
 	private:
 		friend static void mouse_callback(GLFWwindow* window, double xpos, double ypos);

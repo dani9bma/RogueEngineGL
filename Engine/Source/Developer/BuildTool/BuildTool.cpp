@@ -16,25 +16,29 @@ using json = nlohmann::json;
 namespace Skel
 {
 	//Refactor this code
-	void BuildTool::CreateProject(EAString Name)
+	void BuildTool::CreateProject(EAString Name, EAString path)
 	{
-		char path[1024];
-		GetCurrentDir(path, sizeof(path));
+		char currentDir[1024];
+		GetCurrentDir(currentDir, sizeof(currentDir));
 
 		EAString remove = "Engine\Source\Developer\BuildTool";
 		EAString EnginePath = "\@";
 		EnginePath.append("\"");
-		EnginePath.append(path);
+		EnginePath.append(currentDir);
 		EnginePath.append("\"");
 
 		EAString ProjectName = Name;
 
 		EAString ProjectSolution = ProjectName + "Solution";
 
-		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution);
+		EAString sub = "\\\\";
+		path.replace(path.find(sub), sub.length(), "\\");
+		path.append("\\");
+
+		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution, path);
 	}
 
-	void BuildTool::CreateBuildProjectFile(EAString EnginePath, EAString ProjectName, EAString ProjectSolution)
+	void BuildTool::CreateBuildProjectFile(EAString EnginePath, EAString ProjectName, EAString ProjectSolution, EAString ProjectPath)
 	{
 		EAString EnginePathTag = "{enginepath}";
 		EAString ProjectNameTag = "{projectname}";
@@ -62,15 +66,15 @@ namespace Skel
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
-		EAString filePath = "../../../SkelProjects/" + ProjectName + "/Build/build.sharpmake.cs";
-		EAString dirPath = "../../../SkelProjects/" + ProjectName;
+		EAString filePath = ProjectPath + ProjectName + "/Build/build.sharpmake.cs";
+		EAString dirPath = ProjectPath + ProjectName;
 
 #if defined(_WIN32) || defined(_WIN64)
 		EAString path = dirPath;
 		CreateDirectory(path.c_str(), NULL);
-		path.append("/Build/");
+		path.append("\\Build\\");
 		CreateDirectory(path.c_str(), NULL);
-		path = "../../../SkelProjects/" + ProjectName + "/Source/";
+		path = ProjectPath + ProjectName + "\\Source\\";
 		CreateDirectory(path.c_str(), NULL);
 #endif
 
@@ -98,9 +102,8 @@ namespace Skel
 	void BuildTool::GenerateVSProject(EAString filePath)
 	{
 #if defined(_WIN32) || defined(_WIN64)
-		EAString path = "../" + filePath;
 		EAString command = "cd Build && dir && build_win.bat ";
-		command.append(path);
+		command.append(filePath);
 		system(command.c_str());
 #endif
 	}
@@ -122,12 +125,12 @@ namespace Skel
 		json j;
 
 		j["name"] = ProjectName.c_str();
-		EAString dllPath = path + "binaries/" + ProjectName + ".dll";
+		EAString dllPath = path + "\\binaries\\" + ProjectName + ".dll";
 		j["dll"] = dllPath.c_str();
 
-		EAString file = path + "/";
+		EAString file = path + "\\";
 		file.append(ProjectName);
-		file.append(".eproject");
+		file.append(".skproject");
 
 		std::ofstream o(file.c_str());
 		o << std::setw(4) << j << std::endl;

@@ -157,6 +157,21 @@ namespace Skel
 			ImGui::SetWindowSize("Engine", ImVec2(m_window->GetWidth(), m_window->GetHeight()));
 			// dock layout by hard-coded or .ini file
 			ImGui::BeginDockspace();
+	
+			if (ImGui::BeginDock("Game"), NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus)
+			{
+				if (m_window->IsPaused())
+				{
+					if (ImGui::Button("Play"))
+						m_window->SetGameState(PLAY);
+				}
+				else
+				{
+					if (ImGui::Button("Pause"))
+						m_window->SetGameState(PAUSED);
+				}
+			}
+			ImGui::EndDock();
 
 			if (ImGui::BeginDock("Game")) 
 			{
@@ -182,44 +197,52 @@ namespace Skel
 
 			if (ImGui::BeginDock("Project Settings"))
 			{
-				char name[1024];
+			
 				ImGui::InputText("Project Name", name, sizeof(name));
+				ImGui::Text(path.c_str());
+				ImGui::SameLine();
+				if (ImGui::Button("Choose Directory"))
+					dialog = true;
 				if (ImGui::Button("Create Project"))
 				{
-					//Get the name of project to a sharpmake script |DONE
-					//Execute that sharpmake script
-					//Create the .skproject file
-					//Build the VS project
-
-					/*
-					.skproject
-					{
-					project name,
-					dll path,
-					}
-
-					*/
-					BuildTool::CreateProject(name);
+					BuildTool::CreateProject(name, path.c_str());
 				}
 				if (ImGui::Button("Load Project"))
 				{
 					//First user will locate the .skproject file
 					//Load the project DLL
 				}
+
 			}
 			ImGui::EndDock();
 
 			ImGui::EndDockspace();
-		}
+		}	
 		ImGui::End();
 
-
+		if (dialog)
+		{
+			if (ImGuiFileDialog::Instance()->FileDialog("Choose Directory", ".cpp\0.h\0.hpp\0\0", ".", ""))
+			{
+				if (ImGuiFileDialog::Instance()->IsOk == true)
+				{
+					path = ImGuiFileDialog::Instance()->GetCurrentPath();
+				}
+				else
+				{
+					path = "";
+				}
+				dialog = false;
+			}
+		}
+	
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 
 		//Render
-		camera->update();
+		if(!m_window->IsPaused())
+			camera->update();
 		m_window->Update();
 	}
 

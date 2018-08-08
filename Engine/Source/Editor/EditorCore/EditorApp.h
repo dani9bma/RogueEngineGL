@@ -20,6 +20,7 @@
 #include <ImGui/imgui_impl_glfw.h>
 #include <ImGui/imgui_impl_opengl3.h>
 #include <ImGUI/imgui_dock.h>
+#include <ImGUI/ImGuiFileDialog.h>
 
 namespace Skel
 {
@@ -53,7 +54,12 @@ namespace Skel
 		FrameBuffer* frameBuffer = nullptr;
 		ImVec2 size = ImVec2(1280, 720);
 
+		std::string path = "";
+		bool dialog = false;
+		char name[1024] = {};
+
 	private:
 		Window * m_window = nullptr;
+		bool m_paused = true;
 	};
 }
