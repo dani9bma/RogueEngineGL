@@ -26,8 +26,8 @@ namespace Skel
 		void Close();
 		inline GLFWwindow* getGLFWwindow() const { return m_window; }
 		inline void getMousePosition(double& x, double& y) const { x = m_x; y = m_y; };
-		inline int GetWidth() const { return m_width; }
-		inline int GetHeight() const { return m_height; }
+		inline int GetWidth() { if (m_width == 0) m_width = 1280; return m_width; }
+		inline int GetHeight() { if (m_height == 0) m_height = 720; return m_height; }
 
 		void setMousePosition(double x, double y);
 	private:

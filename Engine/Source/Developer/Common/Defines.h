@@ -65,5 +65,5 @@ CheckD3D(hr, __LINE__, __FILE__);\
 #ifdef SKEL_DLL
 # define SKEL_API __declspec(dllexport)
 #else
-# define SKEL_API __declspec(dllimport)
+# define SKEL_API 
 #endif

@@ -5,7 +5,7 @@ namespace SkelEngine
 	[Sharpmake.Generate]
 	public class  SkelEngine: Project
 	{
-		public string BasePath = @"[project.SharpmakeCsPath]/../Engine";
+		public string BasePath = {enginepath};
 
 		public SkelEngine()
 		{
@@ -33,7 +33,6 @@ namespace SkelEngine
 			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/assimp/lib");
 
 			conf.TargetLibraryPath = "[project.BasePath]/../bin/libs";
-			conf.ProjectPath = "[project.SharpmakeCsPath]/../Engine";
 			conf.IntermediatePath = "[project.SharpmakeCsPath]/../bin/Intermediate/Engine";
 			conf.TargetPath = "[project.SharpmakeCsPath]/../bin";
 			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
@@ -62,11 +61,75 @@ namespace SkelEngine
 	}
 
 	[Sharpmake.Generate]
-	public class SkelEngineSolution : Sharpmake.Solution
+	public class {projectname} : Project
 	{
-		public SkelEngineSolution()
+		public string BasePath = @"../Source";
+
+		public {projectname}()
 		{
-			Name = "SkelEngine";
+			Name = "{projectname}";
+			AddTargets(new Target(Platform.win64 | Platform.win32,
+				DevEnv.vs2017,
+				Optimization.Debug | Optimization.Release,
+				OutputType.Dll | OutputType.Lib
+				));
+			SourceRootPath = "[project.BasePath]";
+
+			IsFileNameToLower = false;
+		}
+
+		[Configure()]
+		public void ConfigureAll(Configuration conf, Target target)
+		{
+			conf.IncludePaths.Add("[project.BasePath]");
+			conf.IncludePaths.Add({enginepath});
+			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\GLFW\include\");
+			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\assimp/include\");
+			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\EASTL\src/include\");
+			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\GLEW\Source\");
+			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\glm\Source\");
+			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\ImGui\src\");
+
+			conf.ProjectPath = "[project.SharpmakeCsPath]/..";
+			conf.IntermediatePath = "[project.SharpmakeCsPath]/../Binaries/Intermediate";
+			conf.TargetPath = "[project.SharpmakeCsPath]/../Binaries";
+			conf.SolutionFolder = "Game";
+
+			conf.Defines.Add("SKEL_GAME_COMPILE");
+
+			if (target.OutputType == OutputType.Dll)
+			{
+				conf.Output = Configuration.OutputType.Dll;
+				conf.ExportDefines.Add("SKEL_GAME_DLL");
+
+				conf.Defines.Add("SKEL_GAME_DLL");
+			}
+			else if (target.OutputType == OutputType.Lib)
+			{
+				conf.Output = Configuration.OutputType.Lib;
+			}
+
+
+			if (target.Optimization == Optimization.Debug)
+			{
+				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDebugDLL);
+			}
+			else
+			{
+				conf.Options.Add(Options.Vc.Compiler.RuntimeLibrary.MultiThreadedDLL);
+			}
+
+			conf.Options.Add(Options.Vc.Compiler.Exceptions.Enable);
+
+		}
+	}
+
+	[Sharpmake.Generate]
+	public class {projectsolution} : Sharpmake.Solution
+	{
+		public {projectsolution}()
+		{
+			Name = "{projectname}";
 			AddTargets(new Target(Platform.win64 | Platform.win32, DevEnv.vs2017, Optimization.Debug | Optimization.Release));
 
 			IsFileNameToLower = false;
@@ -75,9 +138,10 @@ namespace SkelEngine
 		[Configure()]
 		public void ConfigureAll(Configuration conf, Target target)
 		{
-			conf.SolutionFileName = "SkelEngine";
+			conf.SolutionFileName = "{projectname}";
 			conf.SolutionPath = @"[solution.SharpmakeCsPath]/..";
 			conf.AddProject<SkelEngine>(target);
+			conf.AddProject<{projectname}>(target);
 		}
 	}
 
@@ -86,7 +150,8 @@ namespace SkelEngine
 		[Sharpmake.Main]
 		public static void SharpmakeMain(Sharpmake.Arguments arguments)
 		{
-			arguments.Generate<SkelEngineSolution>();
+			arguments.Generate<{projectsolution}>();
 		}
 	}
 }
+(end)

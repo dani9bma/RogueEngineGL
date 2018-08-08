@@ -8,6 +8,7 @@
 #include "Source/Developer/Graphics/Skybox.h"
 #include "Source/Developer/ECS/Entity.h"
 #include "Source/Developer/Graphics/FrameBuffer.h"
+#include "Source/Developer/BuildTool/BuildTool.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -50,8 +51,9 @@ namespace Skel
 		Model* knobModel = nullptr;
 
 		FrameBuffer* frameBuffer = nullptr;
-
 		ImVec2 size = ImVec2(1280, 720);
+
+		char name[1024];
 
 	private:
 		Window * m_window = nullptr;

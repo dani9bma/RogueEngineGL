@@ -5,7 +5,7 @@ namespace Skel
 	void EditorApp::Start()
 	{
 		OnInit();
-		//SK_LOG(LogLevel::Warning, LogModule::System, "Skel Editor Initialized");
+		SK_LOG(LogLevel::Warning, LogModule::System, "Skel Editor Initialized");
 		Run();
 	}
 
@@ -21,6 +21,7 @@ namespace Skel
 			if (currentTime - lastTime >= 1.0) {
 				nbFrames = 0;
 				lastTime += 1.0;
+			
 			}
 			OnTick(lastTime);
 		}
@@ -31,8 +32,8 @@ namespace Skel
 	void EditorApp::OnInit()
 	{
 		m_window = new Window(1280, 720, "Skel Engine");
-		shader = new Shader("../Engine/Res/Shaders/basic.vert", "../Engine/Res/Shaders/basic.frag");
-		skyboxShader = new Shader("../Engine/Res/Shaders/cubemap.vert", "../Engine/Res/Shaders/cubemap.frag");
+		shader = new Shader("Content/Shaders/basic.vert", "Content/Shaders/basic.frag");
+		skyboxShader = new Shader("Content/Shaders/cubemap.vert", "Content/Shaders/cubemap.frag");
 
 		shader->enable();
 
@@ -45,10 +46,10 @@ namespace Skel
 
 		skybox = new Skybox(skyboxShader);
 
-		crysisModel = new Model("../Engine/Res/models/nanosuit/nanosuit.obj");
-		garroshModel = new Model("../Engine/Res/models/floor.obj");
-		sponzaModel = new Model("../Engine/Res/models/knob/mitsuba.obj");
-		knobModel = new Model("../Engine/Res/models/knob/mitsuba.obj");
+		crysisModel = new Model("Content/models/nanosuit/nanosuit.obj");
+		garroshModel = new Model("Content/models/floor.obj");
+		sponzaModel = new Model("Content/models/knob/mitsuba.obj");
+		knobModel = new Model("Content/models/knob/mitsuba.obj");
 
 		sponza = new Entity(sponzaModel, shader);
 		sponza->setPosition(-50.0f, -5.0f, 30.0f);
@@ -83,7 +84,7 @@ namespace Skel
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.Fonts->AddFontFromFileTTF("../Engine/Res/fonts/Roboto-Regular.ttf", 17.0f);
+		io.Fonts->AddFontFromFileTTF("Content/fonts/Roboto-Regular.ttf", 17.0f);
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
@@ -94,6 +95,7 @@ namespace Skel
 		ImGui::StyleColorsSkel();
 
 		ImGui::InitDock();
+
 	}
 
 	void EditorApp::OnTick(float DeltaTime)
@@ -103,7 +105,8 @@ namespace Skel
 		ImGui::NewFrame();
 
 		//Render
-		frameBuffer->bind(m_window->GetWidth(),m_window->GetHeight());
+		frameBuffer->bind(m_window->GetWidth(), m_window->GetHeight());
+		
 		GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
@@ -128,7 +131,6 @@ namespace Skel
 		frameBuffer->unbind();
 		GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
-		GLCall(glEnable(GL_DEPTH_TEST));
 
 		if (ImGui::BeginMainMenuBar())
 		{
@@ -151,13 +153,13 @@ namespace Skel
 
 		if (ImGui::Begin("Engine", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus))
 		{
-			ImGui::SetWindowPos("Engine", ImVec2(0.0f, 5.0f));
+			ImGui::SetWindowPos("Engine", ImVec2(0.0f, 20.0f));
 			ImGui::SetWindowSize("Engine", ImVec2(m_window->GetWidth(), m_window->GetHeight()));
 			// dock layout by hard-coded or .ini file
 			ImGui::BeginDockspace();
 
-			if (ImGui::BeginDock("Game")) {
-
+			if (ImGui::BeginDock("Game")) 
+			{
 				size = ImGui::GetWindowSize();
 
 				ImGui::GetWindowDrawList()->AddImage(
@@ -166,13 +168,43 @@ namespace Skel
 			}
 			ImGui::EndDock();
 
-			if (ImGui::BeginDock("Debug")) {
+			if (ImGui::BeginDock("Debug")) 
+			{
 				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			}
 			ImGui::EndDock();
 
-			if (ImGui::BeginDock("Transform")) {
+			if (ImGui::BeginDock("Transform")) 
+			{
 				ImGui::Text("TODO");
+			}
+			ImGui::EndDock();
+
+			if (ImGui::BeginDock("Project Settings"))
+			{
+				ImGui::InputText("Project Name", name, sizeof(name));
+				if (ImGui::Button("Create Project"))
+				{
+					//Get the name of project to a sharpmake script |DONE
+					//Execute that sharpmake script
+					//Create the .skproject file
+					//Build the VS project
+
+					/*
+					.skproject
+					{
+					project name,
+					dll path,
+					}
+
+					*/
+					BuildTool::CreateProject(name);
+				}
+				if (ImGui::Button("Load Project"))
+				{
+					//First user will locate the .skproject file
+					//Load the project DLL
+				}
 			}
 			ImGui::EndDock();
 
@@ -180,8 +212,11 @@ namespace Skel
 		}
 		ImGui::End();
 
+
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+
 		//Render
 		camera->update();
 		m_window->Update();
@@ -193,4 +228,12 @@ namespace Skel
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
+}
+
+using namespace Skel;
+
+int main()
+{
+	EditorApp app;
+	app.Start();
 }

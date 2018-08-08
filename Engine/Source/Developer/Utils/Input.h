@@ -195,17 +195,17 @@ namespace Skel
 	public:
 		static double scroll;
 
-		static bool isKeyPressed(Window* window, Keys key)
+		static FORCEINLINE bool isKeyPressed(Window* window, Keys key)
 		{
 			return glfwGetKey(window->getGLFWwindow(), key) == KEY_PRESS ? true : false;
 		}
 
-		static bool isMouseButtonPressed(Window* window, MouseButtons button)
+		static FORCEINLINE bool isMouseButtonPressed(Window* window, MouseButtons button)
 		{
 			return glfwGetMouseButton(window->getGLFWwindow(), button) == KEY_PRESS ? true : false;
 		}
 
-		static void ShowMouseCursor(Window* window, bool showCursor = true)
+		static FORCEINLINE void ShowMouseCursor(Window* window, bool showCursor = true)
 		{
 			if(showCursor)
 				glfwSetInputMode(window->getGLFWwindow(), MOUSE_CURSOR, MOUSE_CURSOR_ENABLED);
@@ -213,12 +213,12 @@ namespace Skel
 				glfwSetInputMode(window->getGLFWwindow(), MOUSE_CURSOR, MOUSE_CURSOR_DISABLED);
 		}
 
-		static void GetMousePosition(Window* window, double& x, double& y)
+		static FORCEINLINE void GetMousePosition(Window* window, double& x, double& y)
 		{
 			window->getMousePosition(x, y);
 		}
 
-		static void SetMousePosition(Window* window, double x, double y)
+		static FORCEINLINE void SetMousePosition(Window* window, double x, double y)
 		{
 			window->setMousePosition(x, y);
 		}

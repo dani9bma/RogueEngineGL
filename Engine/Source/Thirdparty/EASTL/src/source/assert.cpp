@@ -88,7 +88,7 @@ namespace eastl
 
 	/// AssertionFailure
 	///
-	EASTL_API void AssertionFailure(const char* pExpression)
+	__declspec(dllexport) void AssertionFailure(const char* pExpression)
 	{
 		if(gpAssertionFailureFunction)
 			gpAssertionFailureFunction(pExpression, gpAssertionFailureFunctionContext);

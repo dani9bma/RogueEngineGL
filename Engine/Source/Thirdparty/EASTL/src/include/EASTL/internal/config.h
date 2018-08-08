@@ -470,7 +470,7 @@ namespace eastl
 		EASTL_API void SetAssertionFailureFunction(EASTL_AssertionFailureFunction pFunction, void* pContext);
 
 		// These are the internal default functions that implement asserts.
-		EASTL_API void AssertionFailure(const char* pExpression);
+		__declspec(dllexport) void AssertionFailure(const char* pExpression);
 		EASTL_API void AssertionFailureFunctionDefault(const char* pExpression, void* pContext);
 	}
 #endif

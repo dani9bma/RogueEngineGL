@@ -17,8 +17,8 @@ namespace Skel
 		: m_width(width), m_height(height), m_title(title)
 	{
 #if defined(_WIN32)
-		HWND hWin = GetForegroundWindow();
-		ShowWindow(hWin, SW_HIDE);
+		//HWND hWin = GetForegroundWindow();
+		//ShowWindow(hWin, SW_HIDE);
 #endif
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
