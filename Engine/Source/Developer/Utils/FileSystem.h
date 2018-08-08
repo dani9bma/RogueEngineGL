@@ -11,7 +11,7 @@ namespace Skel
 	public:
 		inline static void PrintToLogFile(EAString text)
 		{
-			FILE* file = fopen("../Engine/log/log.txt", "a");
+			FILE* file = fopen("log/log.txt", "a");
 			fprintf(file, text.c_str());
 			fclose(file);
 		}
