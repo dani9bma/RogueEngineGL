@@ -32,8 +32,8 @@ namespace Skel
 	void EditorApp::OnInit()
 	{
 		m_window = new Window(1280, 720, "Skel Engine");
-		shader = new Shader("../Engine/Content/Shaders/basic.vert", "../Engine/Content/Shaders/basic.frag");
-		skyboxShader = new Shader("../Engine/Content/Shaders/cubemap.vert", "../Engine/Content/Shaders/cubemap.frag");
+		shader = new Shader(FileSystem::LoadResource("Shaders\\basic.vert"), FileSystem::LoadResource("Shaders\\basic.frag"));
+		skyboxShader = new Shader(FileSystem::LoadResource("Shaders\\cubemap.vert"), FileSystem::LoadResource("Shaders\\cubemap.frag"));
 
 		shader->enable();
 
@@ -46,10 +46,10 @@ namespace Skel
 
 		skybox = new Skybox(skyboxShader);
 
-		crysisModel = new Model("../Engine/Content/models/nanosuit/nanosuit.obj");
-		garroshModel = new Model("../Engine/Content/models/floor.obj");
-		sponzaModel = new Model("../Engine/Content/models/knob/mitsuba.obj");
-		knobModel = new Model("../Engine/Content/models/knob/mitsuba.obj");
+		crysisModel = new Model(FileSystem::LoadResource("models\\nanosuit\\nanosuit.obj"));
+		garroshModel = new Model(FileSystem::LoadResource("models\\floor.obj"));
+		sponzaModel = new Model(FileSystem::LoadResource("models\\knob\\mitsuba.obj"));
+		knobModel = new Model(FileSystem::LoadResource("models\\knob\\mitsuba.obj"));
 
 		sponza = new Entity(sponzaModel, shader);
 		sponza->setPosition(-50.0f, -5.0f, 30.0f);
@@ -84,7 +84,7 @@ namespace Skel
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.Fonts->AddFontFromFileTTF("../Engine/Content/fonts/Roboto-Regular.ttf", 17.0f);
+		io.Fonts->AddFontFromFileTTF(FileSystem::LoadResource("fonts/Roboto-Regular.ttf").c_str(), 17.0f);
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 

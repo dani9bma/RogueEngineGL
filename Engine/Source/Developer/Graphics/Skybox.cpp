@@ -56,14 +56,14 @@ namespace Skel
 
 		m_vao.addBuffer(0, 3, VBO, 3 * sizeof(float), (void*)0);
 
-		std::vector<const char*> faces
+		std::vector<EAString> faces
 		{
-			"../Engine/Content/cubemaptextures/right.jpg",
-			"../Engine/Content/cubemaptextures/left.jpg",
-			"../Engine/Content/cubemaptextures/top.jpg",
-			"../Engine/Content/cubemaptextures/bottom.jpg",
-			"../Engine/Content/cubemaptextures/front.jpg",
-			"../Engine/Content/cubemaptextures/back.jpg",
+			FileSystem::LoadResource("cubemaptextures/right.jpg"),
+			FileSystem::LoadResource("cubemaptextures/left.jpg"),
+			FileSystem::LoadResource("cubemaptextures/top.jpg"),
+			FileSystem::LoadResource("cubemaptextures/bottom.jpg"),
+			FileSystem::LoadResource("cubemaptextures/front.jpg"),
+			FileSystem::LoadResource("cubemaptextures/back.jpg"),
 
 			//TGA: 
 			/*
@@ -73,7 +73,7 @@ namespace Skel
 
 		for (GLuint i = 0; i < faces.size(); i++)
 		{
-			m_texture.loadCubemapTexture(faces[i], i);
+			m_texture.loadCubemapTexture(faces[i].c_str(), i);
 		}
 
 	}

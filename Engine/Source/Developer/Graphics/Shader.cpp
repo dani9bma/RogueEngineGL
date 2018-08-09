@@ -2,9 +2,9 @@
 
 namespace Skel
 {
-	Shader::Shader(const char* vertPath, const char* fragPath)
+	Shader::Shader(EAString vertPath, EAString fragPath)
 	{
-		m_shaderID = load(vertPath, fragPath);
+		m_shaderID = load(vertPath.c_str(), fragPath.c_str());
 	}
 
 	Shader::~Shader()

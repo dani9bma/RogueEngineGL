@@ -20,20 +20,30 @@ namespace Skel
 	{
 		char currentDir[1024];
 		GetCurrentDir(currentDir, sizeof(currentDir));
-
-		EAString remove = "Engine\Source\Developer\BuildTool";
+		
 		EAString EnginePath = "\@";
+
 		EnginePath.append("\"");
 		EnginePath.append(currentDir);
+
+		if (EnginePath.find("binaries") < EnginePath.length())
+		{
+			EnginePath.replace(EnginePath.find("binaries"), EnginePath.find("binaries"), "");
+			EnginePath.append("Engine");
+		}
 		EnginePath.append("\"");
+
 
 		EAString ProjectName = Name;
 
 		EAString ProjectSolution = ProjectName + "Solution";
 
 		EAString sub = "\\\\";
-		path.replace(path.find(sub), sub.length(), "\\");
-		path.append("\\");
+		if (path.find(sub) < path.length())
+		{
+			path.replace(path.find(sub), sub.length(), "\\");
+			path.append("\\");
+		}
 
 		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution, path);
 	}
@@ -45,7 +55,11 @@ namespace Skel
 		EAString ProjectSolutionTag = "{projectsolution}";
 
 		EAString result;
-		FileSystem::ReadFile("build/project.sharpmake.template", result);
+		EAString mainPath = EnginePath;
+		mainPath.replace(mainPath.find("\""), mainPath.find("\""), "");
+		mainPath.replace(mainPath.find("\""), mainPath.find("\""), "");
+		mainPath.replace(0, 1, "");
+		FileSystem::ReadFile(mainPath + "\\build\\project.sharpmake.template", result);
 
 		result.replace(result.find("(end)"), result.length(), "");
 
@@ -66,7 +80,7 @@ namespace Skel
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
-		EAString filePath = ProjectPath + ProjectName + "/Build/build.sharpmake.cs";
+		EAString filePath = ProjectPath + ProjectName + "\\Build\\build.sharpmake.cs";
 		EAString dirPath = ProjectPath + ProjectName;
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -80,7 +94,7 @@ namespace Skel
 
 		FileSystem::WriteFile(filePath, result);
 
-		FileSystem::ReadFile("build/class.cpp.template", result);
+		FileSystem::ReadFile(mainPath + "\\build\\class.cpp.template", result);
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
@@ -88,7 +102,7 @@ namespace Skel
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
 		FileSystem::WriteFile(path + ProjectName + ".cpp", result);
 
-		FileSystem::ReadFile("build/class.h.template", result);
+		FileSystem::ReadFile(mainPath + "\\build\\class.h.template", result);
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);

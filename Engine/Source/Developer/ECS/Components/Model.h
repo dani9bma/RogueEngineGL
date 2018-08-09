@@ -28,7 +28,7 @@ namespace Skel
 		EAVector<TextureMesh> textures_loaded;
 		bool gammaCorrection;
 
-		Model(const char* path)
+		Model(EAString path)
 		{
 			loadModel(path);
 		}

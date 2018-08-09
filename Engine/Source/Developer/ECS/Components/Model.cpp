@@ -157,7 +157,7 @@ namespace Skel
 			}
 			if (!skip)
 			{   // if texture hasn't been loaded already, load it
-				Texture tex = Texture(this->directory + '/' + str.C_Str());
+				Texture tex = Texture(this->directory + "\\..\\" + str.C_Str());
 				TextureMesh texture;
 				texture.id = tex.getID();
 				texture.type = typeName.c_str();
