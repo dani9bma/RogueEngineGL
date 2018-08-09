@@ -9,7 +9,6 @@
 #include "Source/Developer/ECS/Entity.h"
 #include "Source/Developer/Graphics/FrameBuffer.h"
 #include "Source/Developer/BuildTool/BuildTool.h"
-#include "Source/Developer/Physics/DebugDrawer.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,10 +24,6 @@
 #include <ImGUI/imgui_dock.h>
 #include <ImGUI/ImGuiFileDialog.h>
 #include <ImGUI/ImGuizmo.h>
-
-#include <btBulletCollisionCommon.h>
-#include <btBulletDynamicsCommon.h>
-
 
 namespace Skel
 {
@@ -69,7 +64,6 @@ namespace Skel
 		glm::vec4 lRayStart_world;
 		glm::vec4 lRayEnd_world;
 		glm::vec3 lRayDir_world;
-		btDiscreteDynamicsWorld* dynamicsWorld = nullptr;
 
 	private:
 		Window * m_window = nullptr;

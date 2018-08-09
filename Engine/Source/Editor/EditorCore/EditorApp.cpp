@@ -95,74 +95,6 @@ namespace Skel
 		ImGui::StyleColorsSkel();
 
 		ImGui::InitDock();
-
-
-		
-		// Initialize Bullet. This strictly follows http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World, 
-		// even though we won't use most of this stuff.
-
-		// Build the broadphase
-		btBroadphaseInterface* broadphase = new btDbvtBroadphase();
-
-		// Set up the collision configuration and dispatcher
-		btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-		btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-
-		// The actual physics solver
-		btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
-
-		// The world.
-		dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-		dynamicsWorld->setGravity(btVector3(0, -9.81f, 0));
-
-		btCollisionShape* boxCollisionShape = new btBoxShape(btVector3(1.0f, 1.0f, 1.0f));
-
-		glm::quat quat = glm::normalize(glm::toQuat(glm::orientate3(crysis->getTransform().getRotation())));
-	
-		btDefaultMotionState* motionstate = new btDefaultMotionState(btTransform(
-			btQuaternion(quat.x, quat.y, quat.z, quat.w),
-			btVector3(crysis->getTransform().getPosition().x, crysis->getTransform().getPosition().y, crysis->getTransform().getPosition().z)
-		));
-
-		btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
-			0,                  // mass, in kg. 0 -> Static object, will never move.
-			motionstate,
-			boxCollisionShape,  // collision shape of body
-			btVector3(0, 0, 0)    // local inertia
-		);
-		btRigidBody *rigidBody = new btRigidBody(rigidBodyCI);
-
-		double mouseX, mouseY;
-		float screenWidth, screenHeight;
-
-		SKInput::GetMousePosition(m_window, mouseX, mouseY);
-
-		screenWidth = m_window->GetWidth();
-		screenHeight = m_window->GetHeight();
-		
-		// The ray Start and End positions, in Normalized Device Coordinates (Have you read Tutorial 4 ?)
-		glm::vec4 lRayStart_NDC(
-			((float)mouseX / (float)screenWidth - 0.5f) * 2.0f, // [0,1024] -> [-1,1]
-			((float)mouseY / (float)screenHeight - 0.5f) * 2.0f, // [0, 768] -> [-1,1]
-			-1.0, // The near plane maps to Z=-1 in Normalized Device Coordinates
-			1.0f
-		);
-		glm::vec4 lRayEnd_NDC(
-			((float)mouseX / (float)screenWidth - 0.5f) * 2.0f,
-			((float)mouseY / (float)screenHeight - 0.5f) * 2.0f,
-			0.0,
-			1.0f
-		);
-
-		// Faster way (just one inverse)
-		glm::mat4 M = glm::inverse(camera->getProjection() * camera->getView());
-		lRayStart_world = M * lRayStart_NDC; lRayStart_world/=lRayStart_world.w;
-		lRayEnd_world   = M * lRayEnd_NDC  ; lRayEnd_world  /=lRayEnd_world.w;
-
-		lRayDir_world = glm::vec3(lRayEnd_world - lRayStart_world);
-		lRayDir_world = glm::normalize(lRayDir_world);
-
-
 	}
 
 	void EditorApp::OnTick(float DeltaTime)
@@ -223,8 +155,8 @@ namespace Skel
 			ImGui::SetWindowSize("Engine", ImVec2(m_window->GetWidth(), m_window->GetHeight()));
 			// dock layout by hard-coded or .ini file
 			ImGui::BeginDockspace();
-	
-			if (ImGui::BeginDock("Game"), NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus)
+
+			if (ImGui::BeginDock("Game")) 
 			{
 				if (m_window->IsPaused())
 				{
@@ -236,11 +168,6 @@ namespace Skel
 					if (ImGui::Button("Pause"))
 						m_window->SetGameState(PAUSED);
 				}
-			}
-			ImGui::EndDock();
-
-			if (ImGui::BeginDock("Game")) 
-			{
 				size = ImGui::GetWindowSize();
 
 				ImGui::GetWindowDrawList()->AddImage(
@@ -353,54 +280,6 @@ namespace Skel
 			}
 		}
 	
-
-		/*Bullet*/
-		if (SKInput::isMouseButtonPressed(m_window, MOUSE_BUTTON_LEFT))
-		{
-			glm::vec3 out_origin;
-			glm::vec3 out_direction;
-
-			out_origin = glm::vec3(lRayStart_world);
-			out_direction = glm::normalize(lRayDir_world);
-
-			glm::vec3 out_end = out_origin + out_direction * 1000.0f;
-
-			btCollisionWorld::ClosestRayResultCallback RayCallback(
-				btVector3(out_origin.x, out_origin.y, out_origin.z),
-				btVector3(out_end.x, out_end.y, out_end.z)
-			);
-			dynamicsWorld->rayTest(
-				btVector3(out_origin.x, out_origin.y, out_origin.z),
-				btVector3(out_end.x, out_end.y, out_end.z),
-				RayCallback
-			);
-
-			std::string message;
-			
-
-			DebugDrawer debugDrawer = DebugDrawer();
-			debugDrawer.setDebugMode(btIDebugDraw::DBG_DrawWireframe); 
-			debugDrawer.setDebugMode(1); 
-
-			dynamicsWorld->setDebugDrawer(&debugDrawer);
-
-			dynamicsWorld->getDebugDrawer()->drawLine(btVector3(out_origin.x, out_origin.y, out_origin.z), btVector3(out_end.x, out_end.y, out_end.z), btVector3(1.0f, 0.0f, 0.0f));
-
-			if (RayCallback.hasHit()) {
-				std::ostringstream oss;
-				oss << "mesh " << (int)RayCallback.m_collisionObject->getUserPointer();
-				message = oss.str();
-				SK_LOGP(Error, System, "%s", message.c_str());
-			}
-			else {
-				message = "background";
-			}
-
-
-		}
-		
-		/*Bullet*/
-
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
