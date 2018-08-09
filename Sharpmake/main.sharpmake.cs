@@ -29,6 +29,7 @@ namespace SkelEngine
 			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/glm/Source/");
 			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/ImGui/src/");
 			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/Json/");
+			conf.IncludePaths.Add("[project.BasePath]/Source/Thirdparty/Bullet/src");
 
 			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/GLFW/lib-vc2015");
 			conf.LibraryPaths.Add("[project.BasePath]/Source/Thirdparty/assimp/lib");

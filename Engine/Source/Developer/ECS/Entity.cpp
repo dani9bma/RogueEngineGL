@@ -49,5 +49,10 @@ namespace Skel
 		m_visible = visible;
 	}
 
+	void Entity::SetTransformMatrix(glm::mat4 matrix)
+	{
+		m_transform.getTransformMatrice() = matrix;
+	}
+
 }
 

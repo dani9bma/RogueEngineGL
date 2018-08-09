@@ -2,19 +2,19 @@
 
 namespace Skel
 {
-	double Input::scroll = 0.0f;
+	double SKInput::scroll = 0.0f;
 
-	void Input::SetMouseScrollOffset(double y)
+	void SKInput::SetMouseScrollOffset(double y)
 	{
 		scroll = y;
 	}
 
-	bool Input::isMouseScrollUp()
+	bool SKInput::isMouseScrollUp()
 	{
 		return scroll > 0.0f;
 	}
 
-	bool Input::isMouseScrollDown()
+	bool SKInput::isMouseScrollDown()
 	{
 		return scroll < 0.0f;
 	}

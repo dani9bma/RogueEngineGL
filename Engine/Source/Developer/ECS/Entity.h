@@ -32,6 +32,7 @@ namespace Skel
 		void setPosition(float x, float y, float z);
 		void setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle);
 		void setVisibility(bool visible);
+		void SetTransformMatrix(glm::mat4 matrix);
 
 		template <typename T>
 		T* getComponent()

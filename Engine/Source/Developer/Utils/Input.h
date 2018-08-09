@@ -183,7 +183,7 @@ namespace Skel
 		MOUSE_CURSOR_DISABLED = 0x00034003,
 	};
 
-	class SKEL_API Input
+	class SKEL_API SKInput
 	{
 	public:
 		static double scroll;

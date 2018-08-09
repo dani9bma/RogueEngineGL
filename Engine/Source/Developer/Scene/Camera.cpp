@@ -38,35 +38,35 @@ namespace Skel
 		m_deltaTime = currentFrame - m_lastFrame;
 		m_lastFrame = currentFrame;
 
-		if (Input::isKeyPressed(m_window, KEY_W))
+		if (SKInput::isKeyPressed(m_window, KEY_W))
 			m_cameraPos += cameraSpeed * m_cameraFront;
-		if (Input::isKeyPressed(m_window, KEY_S))
+		if (SKInput::isKeyPressed(m_window, KEY_S))
 			m_cameraPos -= cameraSpeed * m_cameraFront;
-		if (Input::isKeyPressed(m_window, KEY_A))
+		if (SKInput::isKeyPressed(m_window, KEY_A))
 			m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-		if (Input::isKeyPressed(m_window, KEY_D))
+		if (SKInput::isKeyPressed(m_window, KEY_D))
 			m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
-		if (Input::isKeyPressed(m_window, KEY_LEFT_SHIFT))
+		if (SKInput::isKeyPressed(m_window, KEY_LEFT_SHIFT))
 			m_cameraPos -= cameraSpeed * m_cameraUp;
-		if (Input::isKeyPressed(m_window, KEY_SPACE))
+		if (SKInput::isKeyPressed(m_window, KEY_SPACE))
 			m_cameraPos += cameraSpeed * m_cameraUp;
 
 		
-		if (Input::isMouseButtonPressed(m_window, MOUSE_BUTTON_RIGHT))
+		if (SKInput::isMouseButtonPressed(m_window, MOUSE_BUTTON_RIGHT))
 		{
-			Input::GetMousePosition(m_window, m_x, m_y);
-			Input::ShowMouseCursor(m_window, false);
+			SKInput::GetMousePosition(m_window, m_x, m_y);
+			SKInput::ShowMouseCursor(m_window, false);
 			timer++;
 			if (timer < 5)
 			{
 				m_x = m_lastX;
 				m_y = m_lastY;
-				Input::SetMousePosition(m_window, m_x, m_y);
+				SKInput::SetMousePosition(m_window, m_x, m_y);
 			}
 		}
 		else
 		{
-			Input::ShowMouseCursor(m_window, true);
+			SKInput::ShowMouseCursor(m_window, true);
 			timer = 0;
 		}
 

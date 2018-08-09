@@ -46,7 +46,7 @@ namespace Skel
 		SK_LOGP(Warning, System, "GLEW Initialized! Version: %s", glewGetString(GLEW_VERSION));
 		SK_LOGP(Warning, System, "OpenGL Initialized! Version: %s", glGetString(GL_VERSION));
 		
-		Input::ShowMouseCursor(this, true);
+		SKInput::ShowMouseCursor(this, true);
 		glfwSetWindowUserPointer(m_window, this);
 		glfwSwapInterval(0); //V-Sync
 		m_lastTime = glfwGetTime();
@@ -76,11 +76,11 @@ namespace Skel
 			m_lastTime += 1.0;
 		}
 
-		if (Input::isKeyPressed(this, KEY_K))
+		if (SKInput::isKeyPressed(this, KEY_K))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		if (Input::isKeyPressed(this, KEY_O))
+		if (SKInput::isKeyPressed(this, KEY_O))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		if (Input::isKeyPressed(this, KEY_ESCAPE))
+		if (SKInput::isKeyPressed(this, KEY_ESCAPE))
 			m_paused = true;
 
 
@@ -125,7 +125,7 @@ namespace Skel
 	{
 		UNREF_PARAM(xoffset);
 		UNREF_PARAM(yoffset);
-		Input::SetMouseScrollOffset(yoffset);
+		SKInput::SetMouseScrollOffset(yoffset);
 		glfwSetWindowShouldClose(window, 1);
 	}
 
