@@ -43,6 +43,14 @@ namespace Skel
 		Entity* crysis = nullptr;
 		Entity* knob = nullptr;
 
+		bool settings = true;
+		bool transform = true;
+		bool debug = true;
+		bool dock = true;
+
+		bool createProjectPopup = false;
+		bool loadProjectPopup = false;
+
 		Shader* shader = nullptr;
 		Shader* skyboxShader = nullptr;
 		Shader* pickingShader = nullptr;

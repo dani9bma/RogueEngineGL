@@ -31,7 +31,7 @@ namespace Skel
 
 	void EditorApp::OnInit()
 	{
-		m_window = new Window(1280, 720, "Skel Engine");
+		m_window = new Window(1600, 900, "Skel Engine");
 		shader = new Shader(FileSystem::LoadResource("Shaders\\basic.vert"), FileSystem::LoadResource("Shaders\\basic.frag"));
 		skyboxShader = new Shader(FileSystem::LoadResource("Shaders\\cubemap.vert"), FileSystem::LoadResource("Shaders\\cubemap.frag"));
 
@@ -72,30 +72,30 @@ namespace Skel
 		float garroshRotationY = garrosh->getTransform().getRotation().y;
 		float garroshLocationX = garrosh->getTransform().getPosition().x;
 		float garroshSizeX = garrosh->getTransform().getSize().x;
-		float garroshRotationX = garrosh->getTransform().getRotation().x;
-		float garroshLocationY = garrosh->getTransform().getPosition().y;
-		float garroshSizeY = garrosh->getTransform().getSize().y;
-		float garroshRotationZ = garrosh->getTransform().getRotation().z;
-		float garroshLocationZ = garrosh->getTransform().getPosition().z;
-		float garroshSizeZ = garrosh->getTransform().getSize().z;
+float garroshRotationX = garrosh->getTransform().getRotation().x;
+float garroshLocationY = garrosh->getTransform().getPosition().y;
+float garroshSizeY = garrosh->getTransform().getSize().y;
+float garroshRotationZ = garrosh->getTransform().getRotation().z;
+float garroshLocationZ = garrosh->getTransform().getPosition().z;
+float garroshSizeZ = garrosh->getTransform().getSize().z;
 #endif
 
-		frameBuffer = new FrameBuffer();
-		// Setup Dear ImGui binding
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.Fonts->AddFontFromFileTTF(FileSystem::LoadResource("fonts/Roboto-Regular.ttf").c_str(), 17.0f);
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+frameBuffer = new FrameBuffer();
+// Setup Dear ImGui binding
+IMGUI_CHECKVERSION();
+ImGui::CreateContext();
+ImGuiIO& io = ImGui::GetIO(); (void)io;
+io.Fonts->AddFontFromFileTTF(FileSystem::LoadResource("fonts/Roboto-Regular.ttf").c_str(), 16.0f);
+//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
-		ImGui_ImplGlfw_InitForOpenGL(m_window->getGLFWwindow(), true);
-		ImGui_ImplOpenGL3_Init("#version 130");
+ImGui_ImplGlfw_InitForOpenGL(m_window->getGLFWwindow(), true);
+ImGui_ImplOpenGL3_Init("#version 130");
 
-		// Setup style
-		ImGui::StyleColorsSkel();
+// Setup style
+ImGui::StyleColorsSkel();
 
-		ImGui::InitDock();
+ImGui::InitDock();
 	}
 
 	void EditorApp::OnTick(float DeltaTime)
@@ -106,7 +106,7 @@ namespace Skel
 
 		//Render
 		frameBuffer->bind(m_window->GetWidth(), m_window->GetHeight());
-		
+
 		GLCall(glClearColor(1.0f, 1.0f, 1.0f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
@@ -135,29 +135,93 @@ namespace Skel
 		{
 			if (ImGui::BeginMenu("File"))
 			{
+				if (ImGui::MenuItem("CreateProject"))
+				{
+					createProjectPopup = true;
+				}
+				if (ImGui::MenuItem("Load Project"))
+				{
+					loadProjectPopup = true;
+				}
 				ImGui::EndMenu();
 			}
-			if (ImGui::BeginMenu("Edit"))
+			if (ImGui::BeginMenu("View"))
 			{
-				if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-				if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
-				ImGui::Separator();
-				if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-				if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-				if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+				if (ImGui::MenuItem("Debug Window"))
+				{
+					debug = true;
+				}
+				if (ImGui::MenuItem("Project Settings"))
+				{
+					settings = true;
+				}
+				if (ImGui::MenuItem("Transform Window"))
+				{
+					transform = true;
+				}
+				if (ImGui::MenuItem("Game Window"))
+				{
+					dock = true;
+				}
 				ImGui::EndMenu();
 			}
+
 			ImGui::EndMainMenuBar();
 		}
 
+		if (createProjectPopup)
+		{
+			ImGui::Begin("Create Project", &createProjectPopup);
+			ImGui::InputText("Project Name", name, sizeof(name));
+			ImGui::Text(path.c_str());
+			ImGui::SameLine();
+			if (ImGui::Button("Choose Directory"))
+				dialog = true;
+			if (ImGui::Button("Create Project"))
+			{
+				BuildTool::CreateProject(name, path.c_str());
+				createProjectPopup = false;
+			}
+			ImGui::End();
+		}
+
+		if (loadProjectPopup)
+		{
+			ImGui::Begin("Load Project", &loadProjectPopup);
+			ImGui::Text(projectPath.c_str());
+			ImGui::SameLine();
+			if (ImGui::Button("Choose Project To Load"))
+				loadDialog = true;
+			if (ImGui::Button("Load Project"))
+			{
+				if (gameDLL)
+				{
+					FreeLibrary(gameDLL);
+				}
+
+				nlohmann::json j;
+				SKString FullProjectPath = projectPath.c_str();
+				FullProjectPath.append("\\");
+				FullProjectPath.append(projectName.c_str());
+				j = BuildTool::ReadSKProject(FullProjectPath);
+				std::string dllPath = j["dll"];
+				std::string n = j["name"];
+				BuildTool::CompileProject(projectPath.c_str(), n.c_str());
+				gameDLL = LoadLibraryA(dllPath.c_str());
+				loadProjectPopup = false;
+			}
+			ImGui::End();
+		}
+		
+
 		if (ImGui::Begin("Engine", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoBringToFrontOnFocus))
 		{
-			ImGui::SetWindowPos("Engine", ImVec2(0.0f, 20.0f));
+			ImGui::SetWindowPos("Engine", ImVec2(-2.0f, 15.0f));
 			ImGui::SetWindowSize("Engine", ImVec2(m_window->GetWidth(), m_window->GetHeight()));
 			// dock layout by hard-coded or .ini file
 			ImGui::BeginDockspace();
-
-			if (ImGui::BeginDock("Game")) 
+			
+			if (ImGui::BeginDock("Game", &dock)) 
 			{
 				if (m_window->IsPaused())
 				{
@@ -169,6 +233,7 @@ namespace Skel
 					if (ImGui::Button("Pause"))
 						m_window->SetGameState(PAUSED);
 				}
+				ImGui::SameLine();
 				if (ImGui::Button("Compile"))
 				{
 					//Compile the game code
@@ -187,7 +252,7 @@ namespace Skel
 
 				ImGui::GetWindowDrawList()->AddImage(
 					(void *)frameBuffer->GetTexture(), ImVec2(ImGui::GetCursorScreenPos()),
-					ImVec2((ImGui::GetCursorScreenPos().x + size.x) - 2.0f, (ImGui::GetCursorScreenPos().y + size.y) - 15.0f), ImVec2(0, 1), ImVec2(1, 0));
+					ImVec2((ImGui::GetCursorScreenPos().x + size.x) - 22.0f, (ImGui::GetCursorScreenPos().y + size.y) - 60.0f), ImVec2(0, 1), ImVec2(1, 0));
 
 				/*GUIZMO*/
 				//ImGuizmo::BeginFrame(ImGui::GetCursorScreenPos(), ImVec2((ImGui::GetCursorScreenPos().x + size.x) - 2.0f, (ImGui::GetCursorScreenPos().y + size.y) - 15.0f));
@@ -241,65 +306,26 @@ namespace Skel
 
 			}
 			ImGui::EndDock();
-
-			if (ImGui::BeginDock("Debug")) 
+			
+			if (ImGui::BeginDock("Debug", &debug)) 
 			{
 				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			}
 			ImGui::EndDock();
-
-			if (ImGui::BeginDock("Transform")) 
+			
+			if (ImGui::BeginDock("Transform", &transform)) 
 			{
 				ImGui::Text("TODO");
 			}
 			ImGui::EndDock();
-
-			if (ImGui::BeginDock("Project Settings"))
-			{
 			
-				ImGui::InputText("Project Name", name, sizeof(name));
-				ImGui::Text(path.c_str());
-				ImGui::SameLine();
-				if (ImGui::Button("Choose Directory"))
-					dialog = true;
-				if (ImGui::Button("Create Project"))
-				{
-					BuildTool::CreateProject(name, path.c_str());
-				}
-				ImGui::Text(projectPath.c_str());
-				ImGui::SameLine();
-				if (ImGui::Button("Choose Project To Load"))
-					loadDialog = true;
-				if (ImGui::Button("Load Project"))
-				{
-					if (gameDLL)
-					{
-						FreeLibrary(gameDLL);
-					}
-					
-					nlohmann::json j;
-					SKString FullProjectPath = projectPath.c_str();
-					FullProjectPath.append("\\");
-					FullProjectPath.append(projectName.c_str());
-					j = BuildTool::ReadSKProject(FullProjectPath);
-					std::string dllPath = j["dll"];
-					std::string n = j["name"];
-					BuildTool::CompileProject(projectPath.c_str(), n.c_str());
-					gameDLL = LoadLibraryA(dllPath.c_str());
-					
-					
-				}
-
-			}
-			ImGui::EndDock();
-
 			ImGui::EndDockspace();
 		}	
 		ImGui::End();
 
 		if (dialog)
 		{
-			if (ImGuiFileDialog::Instance()->FileDialog("Choose Directory", ".cpp\0.h\0.hpp\0\0", ".", ""))
+			if (ImGuiFileDialog::Instance()->FileDialog("Choose Directory", 0, ".", ""))
 			{
 				if (ImGuiFileDialog::Instance()->IsOk == true)
 				{
