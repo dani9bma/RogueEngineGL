@@ -1,4 +1,4 @@
-#include "EditorApp.h"
+ #include "EditorApp.h"
 
 namespace Skel
 {
@@ -36,6 +36,7 @@ namespace Skel
 		skyboxShader = new Shader(FileSystem::LoadResource("Shaders\\cubemap.vert"), FileSystem::LoadResource("Shaders\\cubemap.frag"));
 
 		shader->enable();
+
 
 		camera = new Camera(0.2f, m_window, shader);
 
@@ -106,7 +107,7 @@ namespace Skel
 		//Render
 		frameBuffer->bind(m_window->GetWidth(), m_window->GetHeight());
 		
-		GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
+		GLCall(glClearColor(1.0f, 1.0f, 1.0f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 		GLCall(glEnable(GL_DEPTH_TEST));
 		GLCall(glEnable(GL_BLEND));
@@ -127,7 +128,7 @@ namespace Skel
 		knob->draw();
 
 		frameBuffer->unbind();
-		GLCall(glClearColor(0.2f, 0.3f, 0.5f, 1.0f));
+		GLCall(glClearColor(1.0f, 1.0f, 1.0f, 1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
 		if (ImGui::BeginMainMenuBar())
@@ -168,6 +169,20 @@ namespace Skel
 					if (ImGui::Button("Pause"))
 						m_window->SetGameState(PAUSED);
 				}
+				if (ImGui::Button("Compile"))
+				{
+					//Compile the game code
+					FreeLibrary(gameDLL);
+					nlohmann::json j;
+					EAString FullProjectPath = projectPath.c_str();
+					FullProjectPath.append("\\");
+					FullProjectPath.append(projectName.c_str());
+					j = BuildTool::ReadSKProject(FullProjectPath);
+					std::string n = j["name"];
+					BuildTool::CompileProject(projectPath.c_str(), n.c_str());
+					std::string dllPath = j["dll"];
+					gameDLL = LoadLibraryA(dllPath.c_str());
+				}
 				size = ImGui::GetWindowSize();
 
 				ImGui::GetWindowDrawList()->AddImage(
@@ -207,7 +222,7 @@ namespace Skel
 					mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
 				if (SKInput::isKeyPressed(m_window, KEY_E))
 					mCurrentGizmoOperation = ImGuizmo::ROTATE;
-				if (SKInput::isKeyPressed(m_window, KEY_R)) // r Key
+				if (SKInput::isKeyPressed(m_window, KEY_R))
 					mCurrentGizmoOperation = ImGuizmo::SCALE;
 				if (mCurrentGizmoOperation != ImGuizmo::SCALE)
 				{
@@ -251,10 +266,28 @@ namespace Skel
 				{
 					BuildTool::CreateProject(name, path.c_str());
 				}
+				ImGui::Text(projectPath.c_str());
+				ImGui::SameLine();
+				if (ImGui::Button("Choose Project To Load"))
+					loadDialog = true;
 				if (ImGui::Button("Load Project"))
 				{
-					//First user will locate the .skproject file
-					//Load the project DLL
+					if (gameDLL)
+					{
+						FreeLibrary(gameDLL);
+					}
+					
+					nlohmann::json j;
+					EAString FullProjectPath = projectPath.c_str();
+					FullProjectPath.append("\\");
+					FullProjectPath.append(projectName.c_str());
+					j = BuildTool::ReadSKProject(FullProjectPath);
+					std::string dllPath = j["dll"];
+					std::string n = j["name"];
+					BuildTool::CompileProject(projectPath.c_str(), n.c_str());
+					gameDLL = LoadLibraryA(dllPath.c_str());
+					
+					
 				}
 
 			}
@@ -277,6 +310,23 @@ namespace Skel
 					path = "";
 				}
 				dialog = false;
+			}
+		}
+
+		if (loadDialog)
+		{
+			if (ImGuiFileDialog::Instance()->FileDialog("Choose Project", 0, ".", ""))
+			{
+				if (ImGuiFileDialog::Instance()->IsOk == true)
+				{
+					projectPath = ImGuiFileDialog::Instance()->GetCurrentPath();
+					projectName = ImGuiFileDialog::Instance()->GetCurrentFileName();
+				}
+				else
+				{
+					projectPath = "";
+				}
+				loadDialog = false;
 			}
 		}
 	

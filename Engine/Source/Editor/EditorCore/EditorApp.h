@@ -38,13 +38,14 @@ namespace Skel
 		FORCEINLINE Window* GetWindow() const { return m_window; }
 	public:
 
-		Entity* sponza = nullptr;
+		Entity * sponza = nullptr;
 		Entity* garrosh = nullptr;
 		Entity* crysis = nullptr;
 		Entity* knob = nullptr;
 
 		Shader* shader = nullptr;
 		Shader* skyboxShader = nullptr;
+		Shader* pickingShader = nullptr;
 		Camera* camera = nullptr;
 		DirectionalLight* light = nullptr;
 		Skybox* skybox = nullptr;
@@ -58,12 +59,14 @@ namespace Skel
 		ImVec2 size = ImVec2(1280, 720);
 
 		std::string path = "";
+		std::string projectPath = "";
+		std::string projectName = "";
 		bool dialog = false;
+		bool loadDialog = false;
 		char name[1024] = {};
 		float* objectMatrix;
-		glm::vec4 lRayStart_world;
-		glm::vec4 lRayEnd_world;
-		glm::vec3 lRayDir_world;
+
+		HMODULE gameDLL;
 
 	private:
 		Window * m_window = nullptr;

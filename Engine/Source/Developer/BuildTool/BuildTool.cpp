@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#include <json.hpp>
 
 #if defined(_WIN32) || defined(_WIN64)
 #include <direct.h>
@@ -22,7 +21,6 @@ namespace Skel
 		GetCurrentDir(currentDir, sizeof(currentDir));
 		
 		EAString EnginePath = "\@";
-
 		EnginePath.append("\"");
 		EnginePath.append(currentDir);
 
@@ -32,7 +30,6 @@ namespace Skel
 			EnginePath.append("Engine");
 		}
 		EnginePath.append("\"");
-
 
 		EAString ProjectName = Name;
 
@@ -110,7 +107,7 @@ namespace Skel
 
 		GenerateVSProject(filePath);
 		CompileProject(dirPath, ProjectName);
-		CreateEProject(dirPath, ProjectName);
+		CreateSKProject(dirPath, ProjectName);
 	}
 
 	void BuildTool::GenerateVSProject(EAString filePath)
@@ -130,11 +127,12 @@ namespace Skel
 		command.append(" && msbuild.exe ");
 		command.append(ProjectName);
 		command.append(".vcxproj");
+		SK_LOGP(Error, System, "%s", command.c_str());
 		system(command.c_str());
 #endif
 	}
 
-	void BuildTool::CreateEProject(EAString path, EAString ProjectName)
+	void BuildTool::CreateSKProject(EAString path, EAString ProjectName)
 	{
 		json j;
 
@@ -148,6 +146,16 @@ namespace Skel
 
 		std::ofstream o(file.c_str());
 		o << std::setw(4) << j << std::endl;
+	}
+
+	nlohmann::json BuildTool::ReadSKProject(EAString path)
+	{
+		json j;
+
+		std::ifstream i(path.c_str());
+		i >> j;
+
+		return j;
 	}
 
 }
