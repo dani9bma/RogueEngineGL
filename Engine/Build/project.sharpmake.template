@@ -95,6 +95,7 @@ namespace SkelEngine
 			conf.TargetPath = "[project.SharpmakeCsPath]/../Binaries";
 			conf.SolutionFolder = "Game";
 
+
 			conf.Defines.Add("_CRT_SECURE_NO_WARNINGS");
 			
 			conf.Defines.Add("SKEL_GAME_COMPILE");

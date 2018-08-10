@@ -19,7 +19,7 @@ namespace Skel
 	class SKEL_API FileSystem
 	{
 	public:
-		FORCEINLINE static EAString LoadResource(EAString path)
+		inline static EAString LoadResource(EAString path)
 		{
 			char currentDir[1024];
 			GetCurrentDir(currentDir, sizeof(currentDir));
@@ -39,7 +39,7 @@ namespace Skel
 			return EnginePath;
 		}
 
-		FORCEINLINE static void PrintToLogFile(EAString text)
+		inline static void PrintToLogFile(EAString text)
 		{
 			struct stat buffer;
 			if (stat("Log", &buffer) == 0)
@@ -83,14 +83,14 @@ namespace Skel
 			result = res.c_str();
 		}
 
-		FORCEINLINE static void WriteFileAppend(EAString path, EAString text)
+		inline static void WriteFileAppend(EAString path, EAString text)
 		{
 			FILE* file = fopen(path.c_str(), "a");
 			fprintf(file, text.c_str());
 			fclose(file);
 		}
 
-		FORCEINLINE static void WriteFileAppendNewLine(EAString path, EAString text)
+		inline static void WriteFileAppendNewLine(EAString path, EAString text)
 		{
 			FILE* file = fopen(path.c_str(), "a");
 			text.append("\n");
@@ -98,7 +98,7 @@ namespace Skel
 			fclose(file);
 		}
 
-		FORCEINLINE static void WriteFile(EAString path, EAString text)
+		inline static void WriteFile(EAString path, EAString text)
 		{
 			FILE* file = fopen(path.c_str(), "w");
 			fprintf(file, text.c_str());

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 
 #if defined(_WIN32) || defined(_WIN64)
 #include <direct.h>
@@ -105,17 +106,38 @@ namespace Skel
 		result.replace(result.find(ProjectNameTag), ProjectNameTag.length(), ProjectName);
 		FileSystem::WriteFile(path + ProjectName + ".h", result);
 
-		GenerateVSProject(filePath);
+		FileSystem::ReadFile(mainPath + "\\build\\entry.cpp.template", result);
+		FileSystem::WriteFile(path + "entry.cpp", result);
+
+		GenerateVSProject(filePath, dirPath, ProjectName);
 		CompileProject(dirPath, ProjectName);
 		CreateSKProject(dirPath, ProjectName);
 	}
 
-	void BuildTool::GenerateVSProject(EAString filePath)
+	void BuildTool::GenerateVSProject(EAString filePath, EAString dirPath, EAString projectName)
 	{
 #if defined(_WIN32) || defined(_WIN64)
 		EAString command = "cd Build && dir && build_win.bat ";
 		command.append(filePath);
 		system(command.c_str());
+
+		//make this the new way of reading files
+		std::string path = dirPath.c_str();
+		path += "\\";
+		path += projectName.c_str();
+		path += ".vcxproj";
+		std::ifstream in(path);
+		std::stringstream buffer;
+		buffer << in.rdbuf();
+		std::string contents(buffer.str());
+		std::string sub = "<ProgramDatabaseFile>binaries\\";
+		sub += projectName.c_str();
+		sub += ".pdb</ProgramDatabaseFile>";
+
+		contents.replace(contents.find(sub), sub.length(), "<ProgramDatabaseFile>binaries\\$(TargetName)-$([System.DateTime]::Now.ToString(\"HH_mm_ss_fff\")).pdb</ProgramDatabaseFile>");
+
+		std::ofstream o(path.c_str());
+		o << contents << std::endl;
 #endif
 	}
 
@@ -127,7 +149,6 @@ namespace Skel
 		command.append(" && msbuild.exe ");
 		command.append(ProjectName);
 		command.append(".vcxproj");
-		SK_LOGP(Error, System, "%s", command.c_str());
 		system(command.c_str());
 #endif
 	}

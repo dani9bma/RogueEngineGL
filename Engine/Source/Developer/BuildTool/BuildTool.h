@@ -14,7 +14,7 @@ namespace Skel
 	public:
 		static void CreateProject(EAString Name, EAString Path);
 		static void CreateBuildProjectFile(EAString EnginePath, EAString ProjectName, EAString ProjectSolution, EAString ProjectPath);
-		static void GenerateVSProject(EAString filePath);
+		static void GenerateVSProject(EAString filePath, EAString dirPath, EAString projectNmae);
 		static void CompileProject(EAString path, EAString ProjectName);
 		static void CreateSKProject(EAString path, EAString ProjectName);
 		static nlohmann::json ReadSKProject(EAString path);
