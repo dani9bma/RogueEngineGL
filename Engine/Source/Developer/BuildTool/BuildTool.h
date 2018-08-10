@@ -12,11 +12,11 @@ namespace Skel
 	class SKEL_API BuildTool
 	{
 	public:
-		static void CreateProject(EAString Name, EAString Path);
-		static void CreateBuildProjectFile(EAString EnginePath, EAString ProjectName, EAString ProjectSolution, EAString ProjectPath);
-		static void GenerateVSProject(EAString filePath, EAString dirPath, EAString projectNmae);
-		static void CompileProject(EAString path, EAString ProjectName);
-		static void CreateSKProject(EAString path, EAString ProjectName);
-		static nlohmann::json ReadSKProject(EAString path);
+		static void CreateProject(SKString Name, SKString Path);
+		static void CreateBuildProjectFile(SKString EnginePath, SKString ProjectName, SKString ProjectSolution, SKString ProjectPath);
+		static void GenerateVSProject(SKString filePath, SKString dirPath, SKString projectNmae);
+		static void CompileProject(SKString path, SKString ProjectName);
+		static void CreateSKProject(SKString path, SKString ProjectName);
+		static nlohmann::json ReadSKProject(SKString path);
 	};
 }

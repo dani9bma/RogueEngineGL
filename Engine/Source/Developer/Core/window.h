@@ -37,7 +37,7 @@ namespace Skel
 		double m_lastTime;
 		int m_fps;
 		double m_x = 0, m_y = 0;
-		eastl::string m_title;
+		SKString m_title;
 		GLFWwindow* m_window;
 		bool m_wireframe = false;
 		bool m_paused = true;

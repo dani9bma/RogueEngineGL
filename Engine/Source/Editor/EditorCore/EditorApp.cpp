@@ -174,7 +174,7 @@ namespace Skel
 					//Compile the game code
 					FreeLibrary(gameDLL);
 					nlohmann::json j;
-					EAString FullProjectPath = projectPath.c_str();
+					SKString FullProjectPath = projectPath.c_str();
 					FullProjectPath.append("\\");
 					FullProjectPath.append(projectName.c_str());
 					j = BuildTool::ReadSKProject(FullProjectPath);
@@ -278,7 +278,7 @@ namespace Skel
 					}
 					
 					nlohmann::json j;
-					EAString FullProjectPath = projectPath.c_str();
+					SKString FullProjectPath = projectPath.c_str();
 					FullProjectPath.append("\\");
 					FullProjectPath.append(projectName.c_str());
 					j = BuildTool::ReadSKProject(FullProjectPath);

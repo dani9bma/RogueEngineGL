@@ -16,7 +16,7 @@ namespace Skel
 	class SKEL_API Shader
 	{
 	public:
-		Shader(EAString vertPath, EAString fragPath);
+		Shader(SKString vertPath, SKString fragPath);
 		~Shader();
 		void enable();
 		void disable();

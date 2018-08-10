@@ -41,7 +41,7 @@ namespace Skel
 		m_textureID = texture;
 	}
 
-	Texture::Texture(EAString path)
+	Texture::Texture(SKString path)
 	{
 		unsigned int texture;
 		GLCall(glGenTextures(1, &texture));

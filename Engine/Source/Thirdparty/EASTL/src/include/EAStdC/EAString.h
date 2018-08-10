@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
-// EAString.h
+// SKString.h
 //
 // Copyright (c) Electronic Arts. All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef EASTDC_EASTRING_H
-#define EASTDC_EASTRING_H
+#ifndef EASTDC_SKString_H
+#define EASTDC_SKString_H
 
 #include <cctype>
 #include <wchar.h>
@@ -120,4 +120,4 @@ EASTDC_API inline size_t Strlcpy(char*  pDestination, const wchar_t*  pSource, s
 }} // namespace EA::StdC
 
 
-#endif  // EASTDC_EASTRING_H
+#endif  // EASTDC_SKString_H

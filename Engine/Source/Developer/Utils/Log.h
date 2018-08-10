@@ -27,33 +27,33 @@ namespace Skel
 	class SKEL_API Log
 	{
 	public:
-		inline static EAString LogLevelToString(const LogLevel logLevel)
+		inline static SKString LogLevelToString(const LogLevel logLevel)
 		{
 			switch(logLevel)
 			{
 			case LogLevel::Info:
-				return EAString("Info] ");
+				return SKString("Info] ");
 			case LogLevel::Warning:
-				return EAString("Warning] ");
+				return SKString("Warning] ");
 			case LogLevel::Error:
-				return EAString("Error] ");
+				return SKString("Error] ");
 			default:
-				return EAString("Info");
+				return SKString("Info");
 			}
 		}
 
-		inline static EAString LogModuleToString(const LogModule logModule)
+		inline static SKString LogModuleToString(const LogModule logModule)
 		{
 			switch (logModule)
 			{
 			case LogModule::System:
-				return EAString("[System|");
+				return SKString("[System|");
 			case LogModule::Rendering:
-				return EAString("[Rendering|");
+				return SKString("[Rendering|");
 			case LogModule::Input:
-				return EAString("[Input|");
+				return SKString("[Input|");
 			default:
-				return EAString("[NoModule|");
+				return SKString("[NoModule|");
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace Skel
 			}
 		}
 
-		inline static void PlatformLogP(const LogLevel logLevel, LogModule logModule, EAString buffer)
+		inline static void PlatformLogP(const LogLevel logLevel, LogModule logModule, SKString buffer)
 		{
 			SYSTEMTIME time;
 			GetSystemTime(&time);
@@ -88,7 +88,7 @@ namespace Skel
 			char year[1024];
 			sprintf(year, "[%02d:%02d]", time.wHour, time.wMinute);
 
-			EAString txt = date;
+			SKString txt = date;
 			txt.append(year);
 			txt.append(LogModuleToString(logModule));
 			txt.append(LogLevelToString(logLevel));
@@ -104,7 +104,7 @@ namespace Skel
 			PrintLogLevelColor(LogLevel::Info);
 		}
 
-		inline static void PlatformLogPNoFile(const LogLevel logLevel, LogModule logModule, EAString buffer)
+		inline static void PlatformLogPNoFile(const LogLevel logLevel, LogModule logModule, SKString buffer)
 		{
 			SYSTEMTIME time;
 			GetSystemTime(&time);
@@ -115,7 +115,7 @@ namespace Skel
 			char year[1024];
 			sprintf(year, "[%02d:%02d]", time.wHour, time.wMinute);
 
-			EAString txt = date;
+			SKString txt = date;
 			txt.append(year);
 			txt.append(LogModuleToString(logModule));
 			txt.append(LogLevelToString(logLevel));
@@ -130,7 +130,7 @@ namespace Skel
 			PrintLogLevelColor(LogLevel::Info);
 		}
 
-		inline static void PlatformLog(LogLevel logLevel, LogModule logModule, EAString text)
+		inline static void PlatformLog(LogLevel logLevel, LogModule logModule, SKString text)
 		{
 			SYSTEMTIME time;
 			GetSystemTime(&time);
@@ -141,7 +141,7 @@ namespace Skel
 			char year[1024];
 			sprintf(year, "[%02d:%02d]", time.wHour, time.wMinute);
 
-			EAString txt = date;
+			SKString txt = date;
 			txt.append(year);
 			txt.append(LogModuleToString(logModule));
 			txt.append(LogLevelToString(logLevel));
@@ -158,7 +158,7 @@ namespace Skel
 			PrintLogLevelColor(LogLevel::Info);
 		}
 
-		inline static void PlatformLogNoFile(LogLevel logLevel, LogModule logModule, EAString text)
+		inline static void PlatformLogNoFile(LogLevel logLevel, LogModule logModule, SKString text)
 		{
 			SYSTEMTIME time;
 			GetSystemTime(&time);
@@ -169,7 +169,7 @@ namespace Skel
 			char year[1024];
 			sprintf(year, "[%02d:%02d]", time.wHour, time.wMinute);
 
-			EAString txt = date;
+			SKString txt = date;
 			txt.append(year);
 			txt.append(LogModuleToString(logModule));
 			txt.append(LogLevelToString(logLevel));
@@ -197,7 +197,7 @@ namespace Skel
 		white        37         47
 		
 		*/
-inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
+inline static void PrintLogLevelColor(const LogLevel logLevel, SKString text)
 {
 	switch (logLevel)
 	{
@@ -214,7 +214,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 }
 
 
-		inline static void PlatformLogP(const LogLevel logLevel, LogModule logModule, EAString buffer)
+		inline static void PlatformLogP(const LogLevel logLevel, LogModule logModule, SKString buffer)
 		{
 
 			char time[10];
@@ -223,7 +223,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 			char date[10];
 			_strdate(date);
 
-			EAString txt;
+			SKString txt;
 
 			PrintLogLevelColor(logLevel, txt);
 			
@@ -241,7 +241,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 			PrintLogLevelColor(LogLevel::Info);
 		}
 
-		inline static void PlatformLogPNoFile(const LogLevel logLevel, LogModule logModule, EAString buffer)
+		inline static void PlatformLogPNoFile(const LogLevel logLevel, LogModule logModule, SKString buffer)
 		{
 			char time[10];
 			_strtime(time);
@@ -249,7 +249,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 			char date[10];
 			_strdate(date);
 
-			EAString txt;
+			SKString txt;
 
 			PrintLogLevelColor(logLevel, txt);
 
@@ -268,7 +268,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 			PrintLogLevelColor(LogLevel::Info);
 		}
 
-		inline static void PlatformLog(LogLevel logLevel, LogModule logModule, EAString text)
+		inline static void PlatformLog(LogLevel logLevel, LogModule logModule, SKString text)
 		{
 			char time[10];
 			_strtime(time);
@@ -276,7 +276,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 			char date[10];
 			_strdate(date);
 
-			EAString txt;
+			SKString txt;
 
 			PrintLogLevelColor(logLevel, txt);
 
@@ -297,7 +297,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 			PrintLogLevelColor(LogLevel::Info);
 		}
 
-		inline static void PlatformLogNoFile(LogLevel logLevel, LogModule logModule, EAString text)
+		inline static void PlatformLogNoFile(LogLevel logLevel, LogModule logModule, SKString text)
 		{
 			char time[10];
 			_strtime(time);
@@ -305,7 +305,7 @@ inline static void PrintLogLevelColor(const LogLevel logLevel, EAString text)
 			char date[10];
 			_strdate(date);
 
-			EAString txt;
+			SKString txt;
 
 			PrintLogLevelColor(logLevel, txt);
 

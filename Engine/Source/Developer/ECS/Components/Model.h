@@ -24,20 +24,20 @@ namespace Skel
 	{
 	public:
 		EAVector<Mesh> meshes;
-		EAString directory;
+		SKString directory;
 		EAVector<TextureMesh> textures_loaded;
 		bool gammaCorrection;
 
-		Model(EAString path)
+		Model(SKString path)
 		{
 			loadModel(path);
 		}
 		~Model();
 		void Draw(Shader* shader);
 	private:
-		void loadModel(EAString path);
+		void loadModel(SKString path);
 		void processNode(aiNode* node, const aiScene* scene);
 		Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-		EAVector<TextureMesh> loadMaterialTextures(aiMaterial* mat, aiTextureType type, EAString typeName);
+		EAVector<TextureMesh> loadMaterialTextures(aiMaterial* mat, aiTextureType type, SKString typeName);
 	};
 }

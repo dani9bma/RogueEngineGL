@@ -16,7 +16,7 @@ namespace Skel
 		Texture() { }
 		Texture(int id) { m_textureID = id; }
 		Texture(const char* path, Shader* shader);
-		Texture(EAString path);
+		Texture(SKString path);
 		void loadCubemapTexture(const char* path, int index);
 		~Texture();
 		void draw(int n);

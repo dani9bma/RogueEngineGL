@@ -56,7 +56,7 @@ namespace Skel
 
 		m_vao.addBuffer(0, 3, VBO, 3 * sizeof(float), (void*)0);
 
-		std::vector<EAString> faces
+		std::vector<SKString> faces
 		{
 			FileSystem::LoadResource("cubemaptextures/right.jpg"),
 			FileSystem::LoadResource("cubemaptextures/left.jpg"),

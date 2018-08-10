@@ -12,7 +12,7 @@ namespace Skel
 			meshe.Draw(shader);
 	}
 
-	void Model::loadModel(EAString path)
+	void Model::loadModel(SKString path)
 	{
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -137,7 +137,7 @@ namespace Skel
 		return Mesh(vertices, indices, textures);
 	}
 
-	EAVector<TextureMesh> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, EAString typeName)
+	EAVector<TextureMesh> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, SKString typeName)
 	{
 		EAVector<TextureMesh> textures;
 		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)

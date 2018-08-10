@@ -16,12 +16,12 @@ using json = nlohmann::json;
 namespace Skel
 {
 	//Refactor this code
-	void BuildTool::CreateProject(EAString Name, EAString path)
+	void BuildTool::CreateProject(SKString Name, SKString path)
 	{
 		char currentDir[1024];
 		GetCurrentDir(currentDir, sizeof(currentDir));
 		
-		EAString EnginePath = "\@";
+		SKString EnginePath = "\@";
 		EnginePath.append("\"");
 		EnginePath.append(currentDir);
 
@@ -32,11 +32,11 @@ namespace Skel
 		}
 		EnginePath.append("\"");
 
-		EAString ProjectName = Name;
+		SKString ProjectName = Name;
 
-		EAString ProjectSolution = ProjectName + "Solution";
+		SKString ProjectSolution = ProjectName + "Solution";
 
-		EAString sub = "\\\\";
+		SKString sub = "\\\\";
 		if (path.find(sub) < path.length())
 		{
 			path.replace(path.find(sub), sub.length(), "\\");
@@ -46,21 +46,19 @@ namespace Skel
 		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution, path);
 	}
 
-	void BuildTool::CreateBuildProjectFile(EAString EnginePath, EAString ProjectName, EAString ProjectSolution, EAString ProjectPath)
+	void BuildTool::CreateBuildProjectFile(SKString EnginePath, SKString ProjectName, SKString ProjectSolution, SKString ProjectPath)
 	{
-		EAString EnginePathTag = "{enginepath}";
-		EAString ProjectNameTag = "{projectname}";
-		EAString ProjectSolutionTag = "{projectsolution}";
+		SKString EnginePathTag = "{enginepath}";
+		SKString ProjectNameTag = "{projectname}";
+		SKString ProjectSolutionTag = "{projectsolution}";
 
-		EAString result;
-		EAString mainPath = EnginePath;
+		SKString result;
+		SKString mainPath = EnginePath;
 		mainPath.replace(mainPath.find("\""), mainPath.find("\""), "");
 		mainPath.replace(mainPath.find("\""), mainPath.find("\""), "");
 		mainPath.replace(0, 1, "");
 		FileSystem::ReadFile(mainPath + "\\build\\project.sharpmake.template", result);
 
-		result.replace(result.find("(end)"), result.length(), "");
-
 		result.replace(result.find(EnginePathTag), EnginePathTag.length(), EnginePath);
 		result.replace(result.find(EnginePathTag), EnginePathTag.length(), EnginePath);
 		result.replace(result.find(EnginePathTag), EnginePathTag.length(), EnginePath);
@@ -78,11 +76,11 @@ namespace Skel
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
-		EAString filePath = ProjectPath + ProjectName + "\\Build\\build.sharpmake.cs";
-		EAString dirPath = ProjectPath + ProjectName;
+		SKString filePath = ProjectPath + ProjectName + "\\Build\\build.sharpmake.cs";
+		SKString dirPath = ProjectPath + ProjectName;
 
 #if defined(_WIN32) || defined(_WIN64)
-		EAString path = dirPath;
+		SKString path = dirPath;
 		CreateDirectory(path.c_str(), NULL);
 		path.append("\\Build\\");
 		CreateDirectory(path.c_str(), NULL);
@@ -114,10 +112,10 @@ namespace Skel
 		CreateSKProject(dirPath, ProjectName);
 	}
 
-	void BuildTool::GenerateVSProject(EAString filePath, EAString dirPath, EAString projectName)
+	void BuildTool::GenerateVSProject(SKString filePath, SKString dirPath, SKString projectName)
 	{
 #if defined(_WIN32) || defined(_WIN64)
-		EAString command = "cd Build && dir && build_win.bat ";
+		SKString command = "cd Build && dir && build_win.bat ";
 		command.append(filePath);
 		system(command.c_str());
 
@@ -141,10 +139,10 @@ namespace Skel
 #endif
 	}
 
-	void BuildTool::CompileProject(EAString path, EAString ProjectName)
+	void BuildTool::CompileProject(SKString path, SKString ProjectName)
 	{
 #if defined(_WIN32) || defined(_WIN64)
-		EAString command = "cd ";
+		SKString command = "cd ";
 		command.append(path);
 		command.append(" && msbuild.exe ");
 		command.append(ProjectName);
@@ -153,15 +151,15 @@ namespace Skel
 #endif
 	}
 
-	void BuildTool::CreateSKProject(EAString path, EAString ProjectName)
+	void BuildTool::CreateSKProject(SKString path, SKString ProjectName)
 	{
 		json j;
 
 		j["name"] = ProjectName.c_str();
-		EAString dllPath = path + "\\binaries\\" + ProjectName + ".dll";
+		SKString dllPath = path + "\\binaries\\" + ProjectName + ".dll";
 		j["dll"] = dllPath.c_str();
 
-		EAString file = path + "\\";
+		SKString file = path + "\\";
 		file.append(ProjectName);
 		file.append(".skproject");
 
@@ -169,7 +167,7 @@ namespace Skel
 		o << std::setw(4) << j << std::endl;
 	}
 
-	nlohmann::json BuildTool::ReadSKProject(EAString path)
+	nlohmann::json BuildTool::ReadSKProject(SKString path)
 	{
 		json j;
 

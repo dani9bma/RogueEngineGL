@@ -3,7 +3,7 @@
 
 #if 0
 
-static EAString GetHRError(HRESULT hr)
+static SKString GetHRError(HRESULT hr)
 {
 	switch (hr)
 	{
@@ -32,7 +32,7 @@ static EAString GetHRError(HRESULT hr)
 	}
 }
 
-static void CheckD3D(HRESULT hr, int line, EAString file)
+static void CheckD3D(HRESULT hr, int line, SKString file)
 {
 	if(FAILED(hr))
 	{

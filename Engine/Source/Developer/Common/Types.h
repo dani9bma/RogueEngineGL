@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-#include "EASTL/string.h"
+#include <string>
 #include "EASTL/shared_ptr.h"
 #include "EASTL/unique_ptr.h"
 #include "EASTL/vector.h"
@@ -16,7 +16,7 @@ typedef unsigned int		uint;
 typedef unsigned long long	uint64;
 
 
-typedef eastl::string		EAString;
+typedef std::string		SKString;
 
 template<typename T>
 using EASharedPtr = eastl::shared_ptr<T>;
