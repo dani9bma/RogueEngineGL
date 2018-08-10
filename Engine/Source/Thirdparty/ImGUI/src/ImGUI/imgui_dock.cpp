@@ -6,6 +6,7 @@
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui_internal.h"
 #include "imgui_dock.h"
+#include <Source/Developer/Common/Common.h>
 
 // for string comparasion(could be replaced)
 #include <string>
@@ -663,7 +664,7 @@ struct DockContext
 	}
 
 
-	bool tabbar(Dock& dock, bool close_button)
+	bool tabbar(Dock& dock)
 	{
 		float tabbar_height = 2 * GetTextLineHeightWithSpacing();
 		ImVec2 size(dock.size.x, tabbar_height);
@@ -691,8 +692,8 @@ struct DockContext
 				SameLine(0, 15);
 
 				const char* text_end = FindRenderedTextEnd(dock_tab->label);
-				ImVec2 size(CalcTextSize(dock_tab->label, text_end).x, line_height);
-				if (InvisibleButton(dock_tab->label, size))
+				ImVec2 m_size(CalcTextSize(dock_tab->label, text_end).x, line_height);
+				if (InvisibleButton(dock_tab->label, m_size))
 				{
 					dock_tab->setActive();
 					m_next_parent = dock_tab;
@@ -707,17 +708,17 @@ struct DockContext
 
 				bool hovered = IsItemHovered();
 				ImVec2 pos = GetItemRectMin();
-				size.x += 16 + GetStyle().ItemSpacing.x;
+				m_size.x += 16 + GetStyle().ItemSpacing.x;
 				
 				tab_base = pos.y;
 				draw_list->PathClear();
-				draw_list->PathLineTo(pos + ImVec2(0, size.y));
+				draw_list->PathLineTo(pos + ImVec2(0, m_size.y));
 				draw_list->PathBezierCurveTo(
-					pos + ImVec2(0, size.y), pos + ImVec2(0, 0), pos + ImVec2(0, 0), 10);
-				draw_list->PathLineTo(pos + ImVec2(size.x, 0));
-				draw_list->PathBezierCurveTo(pos + ImVec2(size.x, 0),
-					pos + ImVec2(size.x, size.y),
-					pos + ImVec2(size.x, size.y),
+					pos + ImVec2(0, m_size.y), pos + ImVec2(0, 0), pos + ImVec2(0, 0), 10);
+				draw_list->PathLineTo(pos + ImVec2(m_size.x, 0));
+				draw_list->PathBezierCurveTo(pos + ImVec2(m_size.x, 0),
+					pos + ImVec2(m_size.x, m_size.y),
+					pos + ImVec2(m_size.x, m_size.y),
 					10);
 				draw_list->PathFillConvex(
 					hovered ? color_hovered : (dock_tab->active ? color_active : color));
@@ -1015,7 +1016,7 @@ struct DockContext
 
 		PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0));
 		float tabbar_height = GetTextLineHeightWithSpacing();
-		if (tabbar(dock.getFirstTab(), opened != nullptr))
+		if (tabbar(dock.getFirstTab()))
 		{
 			fillLocation(dock);
 			*opened = false;
@@ -1122,6 +1123,9 @@ static readHelper rhelper;
 
 static void* readOpen(ImGuiContext* ctx, ImGuiSettingsHandler* handler, const char* name)
 {
+	UNREF_PARAM(ctx);
+	UNREF_PARAM(handler);
+
 	static std::string context_panel = "";
 
 	rhelper.context = nullptr;
@@ -1171,6 +1175,9 @@ static void* readOpen(ImGuiContext* ctx, ImGuiSettingsHandler* handler, const ch
 
 static void readLine(ImGuiContext* ctx, ImGuiSettingsHandler* handler, void* entry, const char* line_start)
 {
+	UNREF_PARAM(ctx);
+	UNREF_PARAM(handler);
+
 	readHelper* userdata = (readHelper*)entry;
 
 	if (userdata)
@@ -1242,6 +1249,8 @@ static void readLine(ImGuiContext* ctx, ImGuiSettingsHandler* handler, void* ent
 
 static void writeAll(ImGuiContext* ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* buf)
 {
+	UNREF_PARAM(ctx);
+
 	int totalDockNum = 0;
 	for (const auto& iter : g_docklist)
 	{

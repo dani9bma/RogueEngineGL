@@ -25,8 +25,8 @@ namespace Skel
 		void Close();
 		inline GLFWwindow* getGLFWwindow() const { return m_window; }
 		inline void getMousePosition(double& x, double& y) const { x = m_x; y = m_y; };
-		inline int GetWidth() { if (m_width == 0) m_width = 1280; return m_width; }
-		inline int GetHeight() { if (m_height == 0) m_height = 720; return m_height; }
+		inline int GetWidth() { if (m_width == 0) m_width = 1600; return m_width; }
+		inline int GetHeight() { if (m_height == 0) m_height = 900; return m_height; }
 		inline void SetGameState(GameState state) { if (state == PAUSED) m_paused = true; else m_paused = false; }
 		inline bool IsPaused() const { return m_paused; }
 

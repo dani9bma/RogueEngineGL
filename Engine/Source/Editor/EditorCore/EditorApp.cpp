@@ -1,4 +1,4 @@
- #include "EditorApp.h"
+#include "EditorApp.h"
 
 namespace Skel
 {
@@ -255,7 +255,6 @@ ImGui::InitDock();
 					ImVec2((ImGui::GetCursorScreenPos().x + size.x) - 22.0f, (ImGui::GetCursorScreenPos().y + size.y) - 60.0f), ImVec2(0, 1), ImVec2(1, 0));
 
 				/*GUIZMO*/
-				//ImGuizmo::BeginFrame(ImGui::GetCursorScreenPos(), ImVec2((ImGui::GetCursorScreenPos().x + size.x) - 2.0f, (ImGui::GetCursorScreenPos().y + size.y) - 15.0f));
 				ImGuizmo::SetDrawlist();
 
 				static const float identityMatrix[16] =
@@ -264,12 +263,6 @@ ImGui::InitDock();
 					0.f, 0.f, 1.f, 0.f,
 					0.f, 0.f, 0.f, 1.f };
 
-				//static float ng = 0.f;
-				//ng += 0.01f;
-				//ng = 1.f;
-				//rotationY(ng, objectMatrix);
-				//objectMatrix[12] = 5.f;
-				// debug
 				//ImGuizmo::DrawCube(glm::value_ptr(camera->getView()), glm::value_ptr(camera->getProjection()), objectMatrix);
 				objectMatrix = glm::value_ptr(crysis->getTransform().getTransformMatrice());
 
@@ -365,7 +358,6 @@ ImGui::InitDock();
 		if (!m_window->IsPaused())
 			camera->update();
 
-			
 		m_window->Update();
 	}
 
@@ -377,11 +369,7 @@ ImGui::InitDock();
 	}
 }
 
-#include <json.hpp>
-#include <iomanip>
-
 using namespace Skel;
-using namespace nlohmann;
 
 int main()
 {
