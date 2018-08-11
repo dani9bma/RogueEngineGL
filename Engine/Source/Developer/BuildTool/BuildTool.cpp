@@ -20,9 +20,8 @@ namespace Skel
 	{
 		char currentDir[1024];
 		GetCurrentDir(currentDir, sizeof(currentDir));
-		
-		SKString EnginePath = "\@";
-		EnginePath.append("\"");
+
+		SKString EnginePath = "";
 		EnginePath.append(currentDir);
 
 		if (EnginePath.find("binaries") < EnginePath.length())
@@ -30,7 +29,6 @@ namespace Skel
 			EnginePath.replace(EnginePath.find("binaries"), EnginePath.find("binaries"), "");
 			EnginePath.append("Engine");
 		}
-		EnginePath.append("\"");
 
 		SKString ProjectName = Name;
 
@@ -54,9 +52,6 @@ namespace Skel
 
 		SKString result;
 		SKString mainPath = EnginePath;
-		mainPath.replace(mainPath.find("\""), mainPath.find("\""), "");
-		mainPath.replace(mainPath.find("\""), mainPath.find("\""), "");
-		mainPath.replace(0, 1, "");
 		FileSystem::ReadFile(mainPath + "\\build\\project.sharpmake.template", result);
 
 		result.replace(result.find(EnginePathTag), EnginePathTag.length(), EnginePath);
@@ -107,15 +102,15 @@ namespace Skel
 		FileSystem::ReadFile(mainPath + "\\build\\entry.cpp.template", result);
 		FileSystem::WriteFile(path + "entry.cpp", result);
 
-		GenerateVSProject(filePath, dirPath, ProjectName);
+		GenerateVSProject(filePath, dirPath, ProjectName, EnginePath);
 		CompileProject(dirPath, ProjectName);
 		CreateSKProject(dirPath, ProjectName);
 	}
 
-	void BuildTool::GenerateVSProject(SKString filePath, SKString dirPath, SKString projectName)
+	void BuildTool::GenerateVSProject(SKString filePath, SKString dirPath, SKString projectName, SKString EnginePath)
 	{
 #if defined(_WIN32) || defined(_WIN64)
-		SKString command = "cd Build && dir && build_win.bat ";
+		SKString command = "cd " + EnginePath + "\\Build && dir && build_win.bat ";
 		command.append(filePath);
 		system(command.c_str());
 

@@ -5,7 +5,7 @@ namespace SkelEngine
 	[Sharpmake.Generate]
 	public class  SkelEngine: Project
 	{
-		public string BasePath = {enginepath};
+		public string BasePath = @"{enginepath}";
 
 		public SkelEngine()
 		{
@@ -82,13 +82,13 @@ namespace SkelEngine
 		public void ConfigureAll(Configuration conf, Target target)
 		{
 			conf.IncludePaths.Add("[project.BasePath]");
-			conf.IncludePaths.Add({enginepath});
-			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\GLFW\include\");
-			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\assimp/include\");
-			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\EASTL\src/include\");
-			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\GLEW\Source\");
-			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\glm\Source\");
-			conf.IncludePaths.Add({enginepath} + @"\Source\Thirdparty\ImGui\src\");
+			conf.IncludePaths.Add(@"{enginepath}");
+			conf.IncludePaths.Add(@"{enginepath}" + @"\Source\Thirdparty\GLFW\include\");
+			conf.IncludePaths.Add(@"{enginepath}" + @"\Source\Thirdparty\assimp/include\");
+			conf.IncludePaths.Add(@"{enginepath}" + @"\Source\Thirdparty\EASTL\src/include\");
+			conf.IncludePaths.Add(@"{enginepath}" + @"\Source\Thirdparty\GLEW\Source\");
+			conf.IncludePaths.Add(@"{enginepath}" + @"\Source\Thirdparty\glm\Source\");
+			conf.IncludePaths.Add(@"{enginepath}" + @"\Source\Thirdparty\ImGui\src\");
 
 			conf.ProjectPath = "[project.SharpmakeCsPath]/..";
 			conf.IntermediatePath = "[project.SharpmakeCsPath]/../Binaries/Intermediate";
