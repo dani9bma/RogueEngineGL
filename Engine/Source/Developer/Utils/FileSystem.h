@@ -21,6 +21,20 @@ namespace Skel
 	class SKEL_API FileSystem
 	{
 	public:
+		inline static SKString GetEnginePath()
+		{
+			char d[1024];
+			GetCurrentDir(d, sizeof(d));
+			SKString EnginePath = d;
+			if (EnginePath.find("binaries") < EnginePath.length())
+			{
+				EnginePath.replace(EnginePath.find("binaries"), EnginePath.find("binaries"), "");
+				EnginePath.append("Engine");
+			}
+
+			return EnginePath;
+		}
+
 		inline static SKString LoadResource(SKString path)
 		{
 			char currentDir[1024];

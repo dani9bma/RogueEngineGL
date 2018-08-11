@@ -4163,10 +4163,16 @@ static ImGuiWindowSettings* CreateNewWindowSettings(const char* name)
     return settings;
 }
 
+#include <Source/Developer/Utils/FileSystem.h>
+
 void ImGui::LoadIniSettingsFromDisk(const char* ini_filename)
 {
+	SKString dir = Skel::FileSystem::GetEnginePath();
+	dir.append("\\imgui.ini");
+	ini_filename = dir.c_str();
+
     size_t file_data_size = 0;
-    char* file_data = (char*)ImFileLoadToMemory(ini_filename, "rb", &file_data_size);
+    char* file_data = (char*)ImFileLoadToMemory(dir.c_str(), "rb", &file_data_size);
     if (!file_data)
         return;
     LoadIniSettingsFromMemory(file_data, (size_t)file_data_size);
