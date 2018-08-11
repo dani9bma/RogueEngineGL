@@ -21,6 +21,7 @@ namespace Skel
 		char currentDir[1024];
 		GetCurrentDir(currentDir, sizeof(currentDir));
 
+		SKString ProjectPath = path;
 		SKString EnginePath = "";
 		EnginePath.append(currentDir);
 
@@ -35,13 +36,13 @@ namespace Skel
 		SKString ProjectSolution = ProjectName + "Solution";
 
 		SKString sub = "\\\\";
-		if (path.find(sub) < path.length())
+		if (ProjectPath.find(sub) < ProjectPath.length())
 		{
-			path.replace(path.find(sub), sub.length(), "\\");
-			path.append("\\");
+			ProjectPath.replace(path.find(sub), sub.length(), "\\");
+			ProjectPath.append("\\");
 		}
 
-		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution, path);
+		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution, ProjectPath);
 	}
 
 	void BuildTool::CreateBuildProjectFile(SKString EnginePath, SKString ProjectName, SKString ProjectSolution, SKString ProjectPath)
@@ -71,8 +72,8 @@ namespace Skel
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
-		SKString filePath = ProjectPath + ProjectName + "\\Build\\build.sharpmake.cs";
-		SKString dirPath = ProjectPath + ProjectName;
+		SKString filePath = ProjectPath + "\\" +  ProjectName + "\\Build\\build.sharpmake.cs";
+		SKString dirPath = ProjectPath + "\\" + ProjectName;
 
 #if defined(_WIN32) || defined(_WIN64)
 		SKString path = dirPath;
