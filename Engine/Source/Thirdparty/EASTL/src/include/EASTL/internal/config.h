@@ -733,6 +733,8 @@ namespace eastl
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#define EA_COMPILER_NO_EXCEPTIONS
+
 #if !defined(EASTL_EXCEPTIONS_ENABLED) || ((EASTL_EXCEPTIONS_ENABLED == 1) && defined(EA_COMPILER_NO_EXCEPTIONS))
 	#define EASTL_EXCEPTIONS_ENABLED 0
 #endif

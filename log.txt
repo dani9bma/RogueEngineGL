@@ -1,0 +1,6 @@
+[11/08/2018][23:52][System|Warning] GLEW Initialized! Version: 2.1.0
+[11/08/2018][23:52][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[11/08/2018][23:53][System|Warning] GLEW Initialized! Version: 2.1.0
+[11/08/2018][23:53][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[11/08/2018][23:53][System|Warning] GLEW Initialized! Version: 2.1.0
+[11/08/2018][23:53][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
