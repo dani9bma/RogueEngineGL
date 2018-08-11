@@ -72,30 +72,30 @@ namespace Skel
 		float garroshRotationY = garrosh->getTransform().getRotation().y;
 		float garroshLocationX = garrosh->getTransform().getPosition().x;
 		float garroshSizeX = garrosh->getTransform().getSize().x;
-float garroshRotationX = garrosh->getTransform().getRotation().x;
-float garroshLocationY = garrosh->getTransform().getPosition().y;
-float garroshSizeY = garrosh->getTransform().getSize().y;
-float garroshRotationZ = garrosh->getTransform().getRotation().z;
-float garroshLocationZ = garrosh->getTransform().getPosition().z;
-float garroshSizeZ = garrosh->getTransform().getSize().z;
-#endif
+		float garroshRotationX = garrosh->getTransform().getRotation().x;
+		float garroshLocationY = garrosh->getTransform().getPosition().y;
+		float garroshSizeY = garrosh->getTransform().getSize().y;
+		float garroshRotationZ = garrosh->getTransform().getRotation().z;
+		float garroshLocationZ = garrosh->getTransform().getPosition().z;
+		float garroshSizeZ = garrosh->getTransform().getSize().z;
+		#endif
 
-frameBuffer = new FrameBuffer();
-// Setup Dear ImGui binding
-IMGUI_CHECKVERSION();
-ImGui::CreateContext();
-ImGuiIO& io = ImGui::GetIO(); (void)io;
-io.Fonts->AddFontFromFileTTF(FileSystem::LoadResource("fonts/Roboto-Regular.ttf").c_str(), 16.0f);
-//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+		frameBuffer = new FrameBuffer();
+		// Setup Dear ImGui binding
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.Fonts->AddFontFromFileTTF(FileSystem::LoadResource("fonts/Roboto-Regular.ttf").c_str(), 16.0f);
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
-ImGui_ImplGlfw_InitForOpenGL(m_window->getGLFWwindow(), true);
-ImGui_ImplOpenGL3_Init("#version 130");
+		ImGui_ImplGlfw_InitForOpenGL(m_window->getGLFWwindow(), true);
+		ImGui_ImplOpenGL3_Init("#version 130");
 
-// Setup style
-ImGui::StyleColorsSkel();
+		// Setup style
+		ImGui::StyleColorsSkel();
 
-ImGui::InitDock();
+		ImGui::InitDock();
 	}
 
 	void EditorApp::OnTick(float DeltaTime)
@@ -264,7 +264,7 @@ ImGui::InitDock();
 					0.f, 0.f, 0.f, 1.f };
 
 				//ImGuizmo::DrawCube(glm::value_ptr(camera->getView()), glm::value_ptr(camera->getProjection()), objectMatrix);
-				objectMatrix = glm::value_ptr(crysis->getTransform().getTransformMatrice());
+				float* objectMatrix = glm::value_ptr(crysis->getTransform().getTransformMatrice());
 
 
 				static ImGuizmo::OPERATION mCurrentGizmoOperation(ImGuizmo::TRANSLATE);

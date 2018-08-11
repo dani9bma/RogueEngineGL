@@ -72,7 +72,7 @@ namespace Skel
 		bool dialog = false;
 		bool loadDialog = false;
 		char name[1024] = {};
-		float* objectMatrix;
+		//float* objectMatrix;
 
 		HMODULE gameDLL;
 
