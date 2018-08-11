@@ -1,0 +1,8 @@
+[11/08/2018][01:48][System|Warning] GLEW Initialized! Version: 2.1.0
+[11/08/2018][01:48][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[11/08/2018][01:48][System|Warning] Skel Editor Initialized
+[11/08/2018][01:48][System|Warning] 1 FPS
+[11/08/2018][01:48][System|Warning] 628 FPS
+[11/08/2018][01:48][System|Warning] 1128 FPS
+[11/08/2018][01:48][System|Warning] 1206 FPS
+[11/08/2018][01:48][System|Warning] 1134 FPS

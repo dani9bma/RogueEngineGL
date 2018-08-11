@@ -8,6 +8,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <sys/stat.h>
+
 #if defined(_WIN32) || defined(_WIN64)
 #include <direct.h>
 #define GetCurrentDir _getcwd
@@ -57,11 +59,7 @@ namespace Skel
 
 		inline static void PrintToLogFile(SKString text)
 		{
-			struct stat buffer;
-			if (stat("Log", &buffer) == 0)
-				std::experimental::filesystem::create_directory("Log");
-
-			FILE* file = fopen("Log/log.txt", "a");
+			FILE* file = fopen("log.txt", "a");
 			fprintf(file, text.c_str());
 			fclose(file);
 		}
