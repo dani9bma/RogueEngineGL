@@ -41,7 +41,7 @@ namespace Skel
 		~Mesh();
 		void Draw(Shader* shader);
 	private:
-		unsigned int VAO, VBO, EBO;
+		unsigned int VAO, VBO;
 		VertexArray m_vao = VertexArray();
 		VertexBuffer m_vbo;
 		void setupMesh();

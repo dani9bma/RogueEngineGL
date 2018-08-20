@@ -1,3 +1,32 @@
 [11/08/2018][23:48][System|Warning] GLEW Initialized! Version: 2.1.0
 [11/08/2018][23:48][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
 [11/08/2018][23:48][System|Warning] Skel Editor Initialized
+[13/08/2018][19:47][System|Warning] GLEW Initialized! Version: 2.1.0
+[13/08/2018][19:47][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[13/08/2018][19:47][System|Warning] Skel Editor Initialized
+[18/08/2018][00:07][System|Warning] GLEW Initialized! Version: 2.1.0
+[18/08/2018][00:07][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[18/08/2018][00:08][System|Warning] Skel Editor Initialized
+[18/08/2018][00:09][System|Warning] GLEW Initialized! Version: 2.1.0
+[18/08/2018][00:09][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[18/08/2018][00:09][System|Warning] Skel Editor Initialized
+[18/08/2018][00:10][System|Warning] GLEW Initialized! Version: 2.1.0
+[18/08/2018][00:10][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[18/08/2018][00:10][System|Warning] Skel Editor Initialized
+[18/08/2018][00:10][System|Warning] GLEW Initialized! Version: 2.1.0
+[18/08/2018][00:10][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[18/08/2018][00:10][System|Warning] Skel Editor Initialized
+[19/08/2018][01:21][System|Warning] GLEW Initialized! Version: 2.1.0
+[19/08/2018][01:21][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[19/08/2018][01:22][System|Warning] Skel Editor Initialized
+[19/08/2018][18:54][System|Warning] GLEW Initialized! Version: 2.1.0
+[19/08/2018][18:54][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[19/08/2018][18:54][System|Warning] Skel Editor Initialized
+[20/08/2018][00:32][System|Warning] GLEW Initialized! Version: 2.1.0
+[20/08/2018][00:32][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[20/08/2018][01:37][System|Warning] GLEW Initialized! Version: 2.1.0
+[20/08/2018][01:37][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[20/08/2018][01:37][System|Warning] Skel Editor Initialized
+[20/08/2018][23:26][System|Warning] GLEW Initialized! Version: 2.1.0
+[20/08/2018][23:26][System|Warning] OpenGL Initialized! Version: 3.3.0 NVIDIA 398.82
+[20/08/2018][23:26][System|Warning] Skel Editor Initialized

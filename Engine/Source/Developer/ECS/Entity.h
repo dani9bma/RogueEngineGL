@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "Components/Model.h"
@@ -14,15 +15,15 @@
 
 namespace Skel
 {
-
+    
 	class SKEL_API Entity
 	{
-	private:
+        private:
 		eastl::unordered_map<ComponentType*, Component*> m_components;
 		Transform m_transform;
 		Shader* m_shader;
 		bool m_visible = true;
-	public:
+        public:
 		Entity() { }
 		Entity(Model* mesh, Shader* shader);
 		void addComponent(Component* component);
@@ -33,18 +34,18 @@ namespace Skel
 		void setTransform(glm::vec3 position, glm::vec3 size, glm::vec3 rotation, float angle);
 		void setVisibility(bool visible);
 		void SetTransformMatrix(glm::mat4 matrix);
-
+        
 		template <typename T>
-		T* getComponent()
+            T* getComponent()
 		{
 			ComponentType* type = T::getStaticType();
 			auto it = m_components.find(type);
 			if (it == m_components.end())
 				return nullptr;
-
+            
 			return (T*)it->second;
 		}
-
+        
 		inline Transform getTransform() const { return m_transform; }
 	};
 }

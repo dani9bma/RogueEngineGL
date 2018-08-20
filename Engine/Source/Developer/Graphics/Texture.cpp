@@ -4,7 +4,7 @@
 
 namespace Skel
 {
-	Texture::Texture(const char* path, Shader* shader)
+	/*Texture::Texture(const char* path, Shader* shader)
 	{
 		unsigned int texture;
 		GLCall(glGenTextures(1, &texture));
@@ -28,7 +28,7 @@ namespace Skel
 			else if (nrChannels == 4)
 				format = GL_RGBA;
 
-			GLCall(glTexImage2D(GL_TEXTURE_2D, 0/*Level of detail*/, format, width, height, 0, format, GL_UNSIGNED_BYTE, data));
+			GLCall(glTexImage2D(GL_TEXTURE_2D, 0 Level of detail, format, width, height, 0, format, GL_UNSIGNED_BYTE, data));
 			GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 		}
 		else
@@ -39,7 +39,7 @@ namespace Skel
 		shader->enable();
 		shader->setUniform1i("texture_diffuse1", 0);
 		m_textureID = texture;
-	}
+	}*/
 
 	Texture::Texture(SKString path)
 	{

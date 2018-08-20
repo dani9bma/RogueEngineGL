@@ -1,5 +1,6 @@
 #include "EditorApp.h"
 
+
 namespace Skel
 {
 	void EditorApp::Start()
@@ -37,7 +38,6 @@ namespace Skel
         
 		shader->enable();
         
-        
 		camera = new Camera(0.2f, m_window, shader);
         
 		light = new DirectionalLight(shader, camera);
@@ -48,7 +48,7 @@ namespace Skel
 		skybox = new Skybox(skyboxShader);
         
 		crysisModel = new Model(FileSystem::LoadResource("models\\nanosuit\\nanosuit.obj"));
-		garroshModel = new Model(FileSystem::LoadResource("models\\floor.obj"));
+		garroshModel = new Model(FileSystem::LoadResource("models\\Praying.dae"));
 		sponzaModel = new Model(FileSystem::LoadResource("models\\knob\\mitsuba.obj"));
 		knobModel = new Model(FileSystem::LoadResource("models\\knob\\mitsuba.obj"));
         
@@ -58,7 +58,7 @@ namespace Skel
         
 		garrosh = new Entity(garroshModel, shader);
 		garrosh->setPosition(7.0f, -9.0f, -2.0f);
-		garrosh->setSize(50.0f, 4.0f, 50.0f);
+		garrosh->setSize(1.0f, 1.0f, 1.0f);
         
 		crysis = new Entity(crysisModel, shader);
 		crysis->setPosition(0.0f, -5.0f, -2.0f);
