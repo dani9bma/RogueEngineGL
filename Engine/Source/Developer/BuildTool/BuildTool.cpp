@@ -11,6 +11,7 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
+
 using json = nlohmann::json;
 
 namespace Skel
@@ -35,11 +36,10 @@ namespace Skel
         
 		SKString ProjectSolution = ProjectName + "Solution";
         
-		SKString sub = "\\\\";
+		SKString sub = "\\";
 		if (ProjectPath.find(sub) < ProjectPath.length())
 		{
 			ProjectPath.replace(path.find(sub), sub.length(), "\\");
-			ProjectPath.append("\\");
 		}
         
 		CreateBuildProjectFile(EnginePath, ProjectName, ProjectSolution, ProjectPath);
@@ -74,7 +74,7 @@ namespace Skel
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		result.replace(result.find(ProjectSolutionTag), ProjectSolutionTag.length(), ProjectSolution);
 		SKString filePath = ProjectPath + "\\" +  ProjectName + "\\Build\\build.sharpmake.cs";
-		SKString dirPath = ProjectPath + "\\" + ProjectName;
+		SKString dirPath = ProjectPath + ProjectName;
         
 #if defined(_WIN32) || defined(_WIN64)
 		SKString path = dirPath;
@@ -129,10 +129,10 @@ namespace Skel
 		sub += projectName.c_str();
 		sub += ".pdb</ProgramDatabaseFile>";
         
-		contents.replace(contents.find(sub), sub.length(), "<ProgramDatabaseFile>binaries\\$(TargetName)-$([System.DateTime]::Now.ToString(\"HH_mm_ss_fff\")).pdb</ProgramDatabaseFile>");
+		/*contents.replace(contents.find(sub), sub.length(), "<ProgramDatabaseFile>binaries\\$(TargetName)-$([System.DateTime]::Now.ToString(\"HH_mm_ss_fff\")).pdb</ProgramDatabaseFile>");
         
 		std::ofstream o(path.c_str());
-		o << contents << std::endl;
+		o << contents << std::endl;*/
 #endif
 	}
     

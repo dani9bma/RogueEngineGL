@@ -82,14 +82,14 @@ namespace Skel
 	{
 		glDepthFunc(GL_LEQUAL);
 		m_shader->enable();
-		auto view = glm::mat4(glm::mat3(camera->getView()));
-		m_shader->setUniformMat4("view", view);
-		m_shader->setUniformMat4("projection", projection);
 		m_vao.bind();
 		m_texture.draw(0);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		m_vao.unbind();
 		glDepthFunc(GL_LESS);
+		auto view = glm::mat4(glm::mat3(camera->getView()));
+		m_shader->setUniformMat4("view", view);
+		m_shader->setUniformMat4("projection", projection);
 	}
 
 	Skybox::Skybox(Shader* shader)
