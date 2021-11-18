@@ -44,7 +44,7 @@ inline void* __cdecl operator new[](size_t size, const char*, int, unsigned, con
 	return new uint8_t[size];
 }
 
-inline void * __cdecl operator new[](unsigned int size, unsigned int, unsigned int, char const *, int, unsigned int, char const *, int)
+inline void * __cdecl operator new[](size_t size, unsigned int, unsigned int, char const *, int, unsigned int, char const *, int)
 {
 	return new uint8_t[size];
 }
